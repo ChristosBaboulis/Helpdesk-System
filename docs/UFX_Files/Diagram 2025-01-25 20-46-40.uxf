@@ -1,0 +1,83 @@
+<diagram program="umletino" version="15.1"><zoom_level>13</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>39</x><y>338</y><w>299</w><h>117</h></coordinates><panel_attributes>Αίτημα
+--
+Αριθμός Τηλεφωνικής Γραμμής: String
+Περιγραφή Προβλήματος: String
+Ημερομηνία Υποβολής: Date
+Κατάσταση: κατάστασηΑιτήματος</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>598</x><y>351</y><w>195</w><h>78</h></coordinates><panel_attributes>Πελάτης
+--
+Κωδικός Πελάτη: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1417</x><y>572</y><w>143</w><h>117</h></coordinates><panel_attributes>Διεύθυνση
+--
+Οδός: String
+Αριθμός: String
+ΤΚ: String
+Πόλη: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>325</x><y>390</y><w>299</w><h>65</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1
+&lt; Έχει</panel_attributes><additional_attributes>10;20;210;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>156</y><w>286</w><h>78</h></coordinates><panel_attributes>Προσωπικό Εξυπηρέτησης Πελατών
+--
+Κωδικός Υπαλλήλου: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>156</x><y>169</y><w>390</w><h>195</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1
+&lt; Καταγράφει</panel_attributes><additional_attributes>10;130;10;20;280;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>585</x><y>494</y><w>260</w><h>91</h></coordinates><panel_attributes>Μηχανικός
+--
+Κωδικός Μηχανικού: String
+Πλήθος Ενεργών Αιτημάτων: Int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>156</x><y>442</y><w>455</w><h>143</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1
+Ανατίθεται σε &gt;</panel_attributes><additional_attributes>10;10;10;80;330;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1456</x><y>468</y><w>52</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>949</x><y>741</y><w>247</w><h>91</h></coordinates><panel_attributes>Ενέργεια
+--
+Τίτλος: String
+Περιγραφή: String
+Ημερομηνία Εκτέλεσης: Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>793</x><y>572</y><w>325</w><h>195</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=0..n
+Καταγράφει &gt;</panel_attributes><additional_attributes>10;10;10;50;210;50;210;130</additional_attributes></element><element><id>UMLClass</id><coordinates><x>910</x><y>936</y><w>130</w><h>39</h></coordinates><panel_attributes>Τεχνική Ενέργεια</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1092</x><y>923</y><w>221</w><h>52</h></coordinates><panel_attributes>Ενέργεια Επικοινωνίας
+--
+Διάρκεια Κλήσης: Double</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>962</x><y>819</y><w>104</w><h>143</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;10;60;50;10;50;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>1105</x><y>819</y><w>130</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;80;50;80;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>975</x><y>351</y><w>247</w><h>117</h></coordinates><panel_attributes>Χρήστης
+--
+Όνομα Χρήστη: String
+Κωδικός: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1352</x><y>325</y><w>247</w><h>156</h></coordinates><panel_attributes>Πρόσωπο
+--
+Όνομα: String
+Επώνυμο: String
+Τηλέφωνο Επικοινωνίας: String
+Ημερομηνία Γέννησης: Date
+Email: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1209</x><y>403</y><w>169</w><h>39</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>110;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>793</x><y>182</y><w>325</w><h>195</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>230;130;230;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>403</y><w>221</w><h>39</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>150;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>832</x><y>455</y><w>286</w><h>117</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>200;10;200;70;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>221</y><w>156</w><h>156</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=0..n
+Επικοινωνεί  με&gt;</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>26</x><y>702</y><w>286</w><h>65</h></coordinates><panel_attributes>Κατηγορία
+--
+Είδος Κατηγορίας: ΕίδοςΚατηγορίας</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>702</y><w>299</w><h>65</h></coordinates><panel_attributes>Ειδικότητα
+--
+Τύπος Ειδικότητας:ΤύποςΕιδικότητας</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>637</x><y>572</y><w>91</w><h>156</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=0..n
+&lt; Έχει</panel_attributes><additional_attributes>10;10;10;50;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>299</x><y>715</y><w>247</w><h>65</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+Αντιστοιχεί σε &gt;</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>104</x><y>442</y><w>143</w><h>286</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1
+Υπάγεται σε &gt;</panel_attributes><additional_attributes>10;10;10;150;80;150;80;200</additional_attributes></element><element><id>UMLClass</id><coordinates><x>117</x><y>819</y><w>208</w><h>156</h></coordinates><panel_attributes>«enumeration»
+ΕίδοςΚατηγορίας
+--
+ΤΙΜΟΛΟΓΗΣΗ
+ΣΥΝΔΕΣΙΜΟΤΗΤΑ
+ΤΗΛΕΦΩΝΙΚΗ ΥΠΗΡΕΣΙΑ
+ΤΑΧΥΤΗΤΑ ΣΥΝΔΕΣΗΣ
+ΘΕΜΑΤΑ ΣΥΜΒΟΛΑΙΟΥ</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>429</x><y>819</y><w>312</w><h>156</h></coordinates><panel_attributes>«enumeration»
+ΤύποςΕιδικότητας
+--
+ΥΠΕΥΘΥΝΟΣ ΤΙΜΟΛΟΓΗΣΗΣ
+ΤΕΧΝΙΚΟΣ ΣΥΝΔΕΣΙΜΟΤΗΤΑΣ
+ΤΕΧΝΙΚΟΣ ΤΗΛΕΦΩΝΙΚΗΣ ΥΠΗΡΕΣΙΑΣ
+ΤΕΧΝΙΚΟΣ ΘΕΜΑΤΩΝ ΣΥΝΔΕΣΗΣ
+ΥΠΕΥΘΥΝΟΣ ΓΙΑ ΘΕΜΑΤΑ ΣΥΜΒΟΛΑΙΩΝ</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>117</x><y>1001</y><w>234</w><h>156</h></coordinates><panel_attributes>«enumeration»
+κατάστασηΑιτήματος
+--
+ΑΠΟΔΕΚΤΟ - ΠΡΟΣ ΑΝΑΘΕΣΗ
+ΑΠΟΡΡΙΦΘΗΚΕ
+ΑΝΑΤΕΘΗΚΕ - ΠΡΟΣ ΕΠΙΛΥΣΗ
+ΥΠΟ ΕΠΙΛΥΣΗ
+ΚΛΕΙΣΤΟ</panel_attributes><additional_attributes></additional_attributes></element></diagram>
