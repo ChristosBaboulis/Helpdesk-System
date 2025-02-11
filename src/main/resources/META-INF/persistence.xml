@@ -15,7 +15,7 @@
 
             <!-- Database Configuration -->
             <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:h2:file:./test"/>
+            <property name="hibernate.connection.url" value="jdbc:h2:file:./helpdeskDB;AUTO_SERVER=TRUE"/>
             <property name="hibernate.connection.username" value="sa"/>
             <property name="hibernate.connection.password" value=""/>
 
