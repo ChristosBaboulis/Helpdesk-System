@@ -1,6 +1,6 @@
 package com.example.helpdesk.persistence;
 
-import com.example.helpdesk.domain.*;
+//import com.example.helpdesk.domain.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
