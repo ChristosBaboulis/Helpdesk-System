@@ -17,12 +17,6 @@ public class Initializer {
         tx.begin();
 
 //        em.createNativeQuery("delete from reviews").executeUpdate();
-//        em.createNativeQuery("delete from review_invitations").executeUpdate();
-//        em.createNativeQuery("delete from article_authors").executeUpdate();
-//        em.createNativeQuery("delete from articles").executeUpdate();
-//        em.createNativeQuery("delete from journals").executeUpdate();
-//        em.createNativeQuery("delete from users").executeUpdate();
-//        em.createNativeQuery("delete from authors").executeUpdate();
 
         tx.commit();
     }
@@ -30,6 +24,33 @@ public class Initializer {
     public void prepareData() {
 
         eraseData();
+        //Researcher r1 = new Researcher("Nikos", "Diamantidis", "AUEB", "ndia@aueb.gr");
+        //Editor e1 = new Editor("Paris", "Avgeriou",
+        //        "University of Groningen", "avgeriou@gmail.com");
+        //Journal j1 = new Journal("Journal of Systems and Software", "0164-1212");
+        //j1.setEditor(e1);
+        //Author a11 = new Author("Pooja", "Rani", "University of Bern", "pooja.rani@unibe.ch");
+        /*
+        Article article1 = new Article();
+        article1.setTitle("A decade of code comment quality assessment: A systematic literature review");
+        article1.setSummary("Code comments are important artifacts in software systems and play" +
+                " a paramount role in many software engineering (SE) tasks...");
+        article1.setKeywords("Code comments\n" +
+                "Documentation quality\n" +
+                "Systematic literature review");
+        article1.setJournal(j1);
+        article1.setCorrespondentAuthor(r1);
+        article1.addAuthor(a11);
+        * */
+
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        //em.persist(r1);
+
+        tx.commit();
+
+        em.close();
 
     }
 
