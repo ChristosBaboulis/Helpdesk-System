@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @DiscriminatorValue("CUSTOMERSUPPORT")
 public class CustomerSupport extends User{
 
-    @Column(name = "employee_code", length = 20, nullable = false)
+    @Column(name = "employee_code", length = 20)
     private String emplCode;
 
     public CustomerSupport() {
