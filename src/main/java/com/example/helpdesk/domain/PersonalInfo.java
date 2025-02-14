@@ -1,0 +1,99 @@
+package com.example.helpdesk.domain;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
+
+import java.util.Objects;
+
+@Embeddable
+public class PersonalInfo {
+    public PersonalInfo() { }
+
+    public PersonalInfo(String firstName, String lastName, String telephoneNumber, String emailAddress, String birthdate, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.telephoneNumber = telephoneNumber;
+        this.emailAddress = emailAddress;
+        this.birthdate = birthdate;
+        this.address = address;
+    }
+
+    @Column(name = "first_name", length = 50, nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", length = 50, nullable = false)
+    private String lastName;
+
+    @Column(name = "telephone_number", length = 20, nullable = false)
+    private String telephoneNumber;
+
+    @Column(name = "email_address", length = 50)
+    private String emailAddress;
+
+    @Column(name = "birth_date", length = 50, nullable = false)
+    private String birthdate;@Column(name = "birth_date", length = 50, nullable = false)
+
+    @Embedded
+    private Address address;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonalInfo that = (PersonalInfo) o;
+        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(birthdate, that.birthdate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, birthdate);
+    }
+}
