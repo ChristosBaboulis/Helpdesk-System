@@ -17,7 +17,7 @@ public class Technician extends User {
 
     //TODO
     //REQUEST OBJECT
-    //SPECIALTY OBJECT
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch= FetchType.LAZY)
     @JoinTable(name="technician_specialties",
             joinColumns = {@JoinColumn(name="technician_id")},

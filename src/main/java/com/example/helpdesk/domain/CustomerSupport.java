@@ -9,6 +9,9 @@ public class CustomerSupport extends User{
     @Column(name = "employee_code", length = 20)
     private String emplCode;
 
+    //TODO
+    //REQUEST OBJECT
+
     public CustomerSupport() {
         super();
     }

@@ -23,6 +23,7 @@ public class Initializer {
         em.createNativeQuery("delete from users").executeUpdate();
         em.createNativeQuery("delete from request_categories").executeUpdate();
         em.createNativeQuery("delete from specialties").executeUpdate();
+        em.createNativeQuery("delete from customers").executeUpdate();
 
         tx.commit();
     }
@@ -57,6 +58,13 @@ public class Initializer {
 
         RequestCategory requestCategory = new RequestCategory("Connectivity Issues", specialty);
 
+        Customer customer = new Customer("123 customer code",
+                "Christos3", "Bampoulis3",
+                "69999991", "cb3@gg3.gr",
+                "03/01/1990", "Davaki",
+                "03", "Athens", "11113"
+                );
+
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
@@ -64,6 +72,7 @@ public class Initializer {
         em.persist(newTechnician);
         em.persist(specialty);
         em.persist(requestCategory);
+        em.persist(customer);
 
         tx.commit();
         em.close();
