@@ -1,8 +1,9 @@
 package com.example.helpdesk.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("TECHNICIAN")
@@ -17,6 +18,12 @@ public class Technician extends User {
     //TODO
     //REQUEST OBJECT
     //SPECIALTY OBJECT
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch= FetchType.LAZY)
+    @JoinTable(name="technician_specialties",
+            joinColumns = {@JoinColumn(name="technician_id")},
+            inverseJoinColumns = {@JoinColumn(name="specialty_id")}
+    )
+    private Set<Specialty> specialties = new HashSet<Specialty>();
 
     public Technician() {
         super();
@@ -28,10 +35,11 @@ public class Technician extends User {
                       String birthdate, String street,
                       String number, String city,
                       String zipCode, String technicianCode,
-                      int activeRequests) {
+                      int activeRequests, Set<Specialty> specialties) {
         super(username, password, firstName, lastName, telephoneNumber, emailAddress, birthdate, street, number, city, zipCode);
         this.technicianCode = technicianCode;
         this.activeRequests = activeRequests;
+        this.specialties = specialties;
     }
 
     public String getTechnicianCode() {
@@ -48,5 +56,21 @@ public class Technician extends User {
 
     public void setActiveRequests(int activeRequests) {
         this.activeRequests = activeRequests;
+    }
+
+    public Set<Specialty> getSpecialties() {
+        return specialties;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        if (specialty == null) return;
+        if(specialties.contains(specialty)){
+            throw new DomainException("Specialty already assigned.");
+        }
+        specialties.add(specialty);
+    }
+
+    public void removeSpecialty(Specialty specialty) {
+        specialties.remove(specialty);
     }
 }
