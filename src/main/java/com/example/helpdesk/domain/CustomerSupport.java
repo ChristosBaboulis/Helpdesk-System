@@ -3,7 +3,6 @@ package com.example.helpdesk.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Customer Support")
 @DiscriminatorValue("CUSTOMERSUPPORT")
 public class CustomerSupport extends User{
 
