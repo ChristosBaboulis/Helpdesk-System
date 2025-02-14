@@ -4,8 +4,11 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.logging.Logger;
+
 public class JPATest {
     EntityManager em;
+    private static final Logger logger = Logger.getLogger(JPATest.class.getName());
 
     @BeforeEach
     public void setup() {
@@ -14,7 +17,6 @@ public class JPATest {
         initializer.prepareData();
 
         em = JPAUtil.getCurrentEntityManager();
-
     }
 
     @AfterEach

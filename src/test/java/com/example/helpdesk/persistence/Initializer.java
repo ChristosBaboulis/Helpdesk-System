@@ -1,6 +1,7 @@
 package com.example.helpdesk.persistence;
 
 //import com.example.helpdesk.domain.*;
+import com.example.helpdesk.domain.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -43,10 +44,16 @@ public class Initializer {
         article1.addAuthor(a11);
         * */
 
+        User newUser = new User("username123", "123asd!",
+                "Christos", "Bampoulis",
+                "69999999", "cb@gg.gr",
+                "01/01/1990", "Gripari",
+                "01", "Athens", "11111");
+
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        //em.persist(r1);
+        em.persist(newUser);
 
         tx.commit();
 

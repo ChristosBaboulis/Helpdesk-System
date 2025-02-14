@@ -10,13 +10,15 @@ import java.util.Objects;
 public class PersonalInfo {
     public PersonalInfo() { }
 
-    public PersonalInfo(String firstName, String lastName, String telephoneNumber, String emailAddress, String birthdate, Address address) {
+    public PersonalInfo(String firstName, String lastName, String telephoneNumber,
+                        String emailAddress, String birthdate, String street, String number,
+                        String city, String zipCode) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephoneNumber = telephoneNumber;
         this.emailAddress = emailAddress;
         this.birthdate = birthdate;
-        this.address = address;
+        this.address = new Address(street, number, city, zipCode);
     }
 
     @Column(name = "first_name", length = 50, nullable = false)
