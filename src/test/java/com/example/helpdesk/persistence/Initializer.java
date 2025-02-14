@@ -17,6 +17,8 @@ public class Initializer {
         tx.begin();
 
         em.createNativeQuery("delete from users").executeUpdate();
+        em.createNativeQuery("delete from request_categories").executeUpdate();
+        em.createNativeQuery("delete from specialties").executeUpdate();
 
         tx.commit();
     }
@@ -39,11 +41,17 @@ public class Initializer {
                 "02", "Athens", "11112",
                 "123 technician Code", 5);
 
+        Specialty specialty = new Specialty("Connectivity Issues Specialization");
+
+        RequestCategory requestCategory = new RequestCategory("Connectivity Issues", specialty);
+
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
         em.persist(newCustomerSupport);
         em.persist(newTechnician);
+        em.persist(specialty);
+        em.persist(requestCategory);
 
         tx.commit();
         em.close();

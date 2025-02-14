@@ -12,7 +12,11 @@ public class Technician extends User {
     private String technicianCode;
 
     @Column(name = "active_requests")
-    private int activeRequests;  //TO BE CONNECTED TO REQUEST OBJECT
+    private int activeRequests;
+
+    //TODO
+    //REQUEST OBJECT
+    //SPECIALTY OBJECT
 
     public Technician() {
         super();
