@@ -23,6 +23,12 @@ public class Action {
     @Column(name = "submission_date", length = 10, nullable = false)
     protected String submissionDate;
 
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "request_id")
+    protected Request request;
+
+
+
     public Action() {}
 
     public Action(String title, String description, String submissionDate) {

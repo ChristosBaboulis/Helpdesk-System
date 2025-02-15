@@ -25,6 +25,7 @@ public class Initializer {
         em.createNativeQuery("delete from specialties").executeUpdate();
         em.createNativeQuery("delete from customers").executeUpdate();
         em.createNativeQuery("delete from actions").executeUpdate();
+        em.createNativeQuery("delete from requests").executeUpdate();
 
         tx.commit();
     }
@@ -69,6 +70,12 @@ public class Initializer {
         CommunicationAction comaction = new CommunicationAction("Test Title", "Test description", "12/01/2025",123);
         TechnicalAction tecaction = new TechnicalAction("Test Title", "Test description", "12/01/2025");
 
+        Set<Action> actions = new HashSet<>();
+        actions.add(tecaction);
+        actions.add(comaction);
+
+        Request request = new Request("52345","aaaa","3434","active",requestCategory,customer,newCustomerSupport,newTechnician,actions);
+
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
@@ -79,6 +86,7 @@ public class Initializer {
         em.persist(customer);
         em.persist(comaction);
         em.persist(tecaction);
+        em.persist(request);
 
         tx.commit();
         em.close();
