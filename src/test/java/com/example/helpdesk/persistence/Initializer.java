@@ -24,6 +24,7 @@ public class Initializer {
         em.createNativeQuery("delete from request_categories").executeUpdate();
         em.createNativeQuery("delete from specialties").executeUpdate();
         em.createNativeQuery("delete from customers").executeUpdate();
+        em.createNativeQuery("delete from actions").executeUpdate();
 
         tx.commit();
     }
@@ -65,6 +66,8 @@ public class Initializer {
                 "03", "Athens", "11113"
                 );
 
+        Action action = new Action("Test Title", "Test description", "12/01/2025");
+
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
@@ -73,6 +76,7 @@ public class Initializer {
         em.persist(specialty);
         em.persist(requestCategory);
         em.persist(customer);
+        em.persist(action);
 
         tx.commit();
         em.close();
