@@ -66,7 +66,7 @@ public class Initializer {
                 "03", "Athens", "11113"
                 );
 
-        Action action = new Action("Test Title", "Test description", "12/01/2025");
+        CommunicationAction comaction = new CommunicationAction("Test Title", "Test description", "12/01/2025",123);
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -76,7 +76,7 @@ public class Initializer {
         em.persist(specialty);
         em.persist(requestCategory);
         em.persist(customer);
-        em.persist(action);
+        em.persist(comaction);
 
         tx.commit();
         em.close();

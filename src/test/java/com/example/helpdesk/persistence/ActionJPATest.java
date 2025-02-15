@@ -1,6 +1,7 @@
 package com.example.helpdesk.persistence;
 
 import com.example.helpdesk.domain.Action;
+import com.example.helpdesk.domain.CommunicationAction;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,4 +14,11 @@ public class ActionJPATest extends JPATest{
         List<Action> result = em.createQuery("select a from Action a").getResultList();
         assertEquals(1, result.size());
     }
+
+    @Test
+    public void listAllCommunicationActions(){
+        List<CommunicationAction> result = em.createQuery("select c from CommunicationAction c").getResultList();
+        assertEquals(1, result.size());
+    }
+
 }
