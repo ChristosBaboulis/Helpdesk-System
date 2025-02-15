@@ -67,6 +67,7 @@ public class Initializer {
                 );
 
         CommunicationAction comaction = new CommunicationAction("Test Title", "Test description", "12/01/2025",123);
+        TechnicalAction tecaction = new TechnicalAction("Test Title", "Test description", "12/01/2025");
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -77,6 +78,7 @@ public class Initializer {
         em.persist(requestCategory);
         em.persist(customer);
         em.persist(comaction);
+        em.persist(tecaction);
 
         tx.commit();
         em.close();
