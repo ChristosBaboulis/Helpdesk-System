@@ -61,11 +61,11 @@ public class Customer {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return id == customer.id;
+        return id == customer.id && Objects.equals(customerCode, customer.customerCode) && Objects.equals(personalInfo, customer.personalInfo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id, customerCode, personalInfo);
     }
 }
