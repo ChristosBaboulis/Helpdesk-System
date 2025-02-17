@@ -3,6 +3,7 @@ package com.example.helpdesk.domain;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -26,24 +27,24 @@ public class Request {
     private String status;  // enumarated tha valoume meta
 
 
-    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     private RequestCategory requestCategory;
 
-    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_support_id", nullable = false)
     private CustomerSupport customerSupport;
 
-    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "techician_id", nullable = false)
     private Technician technician;
 
 
-    @OneToMany (mappedBy = "request", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "request", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY)
     private Set<Action> actions = new HashSet<Action>();
 
     public Request() { }
@@ -145,6 +146,15 @@ public class Request {
         actions.remove(action);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Request request = (Request) o;
+        return Objects.equals(id, request.id);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

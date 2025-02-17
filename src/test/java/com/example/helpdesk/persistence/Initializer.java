@@ -20,12 +20,12 @@ public class Initializer {
         tx.begin();
 
         em.createNativeQuery("delete from technician_specialties").executeUpdate();
+        em.createNativeQuery("delete from requests").executeUpdate();
         em.createNativeQuery("delete from users").executeUpdate();
         em.createNativeQuery("delete from request_categories").executeUpdate();
         em.createNativeQuery("delete from specialties").executeUpdate();
         em.createNativeQuery("delete from customers").executeUpdate();
         em.createNativeQuery("delete from actions").executeUpdate();
-        em.createNativeQuery("delete from requests").executeUpdate();
 
         tx.commit();
     }
