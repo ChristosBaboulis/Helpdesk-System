@@ -4,6 +4,8 @@ import com.example.helpdesk.domain.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,12 +36,16 @@ public class Initializer {
 
         eraseData();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthdate = LocalDate.parse("03/01/1990", formatter);
+        LocalDate submissionDate = LocalDate.parse("03/01/2025", formatter);
+
         Specialty specialty = new Specialty("Connectivity Issues Specialization");
 
         CustomerSupport newCustomerSupport = new CustomerSupport("username123", "123asd!",
                 "Christos", "Bampoulis",
                 "69999999", "cb@gg.gr",
-                "01/01/1990", "Gripari",
+                birthdate, "Gripari",
                 "01", "Athens", "11111",
                 "123 employee Code"
                 );
@@ -50,7 +56,7 @@ public class Initializer {
         Technician newTechnician = new Technician("username1234", "123asd!!",
                 "Christos2", "Bampoulis2",
                 "69999990", "cb2@gg2.gr",
-                "02/01/1990", "Thiseos",
+                birthdate, "Thiseos",
                 "02", "Athens", "11112",
                 "123 technician Code", specialties
                 );
@@ -60,21 +66,21 @@ public class Initializer {
         Customer customer = new Customer("123 customer code",
                 "Christos3", "Bampoulis3",
                 "69999991", "cb3@gg3.gr",
-                "03/01/1990", "Davaki",
+                birthdate, "Davaki",
                 "03", "Athens", "11113"
                 );
 
         CommunicationAction comAction = new CommunicationAction("Test Title", "Test description",
-                "12/01/2025",123);
+                submissionDate,123);
         TechnicalAction tecAction = new TechnicalAction("Test Title", "Test description",
-                "12/01/2025");
+                submissionDate);
 
         Set<Action> actions = new HashSet<>();
         actions.add(tecAction);
         actions.add(comAction);
 
         Request request = new Request("1234567890","Test problem description",
-                "01/01/2025","Active", requestCategory,
+                submissionDate,"Active", requestCategory,
                 customer, newCustomerSupport,
                 newTechnician, actions);
 

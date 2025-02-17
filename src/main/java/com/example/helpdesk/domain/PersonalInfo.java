@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Embeddable
@@ -11,7 +12,7 @@ public class PersonalInfo {
     public PersonalInfo() { }
 
     public PersonalInfo(String firstName, String lastName, String telephoneNumber,
-                        String emailAddress, String birthdate, String street, String number,
+                        String emailAddress, LocalDate birthdate, String street, String number,
                         String city, String zipCode) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,7 +35,7 @@ public class PersonalInfo {
     private String emailAddress;
 
     @Column(name = "birth_date", length = 50, nullable = false)
-    private String birthdate;@Column(name = "birth_date", length = 50, nullable = false)
+    private LocalDate birthdate;
 
     @Embedded
     private Address address;
@@ -71,11 +72,11 @@ public class PersonalInfo {
         this.emailAddress = emailAddress;
     }
 
-    public String getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

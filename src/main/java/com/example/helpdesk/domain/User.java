@@ -2,6 +2,7 @@ package com.example.helpdesk.domain;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -28,10 +29,10 @@ public class User {
     public User(String username, String password,
                 String firstName, String lastName,
                 String telephoneNumber, String emailAddress,
-                String birthdate, String street,
+                LocalDate birthdate, String street,
                 String number, String city,
                 String zipCode) {
-        this.personalInfo = new PersonalInfo(firstName, lastName, telephoneNumber, emailAddress, birthdate,street, number, city, zipCode);
+        this.personalInfo = new PersonalInfo(firstName, lastName, telephoneNumber, emailAddress, birthdate, street, number, city, zipCode);
         this.username = username;
         this.password = password;
     }

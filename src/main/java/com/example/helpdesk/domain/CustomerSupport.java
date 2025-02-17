@@ -2,6 +2,8 @@ package com.example.helpdesk.domain;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @DiscriminatorValue("CUSTOMERSUPPORT")
 public class CustomerSupport extends User{
@@ -19,7 +21,7 @@ public class CustomerSupport extends User{
     public CustomerSupport(String username, String password,
                            String firstName, String lastName,
                            String telephoneNumber, String emailAddress,
-                           String birthdate, String street,
+                           LocalDate birthdate, String street,
                            String number, String city,
                            String zipCode, String emplCode) {
         super(username, password, firstName, lastName, telephoneNumber, emailAddress, birthdate, street, number, city, zipCode);

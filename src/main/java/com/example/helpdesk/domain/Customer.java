@@ -2,6 +2,7 @@ package com.example.helpdesk.domain;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -25,11 +26,11 @@ public class Customer {
 
     public Customer(String customerCode, String firstName, String lastName,
                     String telephoneNumber, String emailAddress,
-                    String birthdate, String street,
+                    LocalDate birthdate, String street,
                     String number, String city,
                     String zipCode) {
         this.customerCode = customerCode;
-        this.personalInfo = new PersonalInfo(firstName, lastName, telephoneNumber, emailAddress, birthdate,street, number, city, zipCode);
+        this.personalInfo = new PersonalInfo(firstName, lastName, telephoneNumber, emailAddress, birthdate, street, number, city, zipCode);
     }
 
     public String getCustomerCode() {

@@ -2,6 +2,7 @@ package com.example.helpdesk.domain;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -21,7 +22,7 @@ public class Request {
     private String problemDescription;
 
     @Column(name = "submission_date",length = 10, nullable = false)
-    private String submissionDate; //isws ginei Date meta
+    private LocalDate submissionDate;
 
     @Column(name = "status", length = 10, nullable = false)
     private String status;  // enumarated tha valoume meta
@@ -50,7 +51,7 @@ public class Request {
     public Request() { }
 
     public Request(String telephoneNumber, String problemDescription,
-                   String submissionDate, String status,
+                   LocalDate submissionDate, String status,
                    RequestCategory requestCategory, Customer customer,
                    CustomerSupport customerSupport, Technician technician,
                    Set<Action> actions) {
@@ -86,11 +87,11 @@ public class Request {
         this.problemDescription = problemDescription;
     }
 
-    public String getSubmissionDate() {
+    public LocalDate getSubmissionDate() {
         return submissionDate;
     }
 
-    public void setSubmissionDate(String submissionDate) {
+    public void setSubmissionDate(LocalDate submissionDate) {
         this.submissionDate = submissionDate;
     }
 

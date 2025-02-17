@@ -2,6 +2,7 @@ package com.example.helpdesk.domain;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class Technician extends User {
     public Technician(String username, String password,
                       String firstName, String lastName,
                       String telephoneNumber, String emailAddress,
-                      String birthdate, String street,
+                      LocalDate birthdate, String street,
                       String number, String city,
                       String zipCode, String technicianCode,
                       Set<Specialty> specialties) {

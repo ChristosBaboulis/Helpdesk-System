@@ -2,6 +2,7 @@ package com.example.helpdesk.domain;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -21,7 +22,7 @@ public class Action {
     protected String description;
 
     @Column(name = "submission_date", length = 10, nullable = false)
-    protected String submissionDate;
+    protected LocalDate submissionDate;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id")
@@ -31,7 +32,7 @@ public class Action {
 
     public Action() {}
 
-    public Action(String title, String description, String submissionDate) {
+    public Action(String title, String description, LocalDate submissionDate) {
         this.title = title;
         this.description = description;
         this.submissionDate = submissionDate;
@@ -57,11 +58,11 @@ public class Action {
         this.description = description;
     }
 
-    public String getSubmissionDate() {
+    public LocalDate getSubmissionDate() {
         return submissionDate;
     }
 
-    public void setSubmissionDate(String submissionDate) {
+    public void setSubmissionDate(LocalDate submissionDate) {
         this.submissionDate = submissionDate;
     }
 

@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
+import java.time.LocalDate;
+
 @Entity
 @DiscriminatorValue("COMMUNICATION")
 public class CommunicationAction extends Action{
@@ -13,7 +15,7 @@ public class CommunicationAction extends Action{
 
     public CommunicationAction() { super(); }
 
-    public CommunicationAction(String title, String description, String submissionDate, double callDuration) {
+    public CommunicationAction(String title, String description, LocalDate submissionDate, double callDuration) {
         super(title, description, submissionDate);
         this.callDuration = callDuration;
     }
