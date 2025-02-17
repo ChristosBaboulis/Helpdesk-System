@@ -12,10 +12,6 @@ import static org.junit.Assert.assertEquals;
 public class CustomerTest {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate birthdate = LocalDate.parse("03/01/1990", formatter);
-    LocalDate submissionDate = LocalDate.parse("03/01/2025", formatter);
-    Request request = new Request();
-    Specialty specialty;
-    RequestCategory requestCategory;
     Customer customer;
     Customer customer2;
     Customer customer3;
@@ -23,8 +19,6 @@ public class CustomerTest {
 
     @BeforeEach
     public void setup(){
-        specialty = new Specialty("Connectivity Issues Specialization");
-        requestCategory = new RequestCategory("Connectivity Issues", specialty);
 
         customer = new Customer("123 customer code",
                 "Christos3", "Bampoulis3",
