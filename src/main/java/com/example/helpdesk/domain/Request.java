@@ -66,6 +66,9 @@ public class Request {
         this.actions = actions;
     }
 
+    public Boolean canClose(){
+        return !getActions().isEmpty();
+    }
 
     public Integer getId() {
         return id;
