@@ -52,11 +52,8 @@ public class Initializer {
                 "69999990", "cb2@gg2.gr",
                 "02/01/1990", "Thiseos",
                 "02", "Athens", "11112",
-                "123 technician Code", 5,
-                specialties
+                "123 technician Code", specialties
                 );
-
-
 
         RequestCategory requestCategory = new RequestCategory("Connectivity Issues", specialty);
 
@@ -67,14 +64,19 @@ public class Initializer {
                 "03", "Athens", "11113"
                 );
 
-        CommunicationAction comaction = new CommunicationAction("Test Title", "Test description", "12/01/2025",123);
-        TechnicalAction tecaction = new TechnicalAction("Test Title", "Test description", "12/01/2025");
+        CommunicationAction comAction = new CommunicationAction("Test Title", "Test description",
+                "12/01/2025",123);
+        TechnicalAction tecAction = new TechnicalAction("Test Title", "Test description",
+                "12/01/2025");
 
         Set<Action> actions = new HashSet<>();
-        actions.add(tecaction);
-        actions.add(comaction);
+        actions.add(tecAction);
+        actions.add(comAction);
 
-        Request request = new Request("52345","aaaa","3434","active",requestCategory,customer,newCustomerSupport,newTechnician,actions);
+        Request request = new Request("1234567890","Test problem description",
+                "01/01/2025","Active", requestCategory,
+                customer, newCustomerSupport,
+                newTechnician, actions);
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -84,8 +86,8 @@ public class Initializer {
         em.persist(specialty);
         em.persist(requestCategory);
         em.persist(customer);
-        em.persist(comaction);
-        em.persist(tecaction);
+        em.persist(comAction);
+        em.persist(tecAction);
         em.persist(request);
 
         tx.commit();

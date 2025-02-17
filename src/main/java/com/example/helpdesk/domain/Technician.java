@@ -2,6 +2,7 @@ package com.example.helpdesk.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,18 +13,18 @@ public class Technician extends User {
     @Column(name = "technician_code", length = 20)
     private String technicianCode;
 
+    @OneToMany(mappedBy = "technician",cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Set<Request> requests = new HashSet<>();
+
     @Column(name = "active_requests")
     private int activeRequests;
-
-    //TODO
-    //REQUEST OBJECT
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch= FetchType.LAZY)
     @JoinTable(name="technician_specialties",
             joinColumns = {@JoinColumn(name="technician_id")},
             inverseJoinColumns = {@JoinColumn(name="specialty_id")}
     )
-    private Set<Specialty> specialties = new HashSet<Specialty>();
+    private Set<Specialty> specialties = new HashSet<>();
 
     public Technician() {
         super();
@@ -35,10 +36,10 @@ public class Technician extends User {
                       String birthdate, String street,
                       String number, String city,
                       String zipCode, String technicianCode,
-                      int activeRequests, Set<Specialty> specialties) {
+                      Set<Specialty> specialties) {
         super(username, password, firstName, lastName, telephoneNumber, emailAddress, birthdate, street, number, city, zipCode);
         this.technicianCode = technicianCode;
-        this.activeRequests = activeRequests;
+        this.activeRequests = requests.size();
         this.specialties = specialties;
     }
 
@@ -60,6 +61,20 @@ public class Technician extends User {
 
     public Set<Specialty> getSpecialties() {
         return specialties;
+    }
+
+    public void setRequest(Request request) {
+        if (request == null) return;
+        if(requests.contains(request)){
+            throw new DomainException("Specialty already assigned.");
+        }
+        requests.add(request);
+        activeRequests++;
+    }
+
+    public void removeRequest(Request request) {
+        specialties.remove(request);
+        activeRequests--;
     }
 
     public void setSpecialty(Specialty specialty) {

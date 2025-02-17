@@ -45,11 +45,15 @@ public class Request {
 
 
     @OneToMany(mappedBy = "request", cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY)
-    private Set<Action> actions = new HashSet<Action>();
+    private Set<Action> actions = new HashSet<>();
 
     public Request() { }
 
-    public Request(String telephoneNumber, String problemDescription, String submissionDate, String status, RequestCategory requestCategory, Customer customer, CustomerSupport customerSupport, Technician technician, Set<Action> actions) {
+    public Request(String telephoneNumber, String problemDescription,
+                   String submissionDate, String status,
+                   RequestCategory requestCategory, Customer customer,
+                   CustomerSupport customerSupport, Technician technician,
+                   Set<Action> actions) {
         this.telephoneNumber = telephoneNumber;
         this.problemDescription = problemDescription;
         this.submissionDate = submissionDate;
