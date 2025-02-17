@@ -98,6 +98,7 @@ public class RequestTest {
         assertEquals("123 technician Code", request.getTechnician().getTechnicianCode());
         request.setTechnician(technician);
 
+        DomainException dm = new DomainException();
         assertThrows(DomainException.class, () -> request.setActions(comAction));
         request.setActions(null);
         request.setActions(new TechnicalAction("Test action", "this is a new description", submissionDate));

@@ -30,7 +30,7 @@ public class RequestCategory {
         this.specialty = specialty;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -54,11 +54,11 @@ public class RequestCategory {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         RequestCategory that = (RequestCategory) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(categoryType, that.categoryType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(categoryType);
     }
 }

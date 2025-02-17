@@ -37,11 +37,11 @@ public class Specialty {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Specialty specialty = (Specialty) o;
-        return Objects.equals(id, specialty.id);
+        return Objects.equals(specialtyType, specialty.specialtyType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(specialtyType);
     }
 }
