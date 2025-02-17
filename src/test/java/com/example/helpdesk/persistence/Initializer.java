@@ -50,16 +50,14 @@ public class Initializer {
                 "123 employee Code"
                 );
 
-        Set<Specialty> specialties = new HashSet<>();
-        specialties.add(specialty);
-
         Technician newTechnician = new Technician("username1234", "123asd!!",
                 "Christos2", "Bampoulis2",
                 "69999990", "cb2@gg2.gr",
                 birthdate, "Thiseos",
                 "02", "Athens", "11112",
-                "123 technician Code", specialties
+                "123 technician Code"
                 );
+        newTechnician.setSpecialty(specialty);
 
         RequestCategory requestCategory = new RequestCategory("Connectivity Issues", specialty);
 

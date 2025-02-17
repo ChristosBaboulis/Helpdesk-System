@@ -25,11 +25,11 @@ public class Specialty {
         return id;
     }
 
-    public String getType() {
+    public String getSpecialtyType() {
         return specialtyType;
     }
 
-    public void setType(String specialtyType) {
+    public void setSpecialtyType(String specialtyType) {
         this.specialtyType = specialtyType;
     }
 

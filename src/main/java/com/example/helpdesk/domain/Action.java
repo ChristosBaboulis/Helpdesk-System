@@ -28,8 +28,6 @@ public class Action {
     @JoinColumn(name = "request_id")
     protected Request request;
 
-
-
     public Action() {}
 
     public Action(String title, String description, LocalDate submissionDate) {
@@ -64,6 +62,14 @@ public class Action {
 
     public void setSubmissionDate(LocalDate submissionDate) {
         this.submissionDate = submissionDate;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
     }
 
     @Override

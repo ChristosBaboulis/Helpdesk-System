@@ -34,14 +34,19 @@ public class Technician extends User {
     public Technician(String username, String password,
                       String firstName, String lastName,
                       String telephoneNumber, String emailAddress,
+                      LocalDate birthdate, Address address, String technicianCode) {
+        super(username, password, firstName, lastName, telephoneNumber, emailAddress, birthdate, address);
+        this.technicianCode = technicianCode;
+    }
+
+    public Technician(String username, String password,
+                      String firstName, String lastName,
+                      String telephoneNumber, String emailAddress,
                       LocalDate birthdate, String street,
                       String number, String city,
-                      String zipCode, String technicianCode,
-                      Set<Specialty> specialties) {
+                      String zipCode, String technicianCode) {
         super(username, password, firstName, lastName, telephoneNumber, emailAddress, birthdate, street, number, city, zipCode);
         this.technicianCode = technicianCode;
-        this.activeRequests = requests.size();
-        this.specialties = specialties;
     }
 
     public String getTechnicianCode() {

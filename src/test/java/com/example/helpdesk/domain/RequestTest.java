@@ -36,16 +36,14 @@ public class RequestTest {
                 "123 employee Code"
         );
 
-        Set<Specialty> specialties = new HashSet<>();
-        specialties.add(specialty);
-
         Technician technician = new Technician("username1234", "123asd!!",
                 "Christos2", "Bampoulis2",
                 "69999990", "cb2@gg2.gr",
                 birthdate, "Thiseos",
                 "02", "Athens", "11112",
-                "123 technician Code", specialties
+                "123 technician Code"
         );
+        technician.setSpecialty(specialty);
 
         CommunicationAction comAction = new CommunicationAction("Com Action Title", "Test description",
                 submissionDate,123);
@@ -75,7 +73,7 @@ public class RequestTest {
         assertEquals("Active", request.getStatus());
         request.setStatus("Inactive");
         assertEquals("Connectivity Issues", request.getRequestCategory().getCategoryType());
-        assertEquals("Connectivity Issues Specialization", request.getRequestCategory().getSpecialty().getType());
+        assertEquals("Connectivity Issues Specialization", request.getRequestCategory().getSpecialty().getSpecialtyType());
         assertEquals("123 customer code", request.getCustomer().getCustomerCode());
         assertEquals("123 employee Code", request.getCustomerSupport().getEmplCode());
         assertEquals("123 technician Code", request.getTechnician().getTechnicianCode());

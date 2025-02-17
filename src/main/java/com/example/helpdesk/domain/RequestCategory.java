@@ -15,11 +15,15 @@ public class RequestCategory {
     @Column(name = "category_type", length = 50, nullable = false)
     private String categoryType;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "specialty_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "specialty_id")
     private Specialty specialty;
 
     public RequestCategory() {}
+
+    public RequestCategory(String categoryType) {
+        this.categoryType = categoryType;
+    }
 
     public RequestCategory(String categoryType, Specialty specialty) {
         this.categoryType = categoryType;

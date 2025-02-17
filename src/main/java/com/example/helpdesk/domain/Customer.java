@@ -26,6 +26,13 @@ public class Customer {
 
     public Customer(String customerCode, String firstName, String lastName,
                     String telephoneNumber, String emailAddress,
+                    LocalDate birthdate, Address address) {
+        this.customerCode = customerCode;
+        this.personalInfo = new PersonalInfo(firstName, lastName, telephoneNumber, emailAddress, birthdate, address);
+    }
+
+    public Customer(String customerCode, String firstName, String lastName,
+                    String telephoneNumber, String emailAddress,
                     LocalDate birthdate, String street,
                     String number, String city,
                     String zipCode) {

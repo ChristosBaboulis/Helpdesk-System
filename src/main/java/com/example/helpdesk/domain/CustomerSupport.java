@@ -11,11 +11,16 @@ public class CustomerSupport extends User{
     @Column(name = "employee_code", length = 20)
     private String emplCode;
 
-    //TODO
-    //REQUEST OBJECT
-
     public CustomerSupport() {
         super();
+    }
+
+    public CustomerSupport(String username, String password,
+                           String firstName, String lastName,
+                           String telephoneNumber, String emailAddress,
+                           LocalDate birthdate, Address address, String emplCode) {
+        super(username, password, firstName, lastName, telephoneNumber, emailAddress, birthdate, address);
+        this.emplCode = emplCode;
     }
 
     public CustomerSupport(String username, String password,

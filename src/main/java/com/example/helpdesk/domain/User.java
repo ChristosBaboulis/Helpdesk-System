@@ -29,6 +29,15 @@ public class User {
     public User(String username, String password,
                 String firstName, String lastName,
                 String telephoneNumber, String emailAddress,
+                LocalDate birthdate, Address address) {
+        this.personalInfo = new PersonalInfo(firstName, lastName, telephoneNumber, emailAddress, birthdate, address);
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String password,
+                String firstName, String lastName,
+                String telephoneNumber, String emailAddress,
                 LocalDate birthdate, String street,
                 String number, String city,
                 String zipCode) {

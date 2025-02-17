@@ -12,6 +12,16 @@ public class PersonalInfo {
     public PersonalInfo() { }
 
     public PersonalInfo(String firstName, String lastName, String telephoneNumber,
+                        String emailAddress, LocalDate birthdate, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.telephoneNumber = telephoneNumber;
+        this.emailAddress = emailAddress;
+        this.birthdate = birthdate;
+        this.address = address;
+    }
+
+    public PersonalInfo(String firstName, String lastName, String telephoneNumber,
                         String emailAddress, LocalDate birthdate, String street, String number,
                         String city, String zipCode) {
         this.firstName = firstName;
