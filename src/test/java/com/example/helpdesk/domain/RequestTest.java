@@ -9,26 +9,34 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class RequestTest {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate birthdate = LocalDate.parse("03/01/1990", formatter);
     LocalDate submissionDate = LocalDate.parse("03/01/2025", formatter);
     Request request = new Request();
+    Specialty specialty;
+    RequestCategory requestCategory;
+    Customer customer;
+    CustomerSupport customerSupport;
+    Technician technician;
+    CommunicationAction comAction;
+    TechnicalAction tecAction;
 
     @BeforeEach
     public void setup(){
-        Specialty specialty = new Specialty("Connectivity Issues Specialization");
-        RequestCategory requestCategory = new RequestCategory("Connectivity Issues", specialty);
+        specialty = new Specialty("Connectivity Issues Specialization");
+        requestCategory = new RequestCategory("Connectivity Issues", specialty);
 
-        Customer customer = new Customer("123 customer code",
+        customer = new Customer("123 customer code",
                 "Christos3", "Bampoulis3",
                 "69999991", "cb3@gg3.gr",
                 birthdate, "Davaki",
                 "03", "Athens", "11113"
         );
 
-        CustomerSupport customerSupport = new CustomerSupport("username123", "123asd!",
+        customerSupport = new CustomerSupport("username123", "123asd!",
                 "Christos", "Bampoulis",
                 "69999999", "cb@gg.gr",
                 birthdate, "Gripari",
@@ -36,7 +44,7 @@ public class RequestTest {
                 "123 employee Code"
         );
 
-        Technician technician = new Technician("username1234", "123asd!!",
+        technician = new Technician("username1234", "123asd!!",
                 "Christos2", "Bampoulis2",
                 "69999990", "cb2@gg2.gr",
                 birthdate, "Thiseos",
@@ -45,9 +53,9 @@ public class RequestTest {
         );
         technician.setSpecialty(specialty);
 
-        CommunicationAction comAction = new CommunicationAction("Com Action Title", "Test description",
+        comAction = new CommunicationAction("Com Action Title", "Test description",
                 submissionDate,123);
-        TechnicalAction tecAction = new TechnicalAction("Tech Action Title", "Test description",
+        tecAction = new TechnicalAction("Tech Action Title", "Test description",
                 submissionDate);
 
         Set<Action> actions = new HashSet<>();
@@ -58,7 +66,6 @@ public class RequestTest {
                 submissionDate,"Active", requestCategory,
                 customer, customerSupport,
                 technician, actions);
-
     }
 
     @Test
@@ -73,10 +80,21 @@ public class RequestTest {
         assertEquals("Active", request.getStatus());
         request.setStatus("Inactive");
         assertEquals("Connectivity Issues", request.getRequestCategory().getCategoryType());
+        request.setRequestCategory(requestCategory);
         assertEquals("Connectivity Issues Specialization", request.getRequestCategory().getSpecialty().getSpecialtyType());
         assertEquals("123 customer code", request.getCustomer().getCustomerCode());
+        request.setCustomer(customer);
         assertEquals("123 employee Code", request.getCustomerSupport().getEmplCode());
+        request.setCustomerSupport(customerSupport);
         assertEquals("123 technician Code", request.getTechnician().getTechnicianCode());
+        request.setTechnician(technician);
+        assertThrows(DomainException.class, () -> request.setActions(comAction));
+        request.setActions(null);
+        request.setActions(new TechnicalAction("Test action", "this is a new description", submissionDate));
+    }
+
+    @Test
+    public void checkCanClose() {
         assertEquals(true, request.canClose());
 
         Set<Action> actionsToRemove = new HashSet<>(request.getActions());
@@ -84,5 +102,10 @@ public class RequestTest {
             request.removeActions(action);
         }
         assertEquals(false, request.canClose());
+    }
+
+    @Test
+    public void checkEquals() {
+        assertEquals(true, request.equals(request));
     }
 }
