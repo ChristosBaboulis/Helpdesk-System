@@ -77,5 +77,6 @@ public class CustomerTest {
                 "cb123@g.gr", birthdate, address);
         assertEquals(false, personalInfo.equals(personalInfo2));
         assertEquals(true, personalInfo2.equals(personalInfo3));
+        assertEquals(false, personalInfo.equals(new Technician()));
     }
 }

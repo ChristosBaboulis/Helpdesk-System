@@ -71,23 +71,33 @@ public class RequestTest {
     @Test
     public void checkGettersAndSetters() {
         request.getId();
+
         assertEquals("1234567890", request.getTelephoneNumber());
         request.setTelephoneNumber("1234567899");
+
         assertEquals("Test problem description", request.getProblemDescription());
         request.setProblemDescription("Test description 2");
+
         assertEquals(submissionDate, request.getSubmissionDate());
         request.setSubmissionDate(LocalDate.now());
+
         assertEquals(Status.ACTIVE, request.getStatus());
         request.setStatus(Status.ACTIVE);
+
         assertEquals("Connectivity Issues", request.getRequestCategory().getCategoryType());
         request.setRequestCategory(requestCategory);
+
         assertEquals("Connectivity Issues Specialization", request.getRequestCategory().getSpecialty().getSpecialtyType());
+
         assertEquals("123 customer code", request.getCustomer().getCustomerCode());
         request.setCustomer(customer);
+
         assertEquals("123 employee Code", request.getCustomerSupport().getEmplCode());
         request.setCustomerSupport(customerSupport);
+
         assertEquals("123 technician Code", request.getTechnician().getTechnicianCode());
         request.setTechnician(technician);
+
         assertThrows(DomainException.class, () -> request.setActions(comAction));
         request.setActions(null);
         request.setActions(new TechnicalAction("Test action", "this is a new description", submissionDate));
