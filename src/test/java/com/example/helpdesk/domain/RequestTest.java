@@ -63,7 +63,7 @@ public class RequestTest {
         actions.add(comAction);
 
         request = new Request("1234567890","Test problem description",
-                submissionDate,"Active", requestCategory,
+                submissionDate,Status.ACTIVE, requestCategory,
                 customer, customerSupport,
                 technician, actions);
     }
@@ -77,8 +77,8 @@ public class RequestTest {
         request.setProblemDescription("Test description 2");
         assertEquals(submissionDate, request.getSubmissionDate());
         request.setSubmissionDate(LocalDate.now());
-        assertEquals("Active", request.getStatus());
-        request.setStatus("Inactive");
+        assertEquals(Status.ACTIVE, request.getStatus());
+        request.setStatus(Status.ACTIVE);
         assertEquals("Connectivity Issues", request.getRequestCategory().getCategoryType());
         request.setRequestCategory(requestCategory);
         assertEquals("Connectivity Issues Specialization", request.getRequestCategory().getSpecialty().getSpecialtyType());

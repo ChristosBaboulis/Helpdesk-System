@@ -78,7 +78,7 @@ public class Initializer {
         actions.add(comAction);
 
         Request request = new Request("1234567890","Test problem description",
-                submissionDate,"Active", requestCategory,
+                submissionDate,Status.ACTIVE, requestCategory,
                 customer, newCustomerSupport,
                 newTechnician, actions);
 

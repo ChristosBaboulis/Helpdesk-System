@@ -24,8 +24,9 @@ public class Request {
     @Column(name = "submission_date",length = 10, nullable = false)
     private LocalDate submissionDate;
 
-    @Column(name = "status", length = 10, nullable = false)
-    private String status;  // enumarated tha valoume meta
+    @Enumerated(EnumType.STRING) //
+    @Column(name = "status", nullable = false)
+    private Status status;
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -51,7 +52,7 @@ public class Request {
     public Request() { }
 
     public Request(String telephoneNumber, String problemDescription,
-                   LocalDate submissionDate, String status,
+                   LocalDate submissionDate, Status status,
                    RequestCategory requestCategory, Customer customer,
                    CustomerSupport customerSupport, Technician technician,
                    Set<Action> actions) {
@@ -98,11 +99,11 @@ public class Request {
         this.submissionDate = submissionDate;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

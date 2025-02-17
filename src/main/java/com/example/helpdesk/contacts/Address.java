@@ -1,4 +1,4 @@
-package com.example.helpdesk.domain;
+package com.example.helpdesk.contacts;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -8,19 +8,26 @@ import java.util.Objects;
 @Embeddable
 public class Address {
 
-    @Column(name = "street", length = 50, nullable = false)
+    @Column(name = "street", length = 50)
     private String street;
 
-    @Column(name = "street_number", length = 50, nullable = false)
+    @Column(name = "street_number", length = 10)
     private String number;
 
-    @Column(name = "city", length = 50, nullable = false)
+    @Column(name = "city", length = 50)
     private String city;
 
-    @Column(name = "zip_code", length = 50, nullable = false)
+    @Column(name = "zip_code", length = 50)
     private String zipCode;
 
     public Address() {}
+
+    public Address(Address address) {
+        this.street = address.getStreet();
+        this.number = address.getNumber();
+        this.city = address.getCity();
+        this.zipCode = address.getZipCode();
+    }
 
     public Address(String street, String number, String city, String zipCode) {
         this.street = street;

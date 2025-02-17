@@ -1,5 +1,6 @@
 package com.example.helpdesk.domain;
 
+import com.example.helpdesk.contacts.Address;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;

@@ -1,9 +1,9 @@
 package com.example.helpdesk.domain;
 
+import com.example.helpdesk.contacts.Address;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
