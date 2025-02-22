@@ -18,7 +18,7 @@ public class Technician extends User {
     private Set<Request> requests = new HashSet<>();
 
     @Column(name = "active_requests")
-    private int activeRequests;
+    private int activeRequests = 0;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch= FetchType.LAZY)
     @JoinTable(name="technician_specialties",
@@ -71,9 +71,22 @@ public class Technician extends User {
 
     public void setRequest(Request request) {
         if (request == null) return;
-        if(requests.contains(request)){
-            throw new DomainException("Specialty already assigned.");
+
+        if (request.getRequestCategory() == null){
+            throw new DomainException("Problem with request, no request category assigned.");
         }
+        if (request.getRequestCategory().getSpecialty() == null){
+            throw new DomainException("Problem with request, request category assigned does not have a specialty.");
+        }
+
+        if(requests.contains(request)){
+            throw new DomainException("Request already assigned.");
+        }
+
+        if( !specialties.contains( request.getRequestCategory().getSpecialty() ) ){
+            throw new DomainException("Technician has no specialty for this request.");
+        }
+
         requests.add(request);
         activeRequests++;
     }

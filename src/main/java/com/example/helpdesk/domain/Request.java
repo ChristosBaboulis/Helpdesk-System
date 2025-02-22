@@ -1,5 +1,6 @@
 package com.example.helpdesk.domain;
 
+import com.example.helpdesk.util.SystemDate;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class Request {
     private String problemDescription;
 
     @Column(name = "submission_date",length = 10, nullable = false)
-    private LocalDate submissionDate;
+    private LocalDate submissionDate = SystemDate.now();
 
     @Enumerated(EnumType.STRING) //
     @Column(name = "status", nullable = false)
@@ -51,6 +52,18 @@ public class Request {
 
     public Request() { }
 
+    //Constructor to be used
+    public Request(String telephoneNumber, String problemDescription, RequestCategory requestCategory,
+                   Customer customer, CustomerSupport customerSupport){
+        this.telephoneNumber = telephoneNumber;
+        this.problemDescription = problemDescription;
+        this.requestCategory = requestCategory;
+        this.customer = customer;
+        this.customerSupport = customerSupport;
+        accept();
+    }
+
+    //Full Args constructor - for testing purposes
     public Request(String telephoneNumber, String problemDescription,
                    LocalDate submissionDate, Status status,
                    RequestCategory requestCategory, Customer customer,
@@ -65,10 +78,6 @@ public class Request {
         this.customerSupport = customerSupport;
         this.technician = technician;
         this.actions = actions;
-    }
-
-    public Boolean canClose(){
-        return !getActions().isEmpty();
     }
 
     public Integer getId() {
@@ -143,7 +152,7 @@ public class Request {
         return actions;
     }
 
-    public void setActions(Action action) {
+    public void addAction(Action action) {
         if (actions == null) return;
         if(actions.contains(action)){
             throw new DomainException("Action already assigned.");
@@ -151,7 +160,56 @@ public class Request {
         actions.add(action);
     }
 
-    public void removeActions(Action action) {
+    public void removeAction(Action action) {
         actions.remove(action);
+    }
+
+    public void accept(){
+        status = Status.ACTIVE;
+    }
+
+    public void reject(){
+        status = Status.REJECTED;
+    }
+
+    public void assign(Technician technician){
+        boolean match = false;
+
+        if (this.requestCategory == null) {
+            throw new DomainException("Problem with request, no request category assigned.");
+        }
+        if (this.requestCategory.getSpecialty() == null) {
+            throw new DomainException("Problem with request, request category assigned does not have a specialty.");
+        }
+
+        for (Specialty specialty : technician.getSpecialties()){
+            if( specialty.equals( this.requestCategory.getSpecialty() ) ){
+                match = true;
+                break;
+            }
+        }
+
+        if(match){
+            this.technician = technician;
+            status = Status.ASSIGNED_TO_BE_SOLVED;
+        }else{
+            throw new DomainException("Technician does not have the correct specialty for this request category.");
+        }
+    }
+
+    public void resolve(){
+        status = Status.RESOLVING;
+    }
+
+    public void close(){
+        if(!getActions().isEmpty()){
+            status = Status.CLOSED;
+        }else{
+            throw new DomainException("Cannot close request without doing any actions.");
+        }
+    }
+
+    public boolean notifyCustomer(){
+        return status == Status.CLOSED;
     }
 }

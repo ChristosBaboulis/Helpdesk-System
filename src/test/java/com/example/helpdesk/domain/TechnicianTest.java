@@ -49,7 +49,14 @@ public class TechnicianTest {
         assertEquals(new HashSet<>(), technician.getSpecialties());
 
         Request request = new Request();
+        RequestCategory category = new RequestCategory();
+        Specialty specialty = new Specialty();
+        specialty.setSpecialtyType("Comms");
+        category.setSpecialty(specialty);
+        technician.setSpecialty(specialty);
+        request.setRequestCategory(category);
         technician.setRequest(request);
+
         assertEquals(1, technician.getActiveRequests());
 
         technician.setRequest(null);
@@ -59,11 +66,11 @@ public class TechnicianTest {
         technician.removeRequest(request);
         assertEquals(0, technician.getActiveRequests());
 
-        Specialty specialty = new Specialty();
-        technician.setSpecialty(specialty);
+        Specialty specialty2 = new Specialty();
+        technician.setSpecialty(specialty2);
         assertThrows(DomainException.class, () -> technician.setSpecialty(specialty));
         technician.setSpecialty(null);
 
-        technician.removeSpecialty(specialty);
+        technician.removeSpecialty(specialty2);
     }
 }

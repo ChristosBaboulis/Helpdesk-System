@@ -99,20 +99,20 @@ public class RequestTest {
         request.setTechnician(technician);
 
         DomainException dm = new DomainException();
-        assertThrows(DomainException.class, () -> request.setActions(comAction));
-        request.setActions(null);
-        request.setActions(new TechnicalAction("Test action", "this is a new description", submissionDate));
+        assertThrows(DomainException.class, () -> request.addAction(comAction));
+        request.addAction(null);
+        request.addAction(new TechnicalAction("Test action", "this is a new description", submissionDate));
     }
 
     @Test
-    public void checkCanClose() {
-        assertEquals(true, request.canClose());
+    public void checkClose() {
+        request.close();
 
         Set<Action> actionsToRemove = new HashSet<>(request.getActions());
         for (Action action : actionsToRemove) {
-            request.removeActions(action);
+            request.removeAction(action);
         }
-        assertEquals(false, request.canClose());
+        assertThrows(DomainException.class, () -> request.close());
     }
 
     @Test
