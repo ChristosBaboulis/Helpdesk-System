@@ -143,6 +143,8 @@ public class RequestTest {
     public void checkRejection() {
         request.reject();
         assertEquals(Status.REJECTED, request.getStatus());
+        request.close();
+        assertThrows(DomainException.class, () -> request.reject());
     }
 
     //TEST ASSOCIATION OF TECHNICIAN TO REQUEST
@@ -160,6 +162,10 @@ public class RequestTest {
         request2.getRequestCategory().setSpecialty(specialty);
         request2.setRequestCategory(null);
         assertThrows(DomainException.class, () -> request2.assign(technician));
+
+        request2.addAction(comAction);
+        request2.close();
+        assertThrows(DomainException.class, () -> request2.assign(technician));
     }
 
     //TEST RESOLVE OF REQUEST
@@ -167,7 +173,20 @@ public class RequestTest {
     public void checkResolve() {
         request.resolve();
         assertEquals(Status.RESOLVING, request.getStatus());
+        request.close();
+        assertThrows(DomainException.class, () -> request.resolve());
     }
+
+    //TEST ACCEPTANCE OF REQUEST
+    @Test
+    public void checkAccept() {
+        request.accept();
+        assertEquals(Status.ACTIVE, request.getStatus());
+        request.close();
+        assertThrows(DomainException.class, () -> request.accept());
+    }
+
+
 
     //TEST NOTIFICATION OF CUSTOMER WHEN REQUEST IS SOLVED
     @Test
@@ -180,4 +199,6 @@ public class RequestTest {
     public void checkEquals() {
         assertEquals(true, request.equals(request));
     }
+
 }
+
