@@ -21,9 +21,14 @@ public class CommunicationAction extends Action{
         this.callDuration = callDuration;
     }
 
-    //Constructor to be used
+    //Constructors to be used
     public CommunicationAction(String title, String description, double callDuration) {
         super(title, description);
+        this.callDuration = callDuration;
+    }
+
+    public CommunicationAction(String title, double callDuration) {
+        super(title);
         this.callDuration = callDuration;
     }
 

@@ -55,29 +55,19 @@ public class Request {
     //Constructor to be used
     public Request(String telephoneNumber, String problemDescription, RequestCategory requestCategory,
                    Customer customer, CustomerSupport customerSupport){
+        if( telephoneNumber == null || telephoneNumber.isEmpty() || problemDescription == null || problemDescription.isEmpty()
+                || requestCategory == null || customer == null || customerSupport == null){
+            throw new DomainException("Insufficient parameters for request creation.");
+        }
+        if(telephoneNumber.length() != 10){
+            throw new DomainException("Telephone number must be 10 digits.");
+        }
         this.telephoneNumber = telephoneNumber;
         this.problemDescription = problemDescription;
         this.requestCategory = requestCategory;
         this.customer = customer;
         this.customerSupport = customerSupport;
         accept();
-    }
-
-    //Full Args constructor - for testing purposes
-    public Request(String telephoneNumber, String problemDescription,
-                   LocalDate submissionDate, Status status,
-                   RequestCategory requestCategory, Customer customer,
-                   CustomerSupport customerSupport, Technician technician,
-                   Set<Action> actions) {
-        this.telephoneNumber = telephoneNumber;
-        this.problemDescription = problemDescription;
-        this.submissionDate = submissionDate;
-        this.status = status;
-        this.requestCategory = requestCategory;
-        this.customer = customer;
-        this.customerSupport = customerSupport;
-        this.technician = technician;
-        this.actions = actions;
     }
 
     public Integer getId() {
@@ -165,14 +155,24 @@ public class Request {
     }
 
     public void accept(){
+        if(status == Status.CLOSED){
+            throw new DomainException("Request's status cannot be changed, it is already closed.");
+        }
         status = Status.ACTIVE;
     }
 
     public void reject(){
+        if(status == Status.CLOSED){
+            throw new DomainException("Request's status cannot be changed, it is already closed.");
+        }
         status = Status.REJECTED;
     }
 
     public void assign(Technician technician){
+        if(status == Status.CLOSED){
+            throw new DomainException("Request cannot be assigned, it is already closed.");
+        }
+
         boolean match = false;
 
         if (this.requestCategory == null) {
@@ -198,6 +198,9 @@ public class Request {
     }
 
     public void resolve(){
+        if(status == Status.CLOSED){
+            throw new DomainException("Request's status cannot be changed, it is already closed.");
+        }
         status = Status.RESOLVING;
     }
 

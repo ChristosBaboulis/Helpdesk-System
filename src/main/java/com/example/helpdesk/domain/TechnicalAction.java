@@ -16,8 +16,10 @@ public class TechnicalAction extends Action {
         super(title, description, submissionDate);
     }
 
-    //Constructor to be used
+    //Constructors to be used
     public TechnicalAction(String title, String description) {
         super(title, description);
     }
+
+    public TechnicalAction(String title) {super(title);}
 }

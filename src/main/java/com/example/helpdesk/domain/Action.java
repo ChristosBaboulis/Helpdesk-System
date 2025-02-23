@@ -43,6 +43,10 @@ public class Action {
         this.description = description;
     }
 
+    public Action(String title) {
+        this.title = title;
+    }
+
     public Integer getId() {
         return id;
     }
