@@ -186,6 +186,16 @@ public class RequestTest {
         assertThrows(DomainException.class, () -> request.accept());
     }
 
+    //TEST OF BAD REQUEST CREATION
+    @Test
+    public void checkRestrictions() {
+        assertThrows(DomainException.class, () -> new Request(null, "problemDescription", requestCategory,
+                customer, customerSupport));
+        assertThrows(DomainException.class, () -> new Request("12345", "problemDescription", requestCategory,
+                customer, customerSupport));
+    }
+
+
 
 
     //TEST NOTIFICATION OF CUSTOMER WHEN REQUEST IS SOLVED
