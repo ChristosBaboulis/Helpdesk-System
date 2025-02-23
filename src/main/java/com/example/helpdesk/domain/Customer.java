@@ -17,9 +17,6 @@ public class Customer {
     @Column(name = "customer_code", length = 20, nullable = false)
     private String customerCode;
 
-    //TODO
-    //REQUEST OBJECT
-
     @Embedded
     private PersonalInfo personalInfo;
 

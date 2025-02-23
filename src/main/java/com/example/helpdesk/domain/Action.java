@@ -1,9 +1,9 @@
 package com.example.helpdesk.domain;
 
+import com.example.helpdesk.util.SystemDate;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Actions")
@@ -22,7 +22,7 @@ public class Action {
     protected String description;
 
     @Column(name = "submission_date", length = 10, nullable = false)
-    protected LocalDate submissionDate;
+    protected LocalDate submissionDate = SystemDate.now();
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id")
@@ -30,10 +30,17 @@ public class Action {
 
     public Action() {}
 
+    //Full Args constructor - for testing purposes
     public Action(String title, String description, LocalDate submissionDate) {
         this.title = title;
         this.description = description;
         this.submissionDate = submissionDate;
+    }
+
+    //Constructor to be used
+    public Action(String title, String description) {
+        this.title = title;
+        this.description = description;
     }
 
     public Integer getId() {

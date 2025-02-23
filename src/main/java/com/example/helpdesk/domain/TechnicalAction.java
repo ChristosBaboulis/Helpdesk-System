@@ -11,7 +11,13 @@ public class TechnicalAction extends Action {
 
     public TechnicalAction() { super(); }
 
+    //Full Args constructor - for testing purposes
     public TechnicalAction(String title, String description, LocalDate submissionDate) {
         super(title, description, submissionDate);
+    }
+
+    //Constructor to be used
+    public TechnicalAction(String title, String description) {
+        super(title, description);
     }
 }

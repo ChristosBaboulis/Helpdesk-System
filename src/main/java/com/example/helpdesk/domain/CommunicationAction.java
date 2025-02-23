@@ -15,8 +15,15 @@ public class CommunicationAction extends Action{
 
     public CommunicationAction() { super(); }
 
+    //Full Args constructor - for testing purposes
     public CommunicationAction(String title, String description, LocalDate submissionDate, double callDuration) {
         super(title, description, submissionDate);
+        this.callDuration = callDuration;
+    }
+
+    //Constructor to be used
+    public CommunicationAction(String title, String description, double callDuration) {
+        super(title, description);
         this.callDuration = callDuration;
     }
 
