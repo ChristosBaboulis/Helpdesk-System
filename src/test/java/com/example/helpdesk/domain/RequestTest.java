@@ -1,5 +1,6 @@
 package com.example.helpdesk.domain;
 
+import com.example.helpdesk.util.SystemDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +17,7 @@ public class RequestTest {
     LocalDate birthdate = LocalDate.parse("03/01/1990", formatter);
     LocalDate submissionDate = LocalDate.parse("03/01/2025", formatter);
     Request request = new Request();
+    Request request2 = new Request();
     Specialty specialty;
     RequestCategory requestCategory;
     Customer customer;
@@ -63,47 +65,68 @@ public class RequestTest {
         actions.add(comAction);
 
         request = new Request("1234567890","Test problem description",
-                submissionDate,Status.ACTIVE, requestCategory,
-                customer, customerSupport,
-                technician, actions);
+                requestCategory,
+                customer, customerSupport);
+        request.addAction(comAction);
+        request.addAction(tecAction);
+        request.setTechnician(technician);
+
+        request2 = new Request("1234567890",
+                "Test problem description 2",
+                requestCategory,
+                customer, customerSupport);
     }
 
     @Test
     public void checkGettersAndSetters() {
+        //GETTER, SETTER OF ID
         request.getId();
 
+        //GETTER, SETTER OF REQUEST'S TELEPHONE NUMBER
         assertEquals("1234567890", request.getTelephoneNumber());
         request.setTelephoneNumber("1234567899");
 
+        //GETTER, SETTER OF REQUEST'S PROBLEM DESCRIPTION
         assertEquals("Test problem description", request.getProblemDescription());
         request.setProblemDescription("Test description 2");
 
-        assertEquals(submissionDate, request.getSubmissionDate());
+        //GETTER, SETTER OF REQUEST'S SUBMISSION DATE
+        assertEquals(SystemDate.now(), request.getSubmissionDate());
         request.setSubmissionDate(LocalDate.now());
 
+        //GETTER, SETTER OF REQUEST'S STATUS
         assertEquals(Status.ACTIVE, request.getStatus());
         request.setStatus(Status.ACTIVE);
 
+        //GETTER, SETTER OF REQUEST'S ASSOCIATED CATEGORY
         assertEquals("Connectivity Issues", request.getRequestCategory().getCategoryType());
         request.setRequestCategory(requestCategory);
 
+        //GETTER OF REQUEST'S ASSOCIATED CATEGORY'S SPECIALTY
         assertEquals("Connectivity Issues Specialization", request.getRequestCategory().getSpecialty().getSpecialtyType());
 
+        //GETTER, SETTER OF REQUEST'S ASSOCIATED CUSTOMER
         assertEquals("123 customer code", request.getCustomer().getCustomerCode());
         request.setCustomer(customer);
 
+        //GETTER, SETTER OF REQUEST'S ASSOCIATED CUSTOMER SUPPORT EMPLOYEE
         assertEquals("123 employee Code", request.getCustomerSupport().getEmplCode());
         request.setCustomerSupport(customerSupport);
 
+        //GETTER, SETTER OF REQUEST'S ASSOCIATED TECHNICIAN
         assertEquals("123 technician Code", request.getTechnician().getTechnicianCode());
         request.setTechnician(technician);
 
+        //COVERAGE OF DOMAIN EXCEPTION CLASS
         DomainException dm = new DomainException();
+
+        //TEST ADDITION OF AN ACTION TO REQUEST
         assertThrows(DomainException.class, () -> request.addAction(comAction));
         request.addAction(null);
         request.addAction(new TechnicalAction("Test action", "this is a new description", submissionDate));
     }
 
+    //TEST CLOSE OF REQUEST
     @Test
     public void checkClose() {
         request.close();
@@ -115,6 +138,44 @@ public class RequestTest {
         assertThrows(DomainException.class, () -> request.close());
     }
 
+    //TEST REJECTION OF REQUEST
+    @Test
+    public void checkRejection() {
+        request.reject();
+        assertEquals(Status.REJECTED, request.getStatus());
+    }
+
+    //TEST ASSOCIATION OF TECHNICIAN TO REQUEST
+    @Test
+    public void checkTechnicianAssignment() {
+        request2.assign(technician);
+        assertEquals(Status.ASSIGNED_TO_BE_SOLVED, request2.getStatus());
+
+        Technician technician2 = new Technician();
+        assertThrows(DomainException.class, () -> request2.assign(technician2));
+
+        request2.getRequestCategory().setSpecialty(null);
+        assertThrows(DomainException.class, () -> request2.assign(technician));
+
+        request2.getRequestCategory().setSpecialty(specialty);
+        request2.setRequestCategory(null);
+        assertThrows(DomainException.class, () -> request2.assign(technician));
+    }
+
+    //TEST RESOLVE OF REQUEST
+    @Test
+    public void checkResolve() {
+        request.resolve();
+        assertEquals(Status.RESOLVING, request.getStatus());
+    }
+
+    //TEST NOTIFICATION OF CUSTOMER WHEN REQUEST IS SOLVED
+    @Test
+    public void checkNotifyCustomer() {
+        assertEquals(false, request.notifyCustomer());
+    }
+
+    //TEST EQUALS OVVERIDE
     @Test
     public void checkEquals() {
         assertEquals(true, request.equals(request));

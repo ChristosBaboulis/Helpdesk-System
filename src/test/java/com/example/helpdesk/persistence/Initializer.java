@@ -48,7 +48,7 @@ public class Initializer {
                 birthdate, "Gripari",
                 "01", "Athens", "11111",
                 "123 employee Code"
-                );
+        );
 
         Technician newTechnician = new Technician("username1234", "123asd!!",
                 "Christos2", "Bampoulis2",
@@ -56,7 +56,7 @@ public class Initializer {
                 birthdate, "Thiseos",
                 "02", "Athens", "11112",
                 "123 technician Code"
-                );
+        );
         newTechnician.setSpecialty(specialty);
 
         RequestCategory requestCategory = new RequestCategory("Connectivity Issues", specialty);
@@ -66,7 +66,7 @@ public class Initializer {
                 "69999991", "cb3@gg3.gr",
                 birthdate, "Davaki",
                 "03", "Athens", "11113"
-                );
+        );
 
         CommunicationAction comAction = new CommunicationAction("Test Title", "Test description",
                 submissionDate,123);
@@ -78,9 +78,13 @@ public class Initializer {
         actions.add(comAction);
 
         Request request = new Request("1234567890","Test problem description",
-                submissionDate,Status.ACTIVE, requestCategory,
-                customer, newCustomerSupport,
-                newTechnician, actions);
+                requestCategory,
+                customer, newCustomerSupport
+        );
+
+        request.addAction(comAction);
+        request.addAction(tecAction);
+        request.setTechnician(newTechnician);
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();

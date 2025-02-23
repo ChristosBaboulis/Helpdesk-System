@@ -15,13 +15,19 @@ public class RequestCategoryTest {
 
     @Test
     public void checkGettersAndSetters() {
+        //GETTER OF ID
         requestCategory.getId();
 
+        //GETTER, SETTER OF CATEGORY TYPE
         assertEquals("Connectivity", requestCategory.getCategoryType());
         requestCategory.setCategoryType("Power Problems");
+
+        //GETTER, SETTER OF ASSOCIATED SPECIALTY
+        assertEquals(null ,requestCategory.getSpecialty());
         requestCategory.setSpecialty(new Specialty("Power Problems"));
     }
 
+    //TEST EQUALS OVERRIDE
     @Test
     public void checkEquality() {
         assertEquals(true, requestCategory.equals(requestCategory));

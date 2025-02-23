@@ -55,6 +55,7 @@ public class Request {
     //Constructor to be used
     public Request(String telephoneNumber, String problemDescription, RequestCategory requestCategory,
                    Customer customer, CustomerSupport customerSupport){
+        //Appropriate fields to be populated during initialization of a request
         if( telephoneNumber == null || telephoneNumber.isEmpty() || problemDescription == null || problemDescription.isEmpty()
                 || requestCategory == null || customer == null || customerSupport == null){
             throw new DomainException("Insufficient parameters for request creation.");
@@ -155,6 +156,7 @@ public class Request {
     }
 
     public void accept(){
+        //Restriction of closed Request
         if(status == Status.CLOSED){
             throw new DomainException("Request's status cannot be changed, it is already closed.");
         }
@@ -162,6 +164,7 @@ public class Request {
     }
 
     public void reject(){
+        //Restriction of closed Request
         if(status == Status.CLOSED){
             throw new DomainException("Request's status cannot be changed, it is already closed.");
         }
@@ -169,6 +172,7 @@ public class Request {
     }
 
     public void assign(Technician technician){
+        //Restriction of closed Request
         if(status == Status.CLOSED){
             throw new DomainException("Request cannot be assigned, it is already closed.");
         }
@@ -198,6 +202,7 @@ public class Request {
     }
 
     public void resolve(){
+        //Restriction of closed Request
         if(status == Status.CLOSED){
             throw new DomainException("Request's status cannot be changed, it is already closed.");
         }
@@ -205,6 +210,7 @@ public class Request {
     }
 
     public void close(){
+        //Restriction of a request cannot be processed without any energies
         if(!getActions().isEmpty()){
             status = Status.CLOSED;
         }else{

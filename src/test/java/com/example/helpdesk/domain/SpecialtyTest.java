@@ -15,12 +15,15 @@ public class SpecialtyTest {
 
     @Test
     public void checkGettersAndSetters() {
+        //GETTER OF ID
         specialty.getId();
 
+        //GETTER, SETTER OF SPECIALTY'S TYPE
         assertEquals("Connectivity", specialty.getSpecialtyType());
         specialty.setSpecialtyType("Power Problems");
     }
 
+    //TEST EQUALS OVERRIDE
     @Test
     public void checkEquality() {
         assertEquals(true, specialty.equals(specialty));

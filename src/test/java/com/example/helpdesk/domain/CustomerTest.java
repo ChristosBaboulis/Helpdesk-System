@@ -39,9 +39,11 @@ public class CustomerTest {
 
     @Test
     public void checkGettersAndSetters(){
+        //GETTER, SETTER IF CUSTOMER CODE
         assertEquals("123 customer code", customer.getCustomerCode());
         customer.setCustomerCode("new code");
 
+        //GETTER, SETTER OF ASSOCIATED PERSONAL INFO
         assertEquals("Christos3", customer.getPersonalInfo().getFirstName());
         customer.getPersonalInfo().setFirstName("new name");
 
@@ -63,6 +65,7 @@ public class CustomerTest {
         customer.setPersonalInfo(new PersonalInfo());
     }
 
+    //TEST IF EQUALS OVERRIDE
     @Test
     public void checkEquality(){
         assertEquals(true, customer.equals(customer));
