@@ -136,6 +136,10 @@ public class RequestTest {
             request.removeAction(action);
         }
         assertThrows(DomainException.class, () -> request.close());
+
+        request.addAction(new TechnicalAction("Test action", "this is a new description", submissionDate));
+        request.setTechnician(null);
+        assertThrows(DomainException.class, () -> request.close());
     }
 
     //TEST REJECTION OF REQUEST
@@ -193,6 +197,19 @@ public class RequestTest {
                 customer, customerSupport));
         assertThrows(DomainException.class, () -> new Request("12345", "problemDescription", requestCategory,
                 customer, customerSupport));
+        assertThrows(DomainException.class, () -> new Request("1234599999", null, requestCategory,
+                customer, customerSupport));
+        assertThrows(DomainException.class, () -> new Request("1234599999", "problemDescription", null,
+                customer, customerSupport));
+        assertThrows(DomainException.class, () -> new Request("1234599999", "problemDescription", requestCategory,
+                null, customerSupport));
+        assertThrows(DomainException.class, () -> new Request("1234599999", "problemDescription", requestCategory,
+                customer, null));
+        assertThrows(DomainException.class, () -> new Request("", "problemDescription", requestCategory,
+                customer, customerSupport));
+        assertThrows(DomainException.class, () -> new Request("1234599999", "", requestCategory,
+                customer, customerSupport));
+
     }
 
 
