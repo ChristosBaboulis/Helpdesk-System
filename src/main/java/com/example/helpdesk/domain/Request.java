@@ -210,11 +210,11 @@ public class Request {
     }
 
     public void close(){
-        //Restriction of a request cannot be processed without any energies
-        if(!getActions().isEmpty()){
+        //Restriction of a request cannot be closed without any energies or assignment of a technician
+        if(!getActions().isEmpty() && getTechnician() != null){
             status = Status.CLOSED;
         }else{
-            throw new DomainException("Cannot close request without doing any actions.");
+            throw new DomainException("Cannot close request without doing any actions or technician is not assigned.");
         }
     }
 
