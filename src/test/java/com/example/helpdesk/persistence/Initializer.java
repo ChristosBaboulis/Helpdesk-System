@@ -70,12 +70,8 @@ public class Initializer {
 
         CommunicationAction comAction = new CommunicationAction("Test Title", "Test description",
                 submissionDate,123);
-        TechnicalAction tecAction = new TechnicalAction("Test Title", "Test description",
+        TechnicalAction tecAction = new TechnicalAction("Test Title 2", "Test description 2",
                 submissionDate);
-
-        Set<Action> actions = new HashSet<>();
-        actions.add(tecAction);
-        actions.add(comAction);
 
         Request request = new Request("1234567890","Test problem description",
                 requestCategory,
