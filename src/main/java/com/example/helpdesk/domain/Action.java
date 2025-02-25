@@ -43,6 +43,7 @@ public class Action {
         this.description = description;
     }
 
+    //Constructor to be used
     public Action(String title) {
         this.title = title;
     }

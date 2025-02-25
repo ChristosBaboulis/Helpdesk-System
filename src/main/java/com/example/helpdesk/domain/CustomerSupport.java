@@ -16,6 +16,7 @@ public class CustomerSupport extends User{
         super();
     }
 
+    //Constructor with address as argument
     public CustomerSupport(String username, String password,
                            String firstName, String lastName,
                            String telephoneNumber, String emailAddress,
@@ -24,6 +25,7 @@ public class CustomerSupport extends User{
         this.emplCode = emplCode;
     }
 
+    //Constructor with addresses fields as parameters
     public CustomerSupport(String username, String password,
                            String firstName, String lastName,
                            String telephoneNumber, String emailAddress,

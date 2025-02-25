@@ -31,6 +31,7 @@ public class Technician extends User {
         super();
     }
 
+    //Constructor with address as argument
     public Technician(String username, String password,
                       String firstName, String lastName,
                       String telephoneNumber, String emailAddress,
@@ -39,6 +40,7 @@ public class Technician extends User {
         this.technicianCode = technicianCode;
     }
 
+    //Constructor with addresses fields as parameters
     public Technician(String username, String password,
                       String firstName, String lastName,
                       String telephoneNumber, String emailAddress,
@@ -69,6 +71,9 @@ public class Technician extends User {
         return specialties;
     }
 
+    //Method to set Request to technician after checking eligibility through request's
+    //category, specialty matched to category and technician's specialty
+    //In the end we need to update the number of activeRequests assigned to technician
     public void setRequest(Request request) {
         if (request == null) return;
 
@@ -91,11 +96,15 @@ public class Technician extends User {
         activeRequests++;
     }
 
+    //Method used to remove a request from a technician when it is closed, and reduce the number of
+    //technician's active requests by 1
     public void removeRequest(Request request) {
         specialties.remove(request);
         activeRequests--;
     }
 
+    //Method used to assign a specialty to a technician. Needs to check first if specialty is
+    //already assigned
     public void setSpecialty(Specialty specialty) {
         if (specialty == null) return;
         if(specialties.contains(specialty)){

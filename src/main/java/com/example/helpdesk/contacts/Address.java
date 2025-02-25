@@ -22,6 +22,7 @@ public class Address {
 
     public Address() {}
 
+    //Copy Constructor
     public Address(Address address) {
         this.street = address.getStreet();
         this.number = address.getNumber();

@@ -12,6 +12,7 @@ import java.util.Objects;
 public class PersonalInfo {
     public PersonalInfo() { }
 
+    //Constructor with address as argument
     public PersonalInfo(String firstName, String lastName, String telephoneNumber,
                         String emailAddress, LocalDate birthdate, Address address) {
         this.firstName = firstName;
@@ -22,6 +23,7 @@ public class PersonalInfo {
         this.address = address;
     }
 
+    //Constructor with addresses fields as parameters
     public PersonalInfo(String firstName, String lastName, String telephoneNumber,
                         String emailAddress, LocalDate birthdate, String street, String number,
                         String city, String zipCode) {

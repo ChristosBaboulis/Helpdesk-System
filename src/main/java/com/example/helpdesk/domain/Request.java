@@ -53,21 +53,25 @@ public class Request {
     public Request() { }
 
     //Constructor to be used
-    public Request(String telephoneNumber, String problemDescription, RequestCategory requestCategory,
+    public Request(String telephoneNumber, String problemDescription,
+                   RequestCategory requestCategory,
                    Customer customer, CustomerSupport customerSupport){
         //Appropriate fields to be populated during initialization of a request
         if( telephoneNumber == null || telephoneNumber.isEmpty() || problemDescription == null || problemDescription.isEmpty()
                 || requestCategory == null || customer == null || customerSupport == null){
             throw new DomainException("Insufficient parameters for request creation.");
         }
+        //Check of telephone number size
         if(telephoneNumber.length() != 10){
             throw new DomainException("Telephone number must be 10 digits.");
         }
+        //Population of fields
         this.telephoneNumber = telephoneNumber;
         this.problemDescription = problemDescription;
         this.requestCategory = requestCategory;
         this.customer = customer;
         this.customerSupport = customerSupport;
+        //Change status of created request to active
         accept();
     }
 
@@ -143,6 +147,7 @@ public class Request {
         return actions;
     }
 
+    //Method used to assign an action to the request, if it is not already assigned
     public void addAction(Action action) {
         if (actions == null) return;
         if(actions.contains(action)){
@@ -155,6 +160,7 @@ public class Request {
         actions.remove(action);
     }
 
+    //Method used to change request's status to ACTIVE, after checking it is not closed
     public void accept(){
         //Restriction of closed Request
         if(status == Status.CLOSED){
@@ -163,6 +169,7 @@ public class Request {
         status = Status.ACTIVE;
     }
 
+    //Method used to change request's status to REJECTED, after checking it is not closed
     public void reject(){
         //Restriction of closed Request
         if(status == Status.CLOSED){
@@ -171,6 +178,8 @@ public class Request {
         status = Status.REJECTED;
     }
 
+    //Method used to assign request to a technician and change the status accordingly,
+    // if it is not closed
     public void assign(Technician technician){
         //Restriction of closed Request
         if(status == Status.CLOSED){
@@ -201,6 +210,7 @@ public class Request {
         }
     }
 
+    //Method used to change request's status to RESOLVING, after checking if it is not closed
     public void resolve(){
         //Restriction of closed Request
         if(status == Status.CLOSED){
@@ -209,6 +219,7 @@ public class Request {
         status = Status.RESOLVING;
     }
 
+    //Method used to change request's status to closed
     public void close(){
         //Restriction of a request cannot be closed without any energies or assignment of a technician
         if(!getActions().isEmpty() && getTechnician() != null){
@@ -218,6 +229,8 @@ public class Request {
         }
     }
 
+    //Method that returns true or false in case we need to notify customer
+    //about closure of the request
     public boolean notifyCustomer(){
         return status == Status.CLOSED;
     }
