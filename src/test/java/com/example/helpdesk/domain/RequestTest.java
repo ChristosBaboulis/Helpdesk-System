@@ -154,12 +154,24 @@ public class RequestTest {
     //TEST ASSOCIATION OF TECHNICIAN TO REQUEST
     @Test
     public void checkTechnicianAssignment() {
+        //Correct technician with more than 1 specialty
+        technician.setSpecialty(new Specialty("Extra useless specialty"));
         request2.assign(technician);
         assertEquals(Status.ASSIGNED_TO_BE_SOLVED, request2.getStatus());
 
-        Technician technician2 = new Technician();
-        assertThrows(DomainException.class, () -> request2.assign(technician2));
+        //Wrong Technician according to specialty
+        Technician wrongTechnician = new Technician("username1234", "123asd!!",
+                "Christos2", "Bampoulis2",
+                "69999990", "cb2@gg2.gr",
+                birthdate, "Thiseos",
+                "02", "Athens", "11112",
+                "123 technician Code");
+        Specialty wrongSpecialty = new Specialty("Something wrong");
+        wrongTechnician.setSpecialty(wrongSpecialty);
+        wrongTechnician.setSpecialty(new Specialty("Extra useless specialty"));
+        assertThrows(DomainException.class, () -> request2.assign(wrongTechnician));
 
+        //Problems with requst category, specialty
         request2.getRequestCategory().setSpecialty(null);
         assertThrows(DomainException.class, () -> request2.assign(technician));
 
@@ -219,6 +231,8 @@ public class RequestTest {
     @Test
     public void checkNotifyCustomer() {
         assertEquals(false, request.notifyCustomer());
+        request.close();
+        assertEquals(true, request.notifyCustomer());
     }
 
     //TEST EQUALS OVVERIDE

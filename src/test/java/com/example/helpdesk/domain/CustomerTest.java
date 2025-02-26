@@ -71,6 +71,7 @@ public class CustomerTest {
         assertEquals(true, customer.equals(customer));
         assertEquals(false, customer.equals(customer2));
         assertEquals(false, customer.equals(null));
+        assertEquals(false, customer.equals(address));
         customer.hashCode();
 
         PersonalInfo personalInfo = new PersonalInfo();
@@ -78,8 +79,20 @@ public class CustomerTest {
                 "cb@g.gr", birthdate, address);
         PersonalInfo personalInfo3 = new PersonalInfo("Christos", "Bampoulis", "3213211232",
                 "cb123@g.gr", birthdate, address);
+        PersonalInfo personalInfo4 = new PersonalInfo("Christos1", "Bampoulis", "3213211232",
+                "cb123@g.gr", birthdate, address);
         assertEquals(false, personalInfo.equals(personalInfo2));
         assertEquals(true, personalInfo2.equals(personalInfo3));
-        assertEquals(false, personalInfo.equals(new Technician()));
+        assertEquals(false, personalInfo3.equals(personalInfo4));
+        personalInfo4.setFirstName("Christos");
+        personalInfo4.setLastName("Bampoulis2");
+        assertEquals(false, personalInfo3.equals(personalInfo4));
+        personalInfo4.setLastName("Bampoulis");
+        LocalDate birthdate2 = LocalDate.parse("03/01/1991", formatter);
+        personalInfo3.setBirthdate(birthdate2);
+        assertEquals(false, personalInfo3.equals(personalInfo4));
+        assertEquals(false, personalInfo.equals(null));
+        assertEquals(false, personalInfo.equals(address));
+        personalInfo.hashCode();
     }
 }

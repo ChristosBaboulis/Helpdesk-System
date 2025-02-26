@@ -71,6 +71,10 @@ public class Technician extends User {
         return specialties;
     }
 
+    public Set<Request> getRequests() {
+        return requests;
+    }
+
     //Method to set Request to technician after checking eligibility through request's
     //category, specialty matched to category and technician's specialty
     //In the end we need to update the number of activeRequests assigned to technician
@@ -99,7 +103,7 @@ public class Technician extends User {
     //Method used to remove a request from a technician when it is closed, and reduce the number of
     //technician's active requests by 1
     public void removeRequest(Request request) {
-        specialties.remove(request);
+        requests.remove(request);
         activeRequests--;
     }
 

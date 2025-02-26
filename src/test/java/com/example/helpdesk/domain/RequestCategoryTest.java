@@ -33,6 +33,7 @@ public class RequestCategoryTest {
         assertEquals(true, requestCategory.equals(requestCategory));
         assertEquals(false, requestCategory.equals(new Specialty()));
         assertEquals(false, requestCategory.equals(new RequestCategory()));
+        assertEquals(false, requestCategory.equals(null));
         requestCategory.hashCode();
     }
 }

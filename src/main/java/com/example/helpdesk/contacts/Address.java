@@ -66,7 +66,7 @@ public class Address {
     }
 
     public void setZipCode(String zip) {
-        this.zipCode = zipCode;
+        this.zipCode = zip;
     }
 
     @Override

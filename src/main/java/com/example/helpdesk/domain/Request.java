@@ -149,7 +149,7 @@ public class Request {
 
     //Method used to assign an action to the request, if it is not already assigned
     public void addAction(Action action) {
-        if (actions == null) return;
+        if (action == null) return;
         if(actions.contains(action)){
             throw new DomainException("Action already assigned.");
         }
@@ -185,9 +185,6 @@ public class Request {
         if(status == Status.CLOSED){
             throw new DomainException("Request cannot be assigned, it is already closed.");
         }
-
-        boolean match = false;
-
         if (this.requestCategory == null) {
             throw new DomainException("Problem with request, no request category assigned.");
         }
@@ -195,8 +192,10 @@ public class Request {
             throw new DomainException("Problem with request, request category assigned does not have a specialty.");
         }
 
+        boolean match = false;
+
         for (Specialty specialty : technician.getSpecialties()){
-            if( specialty.equals( this.requestCategory.getSpecialty() ) ){
+            if( specialty.equals(this.requestCategory.getSpecialty()) ){
                 match = true;
                 break;
             }

@@ -70,6 +70,7 @@ public class TechnicianTest {
         assertEquals(1, technician.getActiveRequests());
 
         //TEST NULL BRANCH OF setRequest
+        assertEquals(1, technician.getRequests().size());
         technician.setRequest(null);
 
         //TEST BRANCH OF ALREADY ASSIGNED REQUEST
@@ -80,10 +81,13 @@ public class TechnicianTest {
         assertEquals(0, technician.getActiveRequests());
 
         //ASSIGN REQUEST WITH WRONG SPECIALTY TO TECHNICIAN
-        request.getRequestCategory().getSpecialty().setSpecialtyType("New Type");
+        Specialty testSpec = new Specialty();
+        testSpec.setSpecialtyType("OTHER");
+        request.getRequestCategory().setSpecialty(testSpec);
+        technician.removeRequest(request);
         assertThrows(DomainException.class, () -> technician.setRequest(request));
 
-        //ASSIGN REQUEST WITH NO SPECIALTY ASSOCIATED TO THE CATEGORY TO TECHNICIAN
+        //ASSIGN REQUEST TO TECHNICIAN WITH NO SPECIALTY ASSOCIATED TO THE CATEGORY OF THE REQUEST
         request.getRequestCategory().setSpecialty(null);
         assertThrows(DomainException.class, () -> technician.setRequest(request));
 
@@ -101,5 +105,14 @@ public class TechnicianTest {
 
         //TEST REMOVAL OF SPECIALTY
         technician.removeSpecialty(specialty2);
+    }
+
+    //TEST EQUALS OVERRIDE
+    @Test
+    public void checkEquality() {
+        assertEquals(true, technician.equals(technician));
+        assertEquals(false, technician.equals(new Specialty()));
+        assertEquals(false, technician.equals(null));
+        technician.hashCode();
     }
 }

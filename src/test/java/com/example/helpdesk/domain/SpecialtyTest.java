@@ -29,6 +29,7 @@ public class SpecialtyTest {
         assertEquals(true, specialty.equals(specialty));
         assertEquals(false, specialty.equals(new RequestCategory()));
         assertEquals(false, specialty.equals(new Specialty()));
+        assertEquals(false, specialty.equals(null));
         specialty.hashCode();
     }
 }
