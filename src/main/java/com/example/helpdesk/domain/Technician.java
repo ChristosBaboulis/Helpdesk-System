@@ -97,6 +97,8 @@ public class Technician extends User {
         }
 
         requests.add(request);
+        //Populate Request's Object Technician Field
+        request.setTechnician(this);
         activeRequests++;
     }
 

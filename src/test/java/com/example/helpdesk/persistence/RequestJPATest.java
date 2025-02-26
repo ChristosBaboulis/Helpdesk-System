@@ -23,6 +23,9 @@ public class RequestJPATest extends JPATest{
         assertNotNull(request.getRequestCategory());
         assertNotNull(request.getCustomer());
         assertNotNull(request.getCustomerSupport());
+
+        Set<Action> actions = request.getActions();
+        assertEquals(2, actions.size());
     }
 
     @Test
@@ -31,5 +34,18 @@ public class RequestJPATest extends JPATest{
         query.setParameter("email", "cb2@gg2.gr");
         List<Request> result = query.getResultList();
         assertEquals(1, result.size());
+    }
+
+    @Test
+    public void fetchRequestWithActionsAndAssignedTechnician(){
+        Query query = em.createQuery("select r from Request r " +
+                "join fetch r.actions " +
+                "join fetch r.technician t " +
+                "where t.personalInfo.emailAddress=:email");
+        query.setParameter("email", "cb2@gg2.gr");
+        List<Request> result = query.getResultList();
+        assertEquals(1, result.size());
+
+        em.close();
     }
 }

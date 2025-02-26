@@ -154,6 +154,8 @@ public class Request {
             throw new DomainException("Action already assigned.");
         }
         actions.add(action);
+        //Populate Action's Object Request Field
+        action.setRequest(this);
     }
 
     public void removeAction(Action action) {
