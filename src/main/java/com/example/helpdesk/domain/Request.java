@@ -25,6 +25,9 @@ public class Request {
     @Column(name = "submission_date",length = 10, nullable = false)
     private LocalDate submissionDate = SystemDate.now();
 
+    @Column(name = "close_date",length = 10)
+    private LocalDate closeDate;
+
     @Enumerated(EnumType.STRING) //
     @Column(name = "status", nullable = false)
     private Status status;
@@ -101,6 +104,14 @@ public class Request {
 
     public void setSubmissionDate(LocalDate submissionDate) {
         this.submissionDate = submissionDate;
+    }
+
+    public LocalDate getCloseDate() {
+        return closeDate;
+    }
+
+    public void setCloseDate(LocalDate closeDate) {
+        this.closeDate = closeDate;
     }
 
     public Status getStatus() {
@@ -225,6 +236,7 @@ public class Request {
         //Restriction of a request cannot be closed without any energies or assignment of a technician
         if(!getActions().isEmpty() && getTechnician() != null){
             status = Status.CLOSED;
+            closeDate = SystemDate.now();
         }else{
             throw new DomainException("Cannot close request without doing any actions or technician is not assigned.");
         }

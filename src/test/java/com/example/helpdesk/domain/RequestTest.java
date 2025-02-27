@@ -94,6 +94,10 @@ public class RequestTest {
         assertEquals(SystemDate.now(), request.getSubmissionDate());
         request.setSubmissionDate(LocalDate.now());
 
+        //GETTER, SETTER OF REQUEST'S CLOSE DATE
+        assertEquals(null, request.getCloseDate());
+        request.setCloseDate(LocalDate.now());
+
         //GETTER, SETTER OF REQUEST'S STATUS
         assertEquals(Status.ACTIVE, request.getStatus());
         request.setStatus(Status.ACTIVE);
@@ -130,6 +134,7 @@ public class RequestTest {
     @Test
     public void checkClose() {
         request.close();
+        assertEquals(SystemDate.now(), request.getCloseDate());
 
         Set<Action> actionsToRemove = new HashSet<>(request.getActions());
         for (Action action : actionsToRemove) {
