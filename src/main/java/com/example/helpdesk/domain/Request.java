@@ -217,6 +217,7 @@ public class Request {
         if(match){
             this.technician = technician;
             status = Status.ASSIGNED_TO_BE_SOLVED;
+            technician.setRequest(this);
         }else{
             throw new DomainException("Technician does not have the correct specialty for this request category.");
         }
@@ -237,6 +238,7 @@ public class Request {
         if(!getActions().isEmpty() && getTechnician() != null){
             status = Status.CLOSED;
             closeDate = SystemDate.now();
+            technician.removeRequest(this);
         }else{
             throw new DomainException("Cannot close request without doing any actions or technician is not assigned.");
         }
