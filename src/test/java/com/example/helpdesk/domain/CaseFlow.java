@@ -8,9 +8,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import static org.junit.Assert.assertEquals;
 
 /*
 * THIS CLASS IS CREATED MOSTLY TO DEMONSTRATE THE STEPS OF THE PROCESS
