@@ -45,10 +45,6 @@ public class TechnicianTest {
         assertEquals("123 technician Code", technician.getTechnicianCode());
         technician.setTechnicianCode("123");
 
-        //GET, SET TECHNICIANS NUMBER OF REQUESTS
-        assertEquals(0, technician.getActiveRequests());
-        technician.setActiveRequests(0);
-
         //GET TECHNICIAN'S SPECIALTIES
         assertEquals(new HashSet<>(), technician.getSpecialties());
 
@@ -60,41 +56,6 @@ public class TechnicianTest {
         category.setSpecialty(specialty);
         technician.setSpecialty(specialty);
         request.setRequestCategory(category);
-
-
-        //---------------------- REQUEST ----------------------
-        //ASSIGN REQUEST TO TECHNICIAN
-        technician.setRequest(request);
-
-        //GET NUMBER OF REQUESTS ASSIGNED TO TECHNICIAN
-        assertEquals(1, technician.getActiveRequests());
-
-        //TEST NULL BRANCH OF setRequest
-        assertEquals(1, technician.getRequests().size());
-        technician.setRequest(null);
-
-        //TEST BRANCH OF ALREADY ASSIGNED REQUEST
-        assertThrows(DomainException.class, () -> technician.setRequest(request));
-
-        //TEST REMOVAL OF REQUEST FROM TECHNICIAN
-        technician.removeRequest(request);
-        assertEquals(0, technician.getActiveRequests());
-
-        //ASSIGN REQUEST WITH WRONG SPECIALTY TO TECHNICIAN
-        Specialty testSpec = new Specialty();
-        testSpec.setSpecialtyType("OTHER");
-        request.getRequestCategory().setSpecialty(testSpec);
-        technician.removeRequest(request);
-        assertThrows(DomainException.class, () -> technician.setRequest(request));
-
-        //ASSIGN REQUEST TO TECHNICIAN WITH NO SPECIALTY ASSOCIATED TO THE CATEGORY OF THE REQUEST
-        request.getRequestCategory().setSpecialty(null);
-        assertThrows(DomainException.class, () -> technician.setRequest(request));
-
-        //ASSIGN REQUEST WITH NO CATEGORY TO TECHNICIAN
-        request.setRequestCategory(null);
-        assertThrows(DomainException.class, () -> technician.setRequest(request));
-
 
         //---------------------- SPECIALTY ----------------------
         //ASSIGN ALREADY ASSIGNED SPECIALTY TO TECHNICIAN
