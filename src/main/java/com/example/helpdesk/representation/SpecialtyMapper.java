@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "jakarta",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public abstract class SpecialtyMapper {
-    public abstract RequestRepresentation toRepresentation(Specialty specialty);
+    public abstract SpecialtyRepresentation toRepresentation(Specialty specialty);
 
-    public abstract List<RequestRepresentation> toRepresentationList(List<Specialty> specialty);
+    public abstract List<SpecialtyRepresentation> toRepresentationList(List<Specialty> specialty);
 }
