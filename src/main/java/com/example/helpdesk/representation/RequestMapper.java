@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "jakarta",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-        uses = {CustomerMapper.class})
+        uses = {CustomerMapper.class, RequestCategoryMapper.class, CustomerSupportMapper.class})
 public abstract class RequestMapper {
     public abstract RequestRepresentation toRepresentation(Request request);
 
