@@ -16,6 +16,6 @@ public class RequestRepresentation {
     public RequestCategoryRepresentation requestCategory;
     public CustomerRepresentation customer;
     public CustomerSupportRepresentation customerSupport;
-//    public TechnicianRepresentation technician;
+    public TechnicianRepresentation technician;
 //    public List<Actions> actions;
 }
