@@ -6,11 +6,13 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.time.LocalDate;
 
 @RegisterForReflection
-public class CustomerRepresentation {
+public class CustomerSupportRepresentation {
+    public String emplCode;
     public Integer id;
-    public String customerCode;
     public String firstName;
     public String lastName;
+    public String username;
+    public String password;
     public String telephoneNumber;
     public String emailAddress;
     public LocalDate birthdate;
