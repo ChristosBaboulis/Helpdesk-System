@@ -14,7 +14,7 @@ public class RequestRepresentation {
     public LocalDate closeDate;
     public Status status;
 //    public RequestCategory category;
-//    public Customer customer;
+    public CustomerRepresentation customer;
 //    public Technician technician;
 //    public List<Actions> actions;
 }
