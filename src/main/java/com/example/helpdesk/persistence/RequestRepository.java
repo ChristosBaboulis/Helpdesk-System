@@ -11,7 +11,7 @@ import io.quarkus.panache.common.Parameters;
 @RequestScoped
 public class RequestRepository implements PanacheRepositoryBase<Request, Integer>{
     //---------------------------------------- BY ATTRIBUTES ----------------------------------------
-    public Request findById(Integer id) {
+    public Request search(Integer id) {
         return find("id", id).firstResult();
     }
 
