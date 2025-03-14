@@ -33,4 +33,28 @@ public class RequestResource {
 
         return Response.ok().entity(requestMapper.toRepresentation(request)).build();
     }
+
+    @GET
+    @Path("{telephoneNumber:^[0-9]{10}$}")
+    public Response findByPhoneNumber(@PathParam("telephoneNumber") String telephoneNumber) {
+
+        Request request = requestRepository.findByTelephoneNumber(telephoneNumber).getFirst();
+        if (request == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok().entity(requestMapper.toRepresentation(request)).build();
+    }
+
+    @GET
+    @Path("{status:^[a-zA-Z]+$}")
+    public Response findByStatus(@PathParam("status") String status) {
+
+        Request request = requestRepository.findByStatus(status).getFirst();
+        if (request == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok().entity(requestMapper.toRepresentation(request)).build();
+    }
 }
