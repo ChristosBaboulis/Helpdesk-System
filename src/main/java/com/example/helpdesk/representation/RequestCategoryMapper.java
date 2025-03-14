@@ -20,6 +20,8 @@ public abstract class RequestCategoryMapper {
 
     public abstract RequestCategoryRepresentation toRepresentation(RequestCategory requestCategory);
 
+    public abstract RequestCategory toModel(RequestCategoryRepresentation representation);
+
     public abstract List<RequestCategoryRepresentation> toRepresentationList(List<RequestCategory> requestCategory);
 
     @AfterMapping

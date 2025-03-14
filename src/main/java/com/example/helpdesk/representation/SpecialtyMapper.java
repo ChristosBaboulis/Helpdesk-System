@@ -11,5 +11,7 @@ import java.util.List;
 public abstract class SpecialtyMapper {
     public abstract SpecialtyRepresentation toRepresentation(Specialty specialty);
 
+    public abstract Specialty toModel(SpecialtyRepresentation representation);
+
     public abstract List<SpecialtyRepresentation> toRepresentationList(List<Specialty> specialty);
 }

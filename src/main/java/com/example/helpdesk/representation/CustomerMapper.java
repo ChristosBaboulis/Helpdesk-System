@@ -11,5 +11,7 @@ import java.util.List;
 public abstract class CustomerMapper {
     public abstract CustomerRepresentation toRepresentation(Customer customer);
 
+    public abstract Customer toModel(CustomerRepresentation representation);
+
     public abstract List<CustomerRepresentation> toRepresentationList(List<Customer> customer);
 }

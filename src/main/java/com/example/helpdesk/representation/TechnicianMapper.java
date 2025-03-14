@@ -21,6 +21,8 @@ public abstract class TechnicianMapper {
 
     public abstract TechnicianRepresentation toRepresentation(Technician requestCategory);
 
+    public abstract Technician toModel(TechnicianRepresentation representation);
+
     public abstract List<TechnicianRepresentation> toRepresentationList(List<Technician> requestCategory);
 
     @AfterMapping
