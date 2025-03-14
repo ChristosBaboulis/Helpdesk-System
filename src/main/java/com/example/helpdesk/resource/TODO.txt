@@ -1,0 +1,19 @@
+------------------------------------ TO-DO ---------------------------------------------
+  - Create classes in resource package:
+
+      CustomerResource   -->  POST (create new Customer)
+                              PUT (update personal info)
+
+      RequestResource    -->  POST (create new Request),
+                              PUT (update status, add Action/Technician, update Category)
+                              GET (by: id, telephoneNumber, status)
+
+      TechnicianResource -->  GET (by: id, technician code)
+                              PUT (remove request, change/add Specialty)
+
+      ActionResource     -->  POST (create new Action)
+                              DELETE (???)
+-----------------------------------------------------------------------------------------
+  - Test classes of packages: persistence, representation, resource
+-----------------------------------------------------------------------------------------
+  - Add setup method logic to import.sql file
