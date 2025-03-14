@@ -5,5 +5,5 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 @RegisterForReflection
 public class SpecialtyRepresentation {
     public Integer id;
-    public String specialtyName;
+    public String specialtyType;
 }

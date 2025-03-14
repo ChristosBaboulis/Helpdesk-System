@@ -5,10 +5,7 @@ import com.example.helpdesk.domain.Specialty;
 import com.example.helpdesk.domain.Technician;
 import com.example.helpdesk.persistence.SpecialtyRepository;
 import jakarta.inject.Inject;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -21,6 +18,8 @@ public abstract class TechnicianMapper {
 
     public abstract TechnicianRepresentation toRepresentation(Technician requestCategory);
 
+    //These fields are handled by class and are not populated by a given value of the creator
+    @Mapping(target = "specialties", ignore = true)
     public abstract Technician toModel(TechnicianRepresentation representation);
 
     public abstract List<TechnicianRepresentation> toRepresentationList(List<Technician> requestCategory);

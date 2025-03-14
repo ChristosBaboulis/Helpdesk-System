@@ -13,7 +13,12 @@ import org.mapstruct.Mapping;
 public abstract class RequestMapper {
     public abstract RequestRepresentation toRepresentation(Request request);
 
+    //These fields are handled by class and are not populated by a given value of the creator
     @Mapping(target = "actions", ignore = true)
+    @Mapping(target = "submissionDate", ignore = true)
+    @Mapping(target = "closeDate", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "technician", ignore = true)
     public abstract Request toModel(RequestRepresentation representation);
 
     public abstract List<RequestRepresentation> toRepresentationList(List<Request> request);
