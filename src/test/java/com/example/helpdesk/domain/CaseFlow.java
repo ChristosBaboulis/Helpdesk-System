@@ -181,3 +181,13 @@ public class CaseFlow {
         //r1.notifyCustomer();
     }
 }
+
+//TO-DO
+//Create classes in resource package:
+//
+// CustomerResource   --> PUT(create new Customer), POST (update personal info), DELETE
+// RequestResource    --> PUT(create new Request), POST(update status, add Action/Technician, update Category), GET, DELETE
+// TechnicianResource --> GET, POST(remove request, change/add Specialty)
+// ActionResource     --> PUT (create new Action), DELETE
+//
+//Test classes of packages: persistence, representation, resource

@@ -24,10 +24,6 @@ public class Action {
     @Column(name = "submission_date", length = 10, nullable = false)
     protected LocalDate submissionDate = SystemDate.now();
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "request_id")
-    protected Request request;
-
     public Action() {}
 
     //Full Args constructor - for testing purposes
@@ -75,13 +71,4 @@ public class Action {
     public void setSubmissionDate(LocalDate submissionDate) {
         this.submissionDate = submissionDate;
     }
-
-    public Request getRequest() {
-        return request;
-    }
-
-    public void setRequest(Request request) {
-        this.request = request;
-    }
-
 }

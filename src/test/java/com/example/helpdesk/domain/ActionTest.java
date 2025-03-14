@@ -47,9 +47,5 @@ public class ActionTest {
         //GETTER, SETTER OF ACTION'S SUBMISSION'S DATE
         assertEquals(submDate, action.getSubmissionDate());
         action.setSubmissionDate(LocalDate.parse("04/01/2025", formatter));
-
-        //GETTER, SETTER OF ACTION'S ASSOCIATED REQUEST
-        assertEquals(null, action.getRequest());
-        action.setRequest(new Request());
     }
 }
