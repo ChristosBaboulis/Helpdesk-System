@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class RequestRepresentation {
     public Integer id;
     public String telephoneNumber;
-    public String problemDescription;
+    public String problemDescription = "";
     public LocalDate submissionDate;
     public LocalDate closeDate;
     public Status status;

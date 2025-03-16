@@ -45,8 +45,8 @@ public class Request {
     @JoinColumn(name = "customer_support_id", nullable = false)
     private CustomerSupport customerSupport;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "techician_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "techician_id", nullable = true)
     private Technician technician;
 
 

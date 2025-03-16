@@ -11,7 +11,7 @@ import java.util.Set;
 @DiscriminatorValue("TECHNICIAN")
 public class Technician extends User {
 
-    @Column(name = "technician_code", length = 20)
+    @Column(name = "technician_code", length = 20, unique = true)
     private String technicianCode;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch= FetchType.LAZY)

@@ -3,15 +3,43 @@ package com.example.helpdesk.resource;
 import com.example.helpdesk.Fixture;
 import com.example.helpdesk.IntegrationBase;
 import com.example.helpdesk.domain.Request;
-import com.example.helpdesk.representation.RequestRepresentation;
+import com.example.helpdesk.domain.Status;
+import com.example.helpdesk.persistence.CustomerRepository;
+import com.example.helpdesk.persistence.CustomerSupportRepository;
+import com.example.helpdesk.persistence.RequestCategoryRepository;
+import com.example.helpdesk.persistence.RequestRepository;
+import com.example.helpdesk.representation.*;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
 @QuarkusTest
 public class RequestResourceTest extends IntegrationBase {
+    @Inject
+    RequestCategoryRepository requestCategoryRepository;
+    @Inject
+    RequestCategoryMapper requestCategoryMapper;
+    @Inject
+    CustomerRepository customerRepository;
+    @Inject
+    CustomerMapper customerMapper;
+    @Inject
+    CustomerSupportRepository customerSupportRepository;
+    @Inject
+    CustomerSupportMapper customerSupportMapper;
+    @Inject
+    RequestRepository requestRepository;
+    @Inject
+    RequestMapper requestMapper;
+
     @Test
     public void find() {
         RequestRepresentation r = when().get(Fixture.API_ROOT + HelpdeskUri.REQUESTS +"/" + Fixture.Requests.UML_USER_GUIDE_ID)
@@ -100,4 +128,146 @@ public class RequestResourceTest extends IntegrationBase {
                 .statusCode(400);
     }
     //------------------------------------------------------------------------------------------
+
+    @Test
+    public void testCreateRequest() {
+        // Create a new request representation
+        RequestRepresentation requestRepresentation = new RequestRepresentation();
+        requestRepresentation.telephoneNumber = "1234567890";
+        requestRepresentation.problemDescription = "Internet connection issue.";
+        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001)); // Add valid category
+        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001)); // Add valid customer
+        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001)); // Add valid customer support
+
+        // Send POST request to create a new request
+        RequestRepresentation createdRequest =
+                given()
+                        .contentType(ContentType.JSON)
+                        .body(requestRepresentation)
+                        .when()
+                        .post(Fixture.API_ROOT + HelpdeskUri.REQUESTS)
+                        .then()
+                        .statusCode(201)
+                        .extract().as(RequestRepresentation.class);
+
+        // Assertions to verify correct creation
+        Assertions.assertNotNull(createdRequest.id, "ID should be generated.");
+        Assertions.assertEquals(requestRepresentation.telephoneNumber, createdRequest.telephoneNumber);
+        Assertions.assertEquals(Status.ACTIVE, createdRequest.status, "New request should have ACTIVE status.");
+        Assertions.assertEquals(LocalDate.now(), createdRequest.submissionDate, "Submission date should be today.");
+    }
+
+    @Test
+    public void testCreateRequest_FailWhenIdProvided() {
+        RequestRepresentation requestRepresentation = new RequestRepresentation();
+        requestRepresentation.id = 999; // ID should not be provided
+        requestRepresentation.telephoneNumber = "1234567890";
+        requestRepresentation.problemDescription = "Internet connection issue.";
+        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001));
+        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001));
+        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001));
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(requestRepresentation)
+                .when()
+                .post("/requests")
+                .then()
+                .statusCode(Response.Status.BAD_REQUEST.getStatusCode());
+    }
+
+    @Test
+    public void testCreateRequest_FailWhenMissingFields() {
+        RequestRepresentation requestRepresentation = new RequestRepresentation();
+        requestRepresentation.problemDescription = "Internet connection issue.";
+        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001));
+        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001));
+        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001));
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(requestRepresentation)
+                .when()
+                .post("/requests")
+                .then()
+                .statusCode(Response.Status.BAD_REQUEST.getStatusCode()); // Fails due to missing telephoneNumber
+    }
+
+    @Test
+    public void testCreateRequest_FailWhenCustomerNotFound() {
+        RequestRepresentation requestRepresentation = new RequestRepresentation();
+        requestRepresentation.telephoneNumber = "1234567890";
+        requestRepresentation.problemDescription = "Internet connection issue.";
+        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001));
+        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(99999)); // Invalid ID
+        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001));
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(requestRepresentation)
+                .when()
+                .post("/requests")
+                .then()
+                .statusCode(Response.Status.BAD_REQUEST.getStatusCode());
+    }
+
+    @Test
+    public void testCreateRequest_FailWhenRequestCategoryNotFound() {
+        RequestRepresentation requestRepresentation = new RequestRepresentation();
+        requestRepresentation.telephoneNumber = "1234567890";
+        requestRepresentation.problemDescription = "Internet connection issue.";
+        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(99999)); // Invalid ID
+        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001));
+        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001));
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(requestRepresentation)
+                .when()
+                .post("/requests")
+                .then()
+                .statusCode(Response.Status.BAD_REQUEST.getStatusCode());
+    }
+
+    @Test
+    public void testCreateRequest_FailWhenCustomerSupportNotFound() {
+        RequestRepresentation requestRepresentation = new RequestRepresentation();
+        requestRepresentation.telephoneNumber = "1234567890";
+        requestRepresentation.problemDescription = "Internet connection issue.";
+        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001)); // Invalid ID
+        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001));
+        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(99999));
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(requestRepresentation)
+                .when()
+                .post("/requests")
+                .then()
+                .statusCode(Response.Status.BAD_REQUEST.getStatusCode());
+    }
+
+//    @Test
+//    public void update() {
+//        RequestRepresentation request = when().get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/" + Fixture.Requests.UML_USER_GUIDE_ID)
+//                .then()
+//                .statusCode(200)
+//                .extract().as(RequestRepresentation.class);
+//
+//        request.problemDescription = "UPDATE DESC";
+//
+//        given()
+//                .contentType(ContentType.JSON)
+//                .body(request)
+//                .when().put(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/" + Fixture.Requests.UML_USER_GUIDE_ID)
+//                .then().statusCode(204);
+//
+//
+//        RequestRepresentation updated = when().get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/" + Fixture.Requests.UML_USER_GUIDE_ID)
+//                .then()
+//                .statusCode(200)
+//                .extract().as(RequestRepresentation.class);
+//
+//        Assertions.assertEquals("UPDATE DESC", updated.problemDescription);
+//    }
 }

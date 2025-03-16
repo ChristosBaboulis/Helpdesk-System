@@ -4,9 +4,9 @@
       CustomerResource   -->  POST (create new Customer) Partially
                               PUT (update personal info) Partially
 
-      RequestResource    -->  POST (create new Request), Partially
+      RequestResource    -->  POST (create new Request), DONE
                               PUT (update status, add Action/Technician, update Category) Partially
-                              GET (by: id, telephoneNumber, status) Partially
+                              GET (by: id, telephoneNumber, status) DONE
 
       TechnicianResource -->  GET (by: id, technician code) DONE
                               PUT (remove request, change/add Specialty) Partially
