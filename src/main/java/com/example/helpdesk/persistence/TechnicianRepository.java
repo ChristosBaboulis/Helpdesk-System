@@ -16,8 +16,8 @@ public class TechnicianRepository implements PanacheRepositoryBase<Technician, I
         return find("id", id).firstResult();
     }
 
-    public List<Technician> findByName(String name) {
-        return find("name", name).list();
+    public List<Technician> findByLastName(String name) {
+        return find("personalInfo.lastName", name).list();
     }
 
     public List<Technician> findByTechnicianCode(String technicianCode) {
@@ -25,15 +25,17 @@ public class TechnicianRepository implements PanacheRepositoryBase<Technician, I
     }
 
     public List<Technician> findByTelephoneNumber(String telephoneNumber) {
-        return find("telephoneNumber", telephoneNumber).list();
+        return find("personalInfo.telephoneNumber", telephoneNumber).list();
     }
 
     public List<Technician> findByEmailAddress(String emailAddress) {
-        return find("emailAddress", emailAddress).list();
+        return find("personalInfo.emailAddress", emailAddress).list();
     }
     //-----------------------------------------------------------------------------------------------
 
     //---------------------------------------- BY DEPENDENCIES ----------------------------------------
-    //TODO
+    public List<Technician> findBySpecialtyType(String specialtyType) {
+        return find("SELECT t FROM Technician t JOIN t.specialties s WHERE s.specialtyType = ?1", specialtyType).list();
+    }
     //-----------------------------------------------------------------------------------------------
 }
