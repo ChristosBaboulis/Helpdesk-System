@@ -25,6 +25,8 @@ public class Fixture {
 //
     public static class Requests {
         public static int UML_USER_GUIDE_ID = 6000;
+        public static String PHONE_NUMBER = "1234567890";
+        public static String STATUS = "ACTIVE";
         public static int COUNT = 3;
     }
 

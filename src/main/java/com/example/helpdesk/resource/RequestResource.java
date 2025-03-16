@@ -1,6 +1,7 @@
 package com.example.helpdesk.resource;
 
 import com.example.helpdesk.domain.Request;
+import com.example.helpdesk.domain.Status;
 import com.example.helpdesk.persistence.RequestRepository;
 import com.example.helpdesk.representation.RequestMapper;
 import jakarta.enterprise.context.RequestScoped;
@@ -9,6 +10,8 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
+
+import java.util.Arrays;
 
 import static com.example.helpdesk.resource.HelpdeskUri.REQUESTS;
 
@@ -35,8 +38,14 @@ public class RequestResource {
     }
 
     @GET
-    @Path("{telephoneNumber:^[0-9]{10}$}")
+    @Path("/phone/{telephoneNumber}")
     public Response findByPhoneNumber(@PathParam("telephoneNumber") String telephoneNumber) {
+        //Telephone number format check
+        if (!telephoneNumber.matches("\\d{10}")) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Invalid phone number format. It must be exactly 10 digits.")
+                    .build();
+        }
 
         Request request = requestRepository.findByTelephoneNumber(telephoneNumber).getFirst();
         if (request == null) {
@@ -47,14 +56,29 @@ public class RequestResource {
     }
 
     @GET
-    @Path("{status:^[a-zA-Z]+$}")
+    @Path("/status/{status}")
     public Response findByStatus(@PathParam("status") String status) {
-
-        Request request = requestRepository.findByStatus(status).getFirst();
-        if (request == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        //Status format check
+        if (!status.matches("^[a-zA-Z]+$")) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Invalid status format. Must contain only letters (A-Z or a-z).")
+                    .build();
         }
 
-        return Response.ok().entity(requestMapper.toRepresentation(request)).build();
+        try {
+            // Convert String to Enum
+            Status statusEnum = Status.valueOf(status.toUpperCase());
+
+            Request request = requestRepository.findByStatus(statusEnum).getFirst();
+            if (request == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+
+            return Response.ok().entity(requestMapper.toRepresentation(request)).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Invalid status value. Allowed values: " + Arrays.toString(Status.values()))
+                    .build();
+        }
     }
 }

@@ -19,7 +19,7 @@ public class RequestRepository implements PanacheRepositoryBase<Request, Integer
         return find("telephoneNumber", telephoneNumber).list();
     }
 
-    public List<Request> findByStatus(String status) {
+    public List<Request> findByStatus(Status status) {
         return find("status", status).list();
     }
 
