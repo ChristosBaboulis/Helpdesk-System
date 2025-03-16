@@ -16,8 +16,6 @@ import static com.example.helpdesk.resource.HelpdeskUri.TECHNICIANS;
 @Path(TECHNICIANS)
 @RequestScoped
 public class TechnicianResource {
-
-
     @Inject
     TechnicianRepository technicianRepository;
 
@@ -26,15 +24,13 @@ public class TechnicianResource {
 
     @GET
     @Path("{technicianId:[0-9]*}")
-public Response find(@PathParam("technicianId") Integer technicianId) {
+    public Response find(@PathParam("technicianId") Integer technicianId) {
 
-    Technician technician = TechnicianRepository.findById(technicianId);
-    if (technician == null) {
-        return Response.status(Response.Status.NOT_FOUND).build();
+        Technician technician = technicianRepository.findById(technicianId);
+        if (technician == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok().entity(technicianMapper.toRepresentation(technician)).build();
     }
-
-    return Response.ok().entity(TechnicianMapper.toRepresentation(technician)).build();
-}
-
-
 }
