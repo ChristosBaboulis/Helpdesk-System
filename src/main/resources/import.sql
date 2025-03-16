@@ -94,3 +94,6 @@ VALUES (5001, 'CUST005', 'Liam', 'Miller', '7123456789', 'liam.miller@example.co
 INSERT INTO requests (id, status, telephone_number, category_id, customer_id, customer_support_id, techician_id, submission_date)
 VALUES (6000, 'ACTIVE', '1234567890', 2001, 5001, 3001, 4001, '2025-03-16');
 
+INSERT INTO requests (id, status, telephone_number, category_id, customer_id, customer_support_id, techician_id, submission_date, close_date)
+VALUES (6001, 'CLOSED', '1234567890', 2001, 5001, 3001, 4001, '2025-03-16', '2025-03-17');
+

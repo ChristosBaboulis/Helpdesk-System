@@ -1,5 +1,6 @@
 package com.example.helpdesk.persistence;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.helpdesk.domain.*;
@@ -23,11 +24,11 @@ public class RequestRepository implements PanacheRepositoryBase<Request, Integer
         return find("status", status).list();
     }
 
-    public List<Request> findBySubmissionDate(String submissionDate) {
+    public List<Request> findBySubmissionDate(LocalDate submissionDate) {
         return find("submissionDate", submissionDate).list();
     }
 
-    public List<Request> findByClosingDate(String closingDate) {
+    public List<Request> findByClosingDate(LocalDate closingDate) {
         return find("closeDate", closingDate).list();
     }
     //-----------------------------------------------------------------------------------------------
@@ -53,12 +54,12 @@ public class RequestRepository implements PanacheRepositoryBase<Request, Integer
     //------------------------------------ ACTIVE & CLOSED STATUS ------------------------------------
     public List<Request> activeRequests() {
         return (List<Request>) find("select r from Request r where r.status = :status",
-                Parameters.with("status", "ACTIVE")).list();
+                Parameters.with("status", Status.ACTIVE)).list();
     }
 
     public List<Request> closedRequests() {
         return (List<Request>) find("select r from Request r where r.status = :status",
-                Parameters.with("status", "CLOSED")).list();
+                Parameters.with("status", Status.CLOSED)).list();
     }
     //-----------------------------------------------------------------------------------------------
 }
