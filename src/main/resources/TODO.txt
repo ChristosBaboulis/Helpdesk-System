@@ -15,5 +15,3 @@
                               DELETE (???)
 -----------------------------------------------------------------------------------------
   - Test classes of packages: persistence, representation(???), resource
------------------------------------------------------------------------------------------
-  - Add setup method logic to import.sql file
