@@ -5,7 +5,7 @@ public class HelpdeskUri {
 
     public static final String TECHNICIANS = "/technicians";
 
-    //public static final String LOANS = "/loans";
+    public static final String CUSTOMERS = "/customers";
 
     //public static final String ITEMS = "/items";
 
