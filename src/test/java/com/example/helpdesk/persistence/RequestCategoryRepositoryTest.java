@@ -8,8 +8,6 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 @QuarkusTest
 public class RequestCategoryRepositoryTest extends IntegrationBase {
     @Inject

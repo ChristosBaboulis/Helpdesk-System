@@ -16,7 +16,7 @@ public class SpecialtyRepository implements PanacheRepositoryBase<Specialty, Int
     }
 
     public List<Specialty> findBySpecialtyType(String specialtyType) {
-        return find("customerCode", specialtyType).list();
+        return find("specialtyType", specialtyType).list();
     }
     //-----------------------------------------------------------------------------------------------
 }
