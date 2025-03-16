@@ -1,17 +1,17 @@
 ------------------------------------ TO-DO ---------------------------------------------
   - Create classes in resource package:
 
-      CustomerResource   -->  POST (create new Customer)
-                              PUT (update personal info)
+      CustomerResource   -->  POST (create new Customer) Partially
+                              PUT (update personal info) Partially
 
-      RequestResource    -->  POST (create new Request),
-                              PUT (update status, add Action/Technician, update Category)
-                              GET (by: id, telephoneNumber, status)
+      RequestResource    -->  POST (create new Request), Partially
+                              PUT (update status, add Action/Technician, update Category) Partially
+                              GET (by: id, telephoneNumber, status) Partially
 
       TechnicianResource -->  GET (by: id, technician code) DONE
-                              PUT (remove request, change/add Specialty)
+                              PUT (remove request, change/add Specialty) Partially
 
-      ActionResource     -->  POST (create new Action)
+      ActionResource     -->  POST (create new Action) Pending
                               DELETE (???)
 -----------------------------------------------------------------------------------------
   - Test classes of packages: persistence, representation(???), resource
