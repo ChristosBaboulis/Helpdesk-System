@@ -9,9 +9,12 @@ import com.example.helpdesk.persistence.CustomerSupportRepository;
 import com.example.helpdesk.persistence.RequestCategoryRepository;
 import com.example.helpdesk.persistence.RequestRepository;
 import com.example.helpdesk.representation.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -39,6 +42,8 @@ public class RequestResourceTest extends IntegrationBase {
     RequestRepository requestRepository;
     @Inject
     RequestMapper requestMapper;
+    @Inject
+    RequestResource requestResource;
 
     @Test
     public void find() {
@@ -130,7 +135,7 @@ public class RequestResourceTest extends IntegrationBase {
     //------------------------------------------------------------------------------------------
 
     @Test
-    public void testCreateRequest() {
+    public void testCreateRequest(){
         // Create a new request representation
         RequestRepresentation requestRepresentation = new RequestRepresentation();
         requestRepresentation.telephoneNumber = "1234567890";
@@ -139,13 +144,20 @@ public class RequestResourceTest extends IntegrationBase {
         requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001)); // Add valid customer
         requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001)); // Add valid customer support
 
+        Assertions.assertNotNull(requestRepresentation.requestCategory);
+        Assertions.assertNotNull(requestRepresentation.customer);
+        Assertions.assertNotNull(requestRepresentation.customerSupport);
+        Assertions.assertNotNull(requestRepresentation.telephoneNumber);
+
+        System.out.println(Fixture.API_ROOT + HelpdeskUri.REQUESTS);
+
         // Send POST request to create a new request
         RequestRepresentation createdRequest =
                 given()
                         .contentType(ContentType.JSON)
                         .body(requestRepresentation)
                         .when()
-                        .post(Fixture.API_ROOT + HelpdeskUri.REQUESTS)
+                        .put(Fixture.API_ROOT + HelpdeskUri.REQUESTS)
                         .then()
                         .statusCode(201)
                         .extract().as(RequestRepresentation.class);
@@ -247,27 +259,4 @@ public class RequestResourceTest extends IntegrationBase {
                 .statusCode(Response.Status.BAD_REQUEST.getStatusCode());
     }
 
-//    @Test
-//    public void update() {
-//        RequestRepresentation request = when().get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/" + Fixture.Requests.UML_USER_GUIDE_ID)
-//                .then()
-//                .statusCode(200)
-//                .extract().as(RequestRepresentation.class);
-//
-//        request.problemDescription = "UPDATE DESC";
-//
-//        given()
-//                .contentType(ContentType.JSON)
-//                .body(request)
-//                .when().put(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/" + Fixture.Requests.UML_USER_GUIDE_ID)
-//                .then().statusCode(204);
-//
-//
-//        RequestRepresentation updated = when().get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/" + Fixture.Requests.UML_USER_GUIDE_ID)
-//                .then()
-//                .statusCode(200)
-//                .extract().as(RequestRepresentation.class);
-//
-//        Assertions.assertEquals("UPDATE DESC", updated.problemDescription);
-//    }
 }

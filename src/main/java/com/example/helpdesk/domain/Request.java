@@ -33,19 +33,19 @@ public class Request {
     private Status status;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     private RequestCategory requestCategory;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_support_id", nullable = false)
     private CustomerSupport customerSupport;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "techician_id", nullable = true)
     private Technician technician;
 
