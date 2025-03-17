@@ -97,3 +97,11 @@ VALUES (6000, 'ACTIVE', '1234567890', 2001, 5001, 3001, 4001, '2025-03-16');
 INSERT INTO requests (id, status, telephone_number, category_id, customer_id, customer_support_id, techician_id, submission_date, close_date)
 VALUES (6001, 'CLOSED', '1234567890', 2001, 5001, 3001, 4001, '2025-03-16', '2025-03-17');
 
+--Actions
+-- Insert a CommunicationAction (Call with customer)
+INSERT INTO actions (id, action_type, title, description, submission_date, call_duration)
+VALUES (7001, 'COMMUNICATION', 'Call Support', 'Customer called for help regarding internet issues', '2025-03-16', 15.5);
+
+-- Insert a TechnicalAction (Fixing a technical issue)
+INSERT INTO actions (id, action_type, title, description, submission_date)
+VALUES (7002, 'TECHNICAL', 'Fix Router Issue', 'Replaced faulty router with a new one', '2025-03-16');

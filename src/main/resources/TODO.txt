@@ -12,8 +12,8 @@
       TechnicianResource -->  GET (by: id, technician code)                                 DONE
                               PUT (change/add Specialty)                                    DONE
 
-      ActionResource     -->  POST (create new Action) Pending
-                              GET (by: id, call duration, title, submission date)
+      ActionResource     -->  POST (create new Action)                                      DONE
+                              GET (by: id, call duration, submission date)
 -----------------------------------------------------------------------------------------
   - Test classes of packages: persistence           DONE
                               representation        DONE

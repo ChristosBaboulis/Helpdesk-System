@@ -124,7 +124,6 @@ public class RequestResource {
     @PUT
     @Transactional
     @Path("/{requestId}/updateStatus/{status}")
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response updateStatus(@PathParam("requestId") Integer requestId, @PathParam("status") String status) {
 
         Status statusEnum = Status.valueOf(status.toUpperCase());
