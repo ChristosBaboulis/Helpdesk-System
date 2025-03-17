@@ -2,7 +2,7 @@
   - Create classes in resource package:
 
       CustomerResource   -->  POST (create new Customer)                                    DONE
-                              GET (by: id, customerCode, email)                             DONE
+                              GET (by: id, customerCode, email, phone)                      DONE
 
       RequestResource    -->  POST (create new Request),                                    DONE
                               PUT (update status, add Action/Technician)                    DONE

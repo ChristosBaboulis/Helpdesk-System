@@ -20,11 +20,11 @@ public class CustomerRepository implements PanacheRepositoryBase<Customer, Integ
     }
 
     public List<Customer> findByTelephoneNumber(String telephoneNumber) {
-        return find("telephoneNumber", telephoneNumber).list();
+        return find("personalInfo.telephoneNumber", telephoneNumber).list();
     }
 
     public List<Customer> findByEmailAddress(String emailAddress) {
-        return find("emailAddress", emailAddress).list();
+        return find("personalInfo.emailAddress", emailAddress).list();
     }
     //-----------------------------------------------------------------------------------------------
 }
