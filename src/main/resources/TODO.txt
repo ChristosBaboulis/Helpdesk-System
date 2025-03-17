@@ -1,9 +1,8 @@
 ------------------------------------ TO-DO ---------------------------------------------
   - Create classes in resource package:
 
-      CustomerResource   -->  POST (create new Customer) Partially
-                              PUT (update personal info) Partially
-                              GET (by: id, customerCode, email)
+      CustomerResource   -->  POST (create new Customer)                                    DONE
+                              GET (by: id, customerCode, email)                             DONE
 
       RequestResource    -->  POST (create new Request),                                    DONE
                               PUT (update status, add Action/Technician)                    DONE
