@@ -31,6 +31,10 @@ public class TechnicianRepository implements PanacheRepositoryBase<Technician, I
     public List<Technician> findByEmailAddress(String emailAddress) {
         return find("personalInfo.emailAddress", emailAddress).list();
     }
+
+    public List<Technician> findBySpecialty(Integer specialtyId) {
+        return find("SELECT t FROM Technician t JOIN t.specialties s WHERE s.id = ?1", specialtyId).list();
+    }
     //-----------------------------------------------------------------------------------------------
 
     //---------------------------------------- BY DEPENDENCIES ----------------------------------------

@@ -12,7 +12,9 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.example.helpdesk.resource.HelpdeskUri.REQUESTS;
 
@@ -138,6 +140,47 @@ public class RequestResource {
         }
 
         requestRepository.getEntityManager().merge(updatedRequest);
+
+        return Response.ok().build();
+    }
+
+    @PUT
+    @Path("/assignTechnician/{requestId}")
+    @Transactional
+    public Response findAvailableTechnician(@PathParam("requestId") Integer requestId) {
+
+        Request request = requestRepository.search(requestId);
+        if(request == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        List<Technician> technicianList = technicianRepository.findBySpecialty(request.getRequestCategory().getSpecialty().getId());
+        List<Request> assignedRequests = requestRepository.assignedRequests();
+        List<Integer> counters = new ArrayList<>();
+
+        for(Technician technician : technicianList) {
+            Integer activeRequests = 0;
+            for(Request assignedRequest : assignedRequests) {
+                if(assignedRequest.getTechnician().getId().equals(technician.getId())) {
+                    activeRequests++;
+                }
+            }
+            counters.add(activeRequests);
+        }
+
+        int min = 50;
+        Technician selectedTechnician = null;
+        int index = 0;
+        for (int i = 0; i < technicianList.size(); i++) {
+            if (counters.get(i) <= min) {
+                min = counters.get(i);
+                index = i;
+            }
+        }
+        selectedTechnician = technicianList.get(index);
+
+        request.assign(selectedTechnician);
+        requestRepository.getEntityManager().merge(request);
 
         return Response.ok().build();
     }

@@ -61,5 +61,10 @@ public class RequestRepository implements PanacheRepositoryBase<Request, Integer
         return (List<Request>) find("select r from Request r where r.status = :status",
                 Parameters.with("status", Status.CLOSED)).list();
     }
+
+    public List<Request> assignedRequests() {
+        return (List<Request>) find("select r from Request r where r.status = :status",
+                Parameters.with("status", Status.RESOLVING)).list();
+    }
     //-----------------------------------------------------------------------------------------------
 }

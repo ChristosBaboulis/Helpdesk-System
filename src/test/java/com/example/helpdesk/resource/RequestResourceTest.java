@@ -153,4 +153,23 @@ public class RequestResourceTest extends IntegrationBase {
                 .extract().as(RequestRepresentation.class);
         Assertions.assertEquals(Status.REJECTED, r.status);
     }
+
+    @Test
+    @TestTransaction
+    public void testAssignTechnician(){
+        String uri = Fixture.API_ROOT + HelpdeskUri.REQUESTS +"/";
+
+        given()
+                .contentType(ContentType.JSON)
+                .when().put(uri+"assignTechnician/6000")
+                .then().statusCode(200);
+
+        RequestRepresentation r = when().get(Fixture.API_ROOT + HelpdeskUri.REQUESTS +"/" + Fixture.Requests.UML_USER_GUIDE_ID)
+                .then()
+                .statusCode(200)
+                .extract().as(RequestRepresentation.class);
+        Assertions.assertEquals(Status.RESOLVING, r.status);
+        Assertions.assertNotNull(r.technician);
+        Assertions.assertEquals(4002, r.technician.id);
+    }
 }
