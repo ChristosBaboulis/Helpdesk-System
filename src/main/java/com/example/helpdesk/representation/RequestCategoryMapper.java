@@ -27,12 +27,8 @@ public abstract class RequestCategoryMapper {
     @AfterMapping
     protected void connectToSpecialty(RequestCategoryRepresentation representation,
                                      @MappingTarget RequestCategory requestCategory) {
-
-        if (representation.specialty != null && representation.specialty.id != null) {
+        if(representation.specialty != null) {
             Specialty specialty = specialtyRepository.findById(representation.specialty.id);
-            if (specialty == null) {
-                throw new RuntimeException();
-            }
             requestCategory.setSpecialty(specialty);
         }
     }
