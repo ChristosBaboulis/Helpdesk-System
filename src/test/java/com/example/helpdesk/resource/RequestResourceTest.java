@@ -144,7 +144,6 @@ public class RequestResourceTest extends IntegrationBase {
 
         given()
                 .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
                 .when().put("http://localhost:8081/requests/6000/updateStatus/REJECTED")
                 .then().statusCode(200);
 
@@ -154,5 +153,4 @@ public class RequestResourceTest extends IntegrationBase {
                 .extract().as(RequestRepresentation.class);
         Assertions.assertEquals(Status.REJECTED, r.status);
     }
-
 }

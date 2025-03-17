@@ -12,7 +12,6 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.Arrays;
 
 import static com.example.helpdesk.resource.HelpdeskUri.REQUESTS;
@@ -142,5 +141,4 @@ public class RequestResource {
 
         return Response.ok().build();
     }
-
 }

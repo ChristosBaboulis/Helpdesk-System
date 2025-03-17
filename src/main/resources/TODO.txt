@@ -6,7 +6,7 @@
                               GET (by: id, customerCode, email)
 
       RequestResource    -->  POST (create new Request),
-                              PUT (update status, add Action/Technician, update Category)
+                              PUT (update status, add Action/Technician)
                               GET (by: id, telephoneNumber, status)                         DONE
 
       TechnicianResource -->  GET (by: id, technician code)                                 DONE
