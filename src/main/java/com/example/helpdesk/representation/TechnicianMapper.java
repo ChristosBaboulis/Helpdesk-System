@@ -16,6 +16,8 @@ public abstract class TechnicianMapper {
 
     public abstract TechnicianRepresentation toRepresentation(Technician requestCategory);
 
+    //These fields are handled by class and are not populated by a given value of the creator
+    @Mapping(target = "specialties", ignore = true)
     public abstract Technician toModel(TechnicianRepresentation representation);
 
     public abstract List<TechnicianRepresentation> toRepresentationList(List<Technician> requestCategory);
