@@ -5,7 +5,7 @@
                               PUT (update personal info) Partially
                               GET (by: id, customerCode, email)
 
-      RequestResource    -->  POST (create new Request),
+      RequestResource    -->  POST (create new Request),                                    DONE
                               PUT (update status, add Action/Technician)                    DONE
                               GET (by: id, telephoneNumber, status)                         DONE
 
@@ -17,4 +17,4 @@
 -----------------------------------------------------------------------------------------
   - Test classes of packages: persistence           DONE
                               representation        DONE
-                              resource
+                              resource              DONE

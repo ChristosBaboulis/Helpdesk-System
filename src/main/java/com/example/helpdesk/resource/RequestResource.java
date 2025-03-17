@@ -216,4 +216,43 @@ public class RequestResource {
 
         return Response.ok().build();
     }
+
+    // CREATE A NEW REQUEST RESOURCE
+    @POST
+    @Transactional
+    public Response createRequest(RequestRepresentation requestRepresentation) {
+        // Validate input
+        if (requestRepresentation.telephoneNumber == null || requestRepresentation.problemDescription == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Missing required fields.").build();
+        }
+
+        // Validate phone number format (must be exactly 10 digits)
+        if (!requestRepresentation.telephoneNumber.matches("\\d{10}")) {
+            System.out.println("DEBUG: Invalid phone number format: " + requestRepresentation.telephoneNumber);
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid phone number format. It must be exactly 10 digits.").build();
+        }
+
+        // Fetch related entities
+        RequestCategory category = requestCategoryRepository.findById(requestRepresentation.requestCategory.id);
+        Customer customer = customerRepository.findById(requestRepresentation.customer.id);
+        CustomerSupport support = customerSupportRepository.findById(requestRepresentation.customerSupport.id);
+
+        if (category == null || customer == null || support == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Category, Customer, or Support not found.").build();
+        }
+
+        // Convert representation to entity
+        Request newRequest = requestMapper.toModel(requestRepresentation);
+
+        // Set fetched relationships
+        newRequest.setRequestCategory(category);
+        newRequest.setCustomer(customer);
+        newRequest.setCustomerSupport(support);
+
+        requestRepository.persist(newRequest);
+        URI location = UriBuilder.fromResource(RequestResource.class).path("/{id}").build(newRequest.getId());
+
+        return Response.created(location).entity(requestMapper.toRepresentation(newRequest)).build();
+    }
+
 }
