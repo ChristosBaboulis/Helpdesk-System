@@ -119,44 +119,28 @@ public class RequestResource {
         }
     }
 
-    //CREATE A NEW REQUEST
+    //UPDATE REQUEST STATUS
     @PUT
     @Transactional
-    public Response create(RequestRepresentation representation) {
-        System.out.println("Create API Method Called!");
-        //Check for id to be null in representation
-        if(representation.id != null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Request ID should not be provided when creating a new request.")
-                    .build();
+    @Path("/{requestId}/updateStatus/{status}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateStatus(@PathParam("requestId") Integer requestId, @PathParam("status") String status) {
+
+        Status statusEnum = Status.valueOf(status.toUpperCase());
+        Request updatedRequest = requestRepository.findById(requestId);
+
+        switch (statusEnum) {
+            case Status.ACTIVE -> updatedRequest.accept();
+            case Status.REJECTED -> updatedRequest.reject();
+            case Status.CLOSED -> updatedRequest.close();
+            default -> {
+                return Response.status(Response.Status.BAD_REQUEST).entity("Invalid status transition").build();
+            }
         }
 
-        // Validate required fields before accessing them
-        if (representation.customer == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Customer is required.")
-                    .build();
-        }
-        if (representation.requestCategory == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Request Category is required.")
-                    .build();
-        }
-        if (representation.customerSupport == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Customer Support is required.")
-                    .build();
-        }
-        if (representation.telephoneNumber == null || representation.telephoneNumber.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Telephone number is required.")
-                    .build();
-        }
+        requestRepository.getEntityManager().merge(updatedRequest);
 
-        Request request = requestMapper.toModel(representation);
-        requestRepository.persist(request);
-        URI uri = UriBuilder.fromResource(RequestResource.class).path(String.valueOf(request.getId())).build();
-        return Response.created(uri).entity(requestMapper.toRepresentation(request)).build();
+        return Response.ok().build();
     }
 
 }

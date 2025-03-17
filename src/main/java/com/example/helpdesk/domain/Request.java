@@ -215,19 +215,10 @@ public class Request {
 
         if(match){
             this.technician = technician;
-            status = Status.ASSIGNED_TO_BE_SOLVED;
+            status = Status.RESOLVING;
         }else{
             throw new DomainException("Technician does not have the correct specialty for this request category.");
         }
-    }
-
-    //Method used to change request's status to RESOLVING, after checking if it is not closed
-    public void resolve(){
-        //Restriction of closed Request
-        if(status == Status.CLOSED){
-            throw new DomainException("Request's status cannot be changed, it is already closed.");
-        }
-        status = Status.RESOLVING;
     }
 
     //Method used to change request's status to closed

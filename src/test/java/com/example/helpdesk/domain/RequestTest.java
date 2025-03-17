@@ -162,7 +162,7 @@ public class RequestTest {
         //Correct technician with more than 1 specialty
         technician.setSpecialty(new Specialty("Extra useless specialty"));
         request2.assign(technician);
-        assertEquals(Status.ASSIGNED_TO_BE_SOLVED, request2.getStatus());
+        assertEquals(Status.RESOLVING, request2.getStatus());
 
         //Wrong Technician according to specialty
         Technician wrongTechnician = new Technician("username1234", "123asd!!",
@@ -187,15 +187,6 @@ public class RequestTest {
         request2.addAction(comAction);
         request2.close();
         assertThrows(DomainException.class, () -> request2.assign(technician));
-    }
-
-    //TEST RESOLVE OF REQUEST
-    @Test
-    public void checkResolve() {
-        request.resolve();
-        assertEquals(Status.RESOLVING, request.getStatus());
-        request.close();
-        assertThrows(DomainException.class, () -> request.resolve());
     }
 
     //TEST ACCEPTANCE OF REQUEST

@@ -11,6 +11,7 @@ import com.example.helpdesk.persistence.RequestRepository;
 import com.example.helpdesk.representation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
@@ -135,128 +136,23 @@ public class RequestResourceTest extends IntegrationBase {
     //------------------------------------------------------------------------------------------
 
     @Test
-    public void testCreateRequest(){
-        // Create a new request representation
-        RequestRepresentation requestRepresentation = new RequestRepresentation();
-        requestRepresentation.telephoneNumber = "1234567890";
-        requestRepresentation.problemDescription = "Internet connection issue.";
-        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001)); // Add valid category
-        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001)); // Add valid customer
-        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001)); // Add valid customer support
-
-        Assertions.assertNotNull(requestRepresentation.requestCategory);
-        Assertions.assertNotNull(requestRepresentation.customer);
-        Assertions.assertNotNull(requestRepresentation.customerSupport);
-        Assertions.assertNotNull(requestRepresentation.telephoneNumber);
-
-        System.out.println(Fixture.API_ROOT + HelpdeskUri.REQUESTS);
-
-        // Send POST request to create a new request
-        RequestRepresentation createdRequest =
-                given()
-                        .contentType(ContentType.JSON)
-                        .body(requestRepresentation)
-                        .when()
-                        .put(Fixture.API_ROOT + HelpdeskUri.REQUESTS)
-                        .then()
-                        .statusCode(201)
-                        .extract().as(RequestRepresentation.class);
-
-        // Assertions to verify correct creation
-        Assertions.assertNotNull(createdRequest.id, "ID should be generated.");
-        Assertions.assertEquals(requestRepresentation.telephoneNumber, createdRequest.telephoneNumber);
-        Assertions.assertEquals(Status.ACTIVE, createdRequest.status, "New request should have ACTIVE status.");
-        Assertions.assertEquals(LocalDate.now(), createdRequest.submissionDate, "Submission date should be today.");
-    }
-
-    @Test
-    public void testCreateRequest_FailWhenIdProvided() {
-        RequestRepresentation requestRepresentation = new RequestRepresentation();
-        requestRepresentation.id = 999; // ID should not be provided
-        requestRepresentation.telephoneNumber = "1234567890";
-        requestRepresentation.problemDescription = "Internet connection issue.";
-        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001));
-        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001));
-        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001));
+    @TestTransaction
+    public void updateStatus(){
+        requestRepository.getEntityManager().clear();
+        Status beforeStatus = requestRepository.search(6000).getStatus();
+        Assertions.assertEquals(Status.ACTIVE, beforeStatus);
 
         given()
                 .contentType(ContentType.JSON)
-                .body(requestRepresentation)
-                .when()
-                .post("/requests")
+                .accept(ContentType.JSON)
+                .when().put("http://localhost:8081/requests/6000/updateStatus/REJECTED")
+                .then().statusCode(200);
+
+        RequestRepresentation r = when().get(Fixture.API_ROOT + HelpdeskUri.REQUESTS +"/" + Fixture.Requests.UML_USER_GUIDE_ID)
                 .then()
-                .statusCode(Response.Status.BAD_REQUEST.getStatusCode());
-    }
-
-    @Test
-    public void testCreateRequest_FailWhenMissingFields() {
-        RequestRepresentation requestRepresentation = new RequestRepresentation();
-        requestRepresentation.problemDescription = "Internet connection issue.";
-        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001));
-        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001));
-        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001));
-
-        given()
-                .contentType(ContentType.JSON)
-                .body(requestRepresentation)
-                .when()
-                .post("/requests")
-                .then()
-                .statusCode(Response.Status.BAD_REQUEST.getStatusCode()); // Fails due to missing telephoneNumber
-    }
-
-    @Test
-    public void testCreateRequest_FailWhenCustomerNotFound() {
-        RequestRepresentation requestRepresentation = new RequestRepresentation();
-        requestRepresentation.telephoneNumber = "1234567890";
-        requestRepresentation.problemDescription = "Internet connection issue.";
-        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001));
-        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(99999)); // Invalid ID
-        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001));
-
-        given()
-                .contentType(ContentType.JSON)
-                .body(requestRepresentation)
-                .when()
-                .post("/requests")
-                .then()
-                .statusCode(Response.Status.BAD_REQUEST.getStatusCode());
-    }
-
-    @Test
-    public void testCreateRequest_FailWhenRequestCategoryNotFound() {
-        RequestRepresentation requestRepresentation = new RequestRepresentation();
-        requestRepresentation.telephoneNumber = "1234567890";
-        requestRepresentation.problemDescription = "Internet connection issue.";
-        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(99999)); // Invalid ID
-        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001));
-        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(3001));
-
-        given()
-                .contentType(ContentType.JSON)
-                .body(requestRepresentation)
-                .when()
-                .post("/requests")
-                .then()
-                .statusCode(Response.Status.BAD_REQUEST.getStatusCode());
-    }
-
-    @Test
-    public void testCreateRequest_FailWhenCustomerSupportNotFound() {
-        RequestRepresentation requestRepresentation = new RequestRepresentation();
-        requestRepresentation.telephoneNumber = "1234567890";
-        requestRepresentation.problemDescription = "Internet connection issue.";
-        requestRepresentation.requestCategory = requestCategoryMapper.toRepresentation(requestCategoryRepository.findById(2001)); // Invalid ID
-        requestRepresentation.customer = customerMapper.toRepresentation(customerRepository.findById(5001));
-        requestRepresentation.customerSupport = customerSupportMapper.toRepresentation(customerSupportRepository.findById(99999));
-
-        given()
-                .contentType(ContentType.JSON)
-                .body(requestRepresentation)
-                .when()
-                .post("/requests")
-                .then()
-                .statusCode(Response.Status.BAD_REQUEST.getStatusCode());
+                .statusCode(200)
+                .extract().as(RequestRepresentation.class);
+        Assertions.assertEquals(Status.REJECTED, r.status);
     }
 
 }
