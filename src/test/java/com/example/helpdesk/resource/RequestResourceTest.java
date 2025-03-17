@@ -172,4 +172,48 @@ public class RequestResourceTest extends IntegrationBase {
         Assertions.assertNotNull(r.technician);
         Assertions.assertEquals(4002, r.technician.id);
     }
+
+    @Test
+    @TestTransaction
+    public void testAddActionToRequest() throws InterruptedException {
+        int requestId = 6000;
+        int actionId = 7001;
+
+        Request request = requestRepository.search(6000);
+        Assertions.assertEquals(0, request.getActions().size());
+
+        // 1. Successfully add an action to a request
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .put("/requests/" + requestId + "/addAction/" + actionId)
+                .then()
+                .statusCode(200);
+
+        // 2. Try adding the same action again → should return 409 Conflict
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .put("/requests/" + requestId + "/addAction/" + actionId)
+                .then()
+                .statusCode(409);
+
+        // 3. Non-existent request ID → should return 404
+        int invalidRequestId = 9999;
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .put("/requests/" + invalidRequestId + "/addAction/" + actionId)
+                .then()
+                .statusCode(404);
+
+        // 4. Non-existent action ID → should return 404
+        int invalidActionId = 8888;
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .put("/requests/" + requestId + "/addAction/" + invalidActionId)
+                .then()
+                .statusCode(404);
+    }
 }

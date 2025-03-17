@@ -6,14 +6,14 @@
                               GET (by: id, customerCode, email)
 
       RequestResource    -->  POST (create new Request),
-                              PUT (update status, add Action/Technician)
+                              PUT (update status, add Action/Technician)                    DONE
                               GET (by: id, telephoneNumber, status)                         DONE
 
       TechnicianResource -->  GET (by: id, technician code)                                 DONE
                               PUT (change/add Specialty)                                    DONE
 
       ActionResource     -->  POST (create new Action)                                      DONE
-                              GET (by: id, call duration, submission date)
+                              GET (by: id, call duration, submission date)                  DONE
 -----------------------------------------------------------------------------------------
   - Test classes of packages: persistence           DONE
                               representation        DONE

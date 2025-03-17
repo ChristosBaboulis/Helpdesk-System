@@ -41,6 +41,8 @@ public class RequestResource {
 
     @Inject
     TechnicianRepository technicianRepository;
+    @Inject
+    ActionRepository actionRepository;
 
     //GET BY ID
     @GET
@@ -143,6 +145,7 @@ public class RequestResource {
         return Response.ok().build();
     }
 
+    //ASSIGN THE BEST AVAILABLE TECHNICIAN TO REQUEST AND UPDATE STATUS ACCORDINGLY
     @PUT
     @Path("/assignTechnician/{requestId}")
     @Transactional
@@ -180,6 +183,36 @@ public class RequestResource {
 
         request.assign(selectedTechnician);
         requestRepository.getEntityManager().merge(request);
+
+        return Response.ok().build();
+    }
+
+    //ADD ACTION TO RESOURCE
+    @PUT
+    @Path("{requestId}/addAction/{actionId}")
+    @Transactional
+    public Response addAction(@PathParam("requestId") Integer requestId, @PathParam("actionId") Integer actionId) {
+        //FIND REQUEST TO BE ASSIGNED AN ACTION
+        Request request = requestRepository.findById(requestId);
+        if(request == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        //FIND ACTION
+        Action action = actionRepository.findById(actionId);
+        if(action == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        // PREVENT DUPLICATE ASSIGNMENT (ENSURE ACTION IS NOT ALREADY LINKED TO ANOTHER REQUEST)
+        if (request.getActions().contains(action)) {
+            return Response.status(Response.Status.CONFLICT).entity("Action already assigned to this request.").build();
+        }
+
+        request.addAction(action);
+        requestRepository.persist(request); // Ensure it's persisted
+        requestRepository.getEntityManager().flush(); // Force commit
+        requestRepository.getEntityManager().clear(); // Clear session cache
 
         return Response.ok().build();
     }
