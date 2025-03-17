@@ -1,8 +1,6 @@
 package com.example.helpdesk.representation;
 
-import com.example.helpdesk.domain.RequestCategory;
-import com.example.helpdesk.domain.Specialty;
-import com.example.helpdesk.domain.Technician;
+import com.example.helpdesk.domain.*;
 import com.example.helpdesk.persistence.SpecialtyRepository;
 import jakarta.inject.Inject;
 import org.mapstruct.*;
@@ -18,8 +16,6 @@ public abstract class TechnicianMapper {
 
     public abstract TechnicianRepresentation toRepresentation(Technician requestCategory);
 
-    //These fields are handled by class and are not populated by a given value of the creator
-    @Mapping(target = "specialties", ignore = true)
     public abstract Technician toModel(TechnicianRepresentation representation);
 
     public abstract List<TechnicianRepresentation> toRepresentationList(List<Technician> requestCategory);
@@ -36,6 +32,30 @@ public abstract class TechnicianMapper {
                 }
                 technician.setSpecialty(specialty);
             }
+        }
+
+        PersonalInfo personalInfo = new PersonalInfo();
+        personalInfo.setFirstName(representation.firstName);
+        personalInfo.setLastName(representation.lastName);
+        personalInfo.setEmailAddress(representation.emailAddress);
+        personalInfo.setTelephoneNumber(representation.telephoneNumber);
+        personalInfo.setBirthdate(representation.birthdate);
+        personalInfo.setAddress(representation.address);
+
+        technician.setPersonalInfo(personalInfo);
+    }
+
+    @AfterMapping
+    public void extractPersonalInfo(@MappingTarget TechnicianRepresentation representation, Technician technician) {
+        if (technician.getPersonalInfo() != null) {
+            representation.firstName = technician.getPersonalInfo().getFirstName();
+            representation.lastName = technician.getPersonalInfo().getLastName();
+            representation.emailAddress = technician.getPersonalInfo().getEmailAddress();
+            representation.telephoneNumber = technician.getPersonalInfo().getTelephoneNumber();
+            representation.birthdate = technician.getPersonalInfo().getBirthdate();
+            representation.address = technician.getPersonalInfo().getAddress();
+        } else {
+            System.out.println("personalInfo is NULL when mapping CustomerSupport → CustomerSupportRepresentation!");
         }
     }
 }
