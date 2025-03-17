@@ -20,15 +20,17 @@ public abstract class CustomerMapper {
 
     @AfterMapping
     public void fillPersonalInfo(CustomerRepresentation representation, @MappingTarget Customer customer) {
-        PersonalInfo personalInfo = new PersonalInfo();
-        personalInfo.setFirstName(representation.firstName);
-        personalInfo.setLastName(representation.lastName);
-        personalInfo.setEmailAddress(representation.emailAddress);
-        personalInfo.setTelephoneNumber(representation.telephoneNumber);
-        personalInfo.setBirthdate(representation.birthdate);
-        personalInfo.setAddress(representation.address);
+        if (customer.getPersonalInfo() == null) {
+            customer.setPersonalInfo(new PersonalInfo());
+        }
+        customer.getPersonalInfo().setFirstName(representation.firstName);
+        customer.getPersonalInfo().setLastName(representation.lastName);
+        customer.getPersonalInfo().setEmailAddress(representation.emailAddress);
+        customer.getPersonalInfo().setTelephoneNumber(representation.telephoneNumber);
+        customer.getPersonalInfo().setBirthdate(representation.birthdate);
+        customer.getPersonalInfo().setAddress(representation.address);
 
-        customer.setPersonalInfo(personalInfo);
+        customer.setPersonalInfo(customer.getPersonalInfo());
     }
 
     @AfterMapping
@@ -41,7 +43,7 @@ public abstract class CustomerMapper {
             representation.birthdate = customer.getPersonalInfo().getBirthdate();
             representation.address = customer.getPersonalInfo().getAddress();
         } else {
-            System.out.println("personalInfo is NULL when mapping Customer → CustomerRepresentation!");
+            throw new IllegalStateException("PersonalInfo is missing in Customer entity!");
         }
     }
 }

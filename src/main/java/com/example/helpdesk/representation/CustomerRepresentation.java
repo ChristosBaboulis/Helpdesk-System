@@ -15,4 +15,7 @@ public class CustomerRepresentation {
     public String emailAddress;
     public LocalDate birthdate;
     public Address address;
+
+    // No-args constructor for JSON deserialization
+    public CustomerRepresentation() {}
 }
