@@ -4,15 +4,14 @@
       CustomerResource   -->  POST (create new Customer) Partially
                               PUT (update personal info) Partially
 
-      RequestResource    -->  POST (create new Request),                                    DONE
+      RequestResource    -->  POST (create new Request),
                               PUT (update status, add Action/Technician, update Category)
                               GET (by: id, telephoneNumber, status)                         DONE
 
       TechnicianResource -->  GET (by: id, technician code)                                 DONE
-                              PUT (remove request, change/add Specialty) Partially
+                              PUT (change/add Specialty)                                    DONE
 
       ActionResource     -->  POST (create new Action) Pending
-                              DELETE (???)
 -----------------------------------------------------------------------------------------
   - Test classes of packages: persistence           DONE
                               representation        DONE
