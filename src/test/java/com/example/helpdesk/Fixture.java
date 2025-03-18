@@ -1,18 +1,6 @@
 package com.example.helpdesk;
 
 public class Fixture {
-    //    public static class Borrowers {
-//        public static final int GIAKOUMAKIS_ID = 1;
-//        public static final int DIAMANTIDIS_ID = 2;
-//        public static final int COUNT = 2;
-//    }
-//
-//    public static class BorrowerCategories {
-//
-//        public static final int BORROWER_CATEGORY_PROF_ID =3000;
-//
-//    }
-//
     public static class Technicians {
 
         public static int TECHNICIAN_ID = 4001;
