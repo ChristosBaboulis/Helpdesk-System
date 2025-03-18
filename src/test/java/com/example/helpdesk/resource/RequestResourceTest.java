@@ -174,7 +174,7 @@ public class RequestResourceTest extends IntegrationBase {
 
     @Test
     @TestTransaction
-    public void testAddActionToRequest() throws InterruptedException {
+    public void testAddActionToRequest(){
         int requestId = 6000;
         int actionId = 7001;
         String uri = Fixture.API_ROOT + HelpdeskUri.REQUESTS +"/";
