@@ -65,7 +65,7 @@ public class RequestRepositoryTest extends IntegrationBase {
         Assertions.assertEquals(4001, t.getId());
 
         Request request = requestRepository.findByTechnician(t).getFirst();
-        Assertions.assertEquals(6000, request.getId());
+        Assertions.assertEquals(6001, request.getId());
     }
 
     @Test

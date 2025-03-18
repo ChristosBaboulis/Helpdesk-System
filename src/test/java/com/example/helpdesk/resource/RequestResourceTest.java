@@ -154,6 +154,10 @@ public class RequestResourceTest extends IntegrationBase {
     public void testAssignTechnician(){
         String uri = Fixture.API_ROOT + HelpdeskUri.REQUESTS +"/";
 
+        Request request = requestRepository.findById(6000);
+        Assertions.assertNull(request.getTechnician());
+        Assertions.assertEquals(Status.ACTIVE, request.getStatus());
+
         given()
                 .contentType(ContentType.JSON)
                 .when().put(uri+"assignTechnician/6000")
