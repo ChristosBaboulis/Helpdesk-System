@@ -1,6 +1,7 @@
 package com.example.helpdesk.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.example.helpdesk.HelpdeskException;
 import com.example.helpdesk.contacts.EmailAddress;
@@ -29,7 +30,7 @@ public class NotificationService {
     }
 
     @Transactional
-    public void notifyCustomers() {
+    public void notifyCustomer(Integer requestId) {
         if (provider == null) {
             throw new HelpdeskException();
         }
@@ -37,8 +38,10 @@ public class NotificationService {
         List<Request> allRequests = requestRepository.closedRequests();
 
         for (Request request : allRequests) {
-            sendEmail(request.getCustomer(),
-                    "Request Status Update", "Request no: "+request.getId()+" is closed!");
+            if (Objects.equals(request.getId(), requestId)) {
+                sendEmail(request.getCustomer(),
+                        "Request Status Update", "Request no: "+request.getId()+" is closed!");
+            }
         }
     }
 

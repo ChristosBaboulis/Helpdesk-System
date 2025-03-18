@@ -38,7 +38,7 @@ public class NotificationServiceTest extends IntegrationBase {
     @TestTransaction
     public void testSendEmail() {
         notificationService.setProvider(provider);
-        notificationService.notifyCustomers();
+        notificationService.notifyCustomer(6001);
 
         Customer customer = customerRepository.findById(5001);
         Assertions.assertEquals(1, provider.allMessages.size());
