@@ -28,6 +28,10 @@ public class RequestRepository implements PanacheRepositoryBase<Request, Integer
         return find("submissionDate", submissionDate).list();
     }
 
+    public List<Request> findBySubmissionMonth(int month) {
+        return find("MONTH(submissionDate) = ?1", month).list();
+    }
+
     public List<Request> findByClosingDate(LocalDate closingDate) {
         return find("closeDate", closingDate).list();
     }
