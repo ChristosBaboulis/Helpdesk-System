@@ -24,6 +24,10 @@ public class RequestRepository implements PanacheRepositoryBase<Request, Integer
         return find("status", status).list();
     }
 
+    public List<Request> findByRequestCategoryId(Integer categoryId) {
+        return find("requestCategory.id", categoryId).list();
+    }
+
     public List<Request> findBySubmissionDate(LocalDate submissionDate) {
         return find("submissionDate", submissionDate).list();
     }

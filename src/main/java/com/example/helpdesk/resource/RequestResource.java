@@ -228,7 +228,6 @@ public class RequestResource {
 
         // Validate phone number format (must be exactly 10 digits)
         if (!requestRepresentation.telephoneNumber.matches("\\d{10}")) {
-            System.out.println("DEBUG: Invalid phone number format: " + requestRepresentation.telephoneNumber);
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid phone number format. It must be exactly 10 digits.").build();
         }
 
