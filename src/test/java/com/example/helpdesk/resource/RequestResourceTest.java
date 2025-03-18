@@ -177,17 +177,31 @@ public class RequestResourceTest extends IntegrationBase {
     public void testAddActionToRequest() throws InterruptedException {
         int requestId = 6000;
         int actionId = 7001;
+        String uri = Fixture.API_ROOT + HelpdeskUri.REQUESTS +"/";
 
         Request request = requestRepository.search(6000);
         Assertions.assertEquals(0, request.getActions().size());
 
         // 1. Successfully add an action to a request
+        //Assign a technician first
+        given()
+                .contentType(ContentType.JSON)
+                .when().put(uri+"assignTechnician/6000")
+                .then().statusCode(200);
+
+        //Assign Action
         given()
                 .contentType(ContentType.JSON)
                 .when()
                 .put("/requests/" + requestId + "/addAction/" + actionId)
                 .then()
                 .statusCode(200);
+
+        //Test closing of case
+        given()
+                .contentType(ContentType.JSON)
+                .when().put("http://localhost:8081/requests/6000/updateStatus/CLOSED")
+                .then().statusCode(200);
 
         // 2. Try adding the same action again → should return 409 Conflict
         given()
