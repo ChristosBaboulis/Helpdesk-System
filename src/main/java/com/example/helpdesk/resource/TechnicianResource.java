@@ -10,10 +10,8 @@ import com.example.helpdesk.representation.TechnicianMapper;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 
@@ -23,6 +21,8 @@ import java.util.List;
 import static com.example.helpdesk.resource.HelpdeskUri.TECHNICIANS;
 
 @Path(TECHNICIANS)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class TechnicianResource {
     @Inject
@@ -96,7 +96,7 @@ public class TechnicianResource {
     @PUT
     @Path("{technicianId:[0-9]*}/addSpecialty/{specialtyId:[0-9]*}")
     @Transactional
-    public Response addSpecialty(@PathParam("technicianId") Integer technicianId, @PathParam("specialtyId") Integer specialtyId,Technician updatedTechnician) {
+    public Response addSpecialty(@PathParam("technicianId") Integer technicianId, @PathParam("specialtyId") Integer specialtyId) {
 
         //Check if technician exists in db
         Technician technician = technicianRepository.findById(technicianId);
