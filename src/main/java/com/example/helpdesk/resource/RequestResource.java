@@ -131,6 +131,10 @@ public class RequestResource {
         Status statusEnum = Status.valueOf(status.toUpperCase());
         Request updatedRequest = requestRepository.findById(requestId);
 
+        if (updatedRequest == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Request not found").build();
+        }
+
         switch (statusEnum) {
             case Status.ACTIVE -> updatedRequest.accept();
             case Status.REJECTED -> updatedRequest.reject();
@@ -142,7 +146,7 @@ public class RequestResource {
 
         requestRepository.getEntityManager().merge(updatedRequest);
 
-        return Response.ok().build();
+        return Response.noContent().build();
     }
 
     //ASSIGN THE BEST AVAILABLE TECHNICIAN TO REQUEST AND UPDATE STATUS ACCORDINGLY

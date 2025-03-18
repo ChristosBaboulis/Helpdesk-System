@@ -140,7 +140,7 @@ public class RequestResourceTest extends IntegrationBase {
         given()
                 .contentType(ContentType.JSON)
                 .when().put("http://localhost:8081/requests/6000/updateStatus/REJECTED")
-                .then().statusCode(200);
+                .then().statusCode(204);
 
         RequestRepresentation r = when().get(Fixture.API_ROOT + HelpdeskUri.REQUESTS +"/" + Fixture.Requests.UML_USER_GUIDE_ID)
                 .then()
@@ -201,7 +201,7 @@ public class RequestResourceTest extends IntegrationBase {
         given()
                 .contentType(ContentType.JSON)
                 .when().put("http://localhost:8081/requests/6000/updateStatus/CLOSED")
-                .then().statusCode(200);
+                .then().statusCode(204);
 
         // 2. Try adding the same action again → should return 409 Conflict
         given()
