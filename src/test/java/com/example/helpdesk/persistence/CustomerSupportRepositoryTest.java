@@ -32,5 +32,10 @@ public class CustomerSupportRepositoryTest extends IntegrationBase {
         CustomerSupport customerSupport = customerSupportRepository.findByTelephoneNumber("1234567890").getFirst();
         Assertions.assertEquals("1234567890", customerSupport.getPersonalInfo().getTelephoneNumber());
     }
+    @Test
+    public void testfindByEmailAddress(){
 
+        CustomerSupport customerSupport = customerSupportRepository.findByEmailAddress("alice.smith@example.com").getFirst();
+        Assertions.assertEquals("alice.smith@example.com", customerSupport.getPersonalInfo().getEmailAddress());
+    }
 }
