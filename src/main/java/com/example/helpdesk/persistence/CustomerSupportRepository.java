@@ -16,7 +16,7 @@ public class CustomerSupportRepository implements PanacheRepositoryBase<Customer
     }
 
     public List<CustomerSupport> findByEmplCode(String emplCode) {
-        return find("customerCode", emplCode).list();
+        return find("emplCode", emplCode).list();
     }
 
     public List<CustomerSupport> findByTelephoneNumber(String telephoneNumber) {
