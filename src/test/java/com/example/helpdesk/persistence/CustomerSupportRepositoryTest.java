@@ -26,4 +26,11 @@ public class CustomerSupportRepositoryTest extends IntegrationBase {
         CustomerSupport customerSupport = customerSupportRepository.findByEmplCode("EMP001").getFirst();
         Assertions.assertEquals("EMP001", customerSupport.getEmplCode());
     }
+    @Test
+    public void testfindByTelephoneNumber(){
+
+        CustomerSupport customerSupport = customerSupportRepository.findByTelephoneNumber("1234567890").getFirst();
+        Assertions.assertEquals("1234567890", customerSupport.getPersonalInfo().getTelephoneNumber());
+    }
+
 }
