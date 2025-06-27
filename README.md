@@ -1,76 +1,93 @@
 # Helpdesk System
-Περιγραφή
-----------
-To σύστημα παρακολούθησης αιτημάτων υποστήριξης στοχεύει στη
-βελτιστοποίηση της διαχείρισης τεχνικών αιτημάτων για εταιρείες τηλεπικοινωνιών.
 
-Οι χρήστες-πελάτες θα μπορούν να υποβάλλουν αιτήματα, να παρακολουθούν την κατάσταση
-επίλυσής τους και να λαμβάνουν ενημερώσεις μέσω REST APIs. Το σύστημα θα αποθηκεύει
-τις πληροφορίες σε σχεσιακή βάση δεδομένων, παρέχοντας αναφορές σχετικά με τον μέσο
-χρόνο επίλυσης και τον φόρτο εργασίας.
+## Description
 
-Απαιτήσεις Εφαρμογής
-----------
-1. H υπηρεσία υποστηρίζει την καταγραφή, ανάθεση και παρακολούθηση αιτημάτων τεχνικής υποστήριξης από πελάτες μιας εταιρείας τηλεπικοινωνιών.
-2. H καταγραφή των αιτημάτων γίνεται από το προσωπικό εξυπηρέτησης πελάτων, μετά από τηλεφωνική επικοινωνία του πελάτη που έχει ανάγκη υποστήριξης.
-3. Για κάθε αίτημα καταγράφονται τα στοιχεία του πελάτη, ο αριθμός της τηλεφωνικής γραμμής που έχει πρόβλημα, καθώς και η περιγραφή του προβλήματος.
-4. Τα αιτήματα υπάγονται σε διάφορες κατηγορίες όπως τιμολόγηση, συνδεσιμότητα, τηλεφωνική υπηρεσία, ταχύτητα σύνδεσης κτλ.
-5. Το σύστημα αναθέτει αυτόματα τα αιτήματα υποστήριξης σε κατάλληλους μηχανικούς ανάλογα με την κατηγορία του αιτήματος και το πλήθος των αιτημάτων που εκκρεμούν προς διεκπεραίωση από τον μηχανικό, με στόχο την ισοκατανομή του φορτίου αιτημάτων μεταξύ των μηχανικών.
-6. Κάθε μηχανικός μπορεί να χειριστεί συγκεκριμένες κατηγορίες αιτημάτων ανάλογα με την ειδικότητά του.
-7. Η ομάδα διαχείρισης της εφαρμογής συνδέει ειδικότητες μηχανικών με κατηγορίες αιτημάτων και αναθέτει μια ειδικότητα σε κάθε μηχανικό μετά από συνεννόηση με το τμήμα προσωπικού.
-8. Κατά την επίλυση ενός αιτήματος ο μηχανικός καταγράφει τις ενέργειες που έχει εκτελέσει, οι οποίες υπάγονται σε δυο κατηγορίες: (α) Τεχνικές εργασίες και (β) Επικοινωνίες με τον πελάτη.
-9. Για κάθε ενέργεια αναφέρεται ο τίτλος, η περιγραφή και η ημερομηνία εκτέλεσής.
-10. Ειδικά για την επικοινωνία με τον πελάτη καταγράφεται και η διάρκεια της κλήσης.
-11. Με την ολοκλήρωση της επίλυσης/διευθέτησης του αιτήματος, το σύστημα ειδοποιεί τον πελάτη μέσω email.
-12. Το σύστημα παράγει στατιστικά στοιχεία προς τη διοίκηση, όπως μέσο πλήθος επικοινωνιών με τον πελάτη ανά κατηγορία αιτήματος, πλήθος αιτημάτων ανά μήνα κτλ.
+The Helpdesk System is designed to optimize the management of technical support requests in telecommunications companies.
 
-Ανάπτυξη - Οικοδόμηση
-----------
-Η ανάπτυξη του συστήματος έγινε ακολουθώντας μια επαναληπτική και επαυξητική μέθοδο σε φάσης κύκλου ζωής μέχρι την παραγωγή του τελικού κώδικα.
+Customer service agents can register support tickets based on phone calls received from clients. Clients can then track the status of their requests and receive updates through REST APIs. The system stores all data in a relational database and provides reporting on average resolution times and technician workload.
 
-Η συγκεκριμένη έκδοση έχει αναπτυχθεί με το framework [Quarkus](https://quarkus.io/).
+---
 
-Αξιοποιεί το JPA 2 και το [Hibernate](https://hibernate.org/orm/) ως JPA Provider για υποστήριξη πρόσβασης στη βάση δεδομένων.
-Παρέχει ως REST υπηρεσίες με αξιοποίηση του JAX-RS API.
+## Functional Requirements
 
-Η υλοποίηση αυτοματοποιημένων ελέγχων γίνεται με χρήση των frameworks JUnit και RestAssured.
-H αξιολόγηση διενεργούμενου ελέγχου με βάση κριτήρια κάλυψης εντολών και διακλαδώσεων γίνεται με χρήση JaCoCo.
+1. The system supports the registration, assignment, and tracking of technical support requests for a telecom company's clients.
+2. Ticket registration is performed by customer service agents upon receiving phone calls from clients.
+3. For each ticket, the system records customer details, the phone line number with issues, and a description of the problem.
+4. Tickets are categorized (e.g., billing, connectivity, telephony, connection speed).
+5. The system automatically assigns tickets to appropriate engineers based on their specialization and current workload, aiming for balanced distribution.
+6. Each engineer is qualified to handle specific ticket categories according to their expertise.
+7. The admin team maps engineer specialties to ticket categories and assigns specialties to engineers in coordination with HR.
+8. During ticket resolution, engineers record their actions, classified as:
+   - Technical tasks
+   - Customer communications
+9. Each action includes a title, description, and execution date.
+10. For customer communications, the system also records the call duration.
+11. Once a ticket is resolved, the customer is notified via email.
+12. The system generates reports for management, such as:
+    - Average number of communications per ticket category
+    - Number of tickets per month
 
-Το σύστημα δεν έχει ακόμη γραφική διεπαφή ή άλλου είδους διεπαφή χρήστη.
-Η επίδειξη της λειτουργικότητας του γίνεται μέσω υλοποίησης των κατάλληλων σεναρίων κλήσης των REST υπηρεσιών στα πλαίσια τών αυτοματοποιημένων ελέγχων καθώς και με χρήση κατάλληλων εργαλείων (Postman).   
+---
 
-Για την οικοδόμηση απαιτείται Java 21.
+## Development & Build
 
-Η οικοδόμηση (build) του λογισμικού γίνεται με το εργαλείο [Maven 3](https://maven.apache.org/).
-Η εγκατάσταση του Maven είναι σχετικά απλή. Αφού κατεβάσουμε το Maven (π.χ. έκδοση 3.9.9) και τα αποσυμπιέσουμε σε κατάλληλους καταλόγους
-π.χ. <code> C:\\Program Files\\Apache\\Maven\\apache-maven-3.9.9\\ </code> αντίστοιχα θα πρέπει:
+The system was developed using an iterative and incremental software development process.
 
-* να ορίσουμε τη μεταβλητή περιβάλλοντος JAVA_HOME η οποία θα δείχνει στον κατάλογο εγκατάστασης του JDK,
-* να προσθέσουμε τον κατάλογο <code> C:\\Program Files\\Apache\\Maven\\apache-maven-3.9.9\\bin </code> στη μεταβλητή περιβάλλοντος PATH.
-* να ορίσουμε τη μεταβλητή περιβάλλοντος MAVEN_HOME. Στο παράδειγμά μας είναι ο κατάλογος <code>C:\\Program Files\\Apache\\Maven\\apache-maven-3.9.9\\</code>.
+This version is built using the [Quarkus](https://quarkus.io/) framework.  
+It uses JPA 2 with [Hibernate](https://hibernate.org/orm/) as the JPA provider to access the relational database.  
+The REST API is implemented using JAX-RS.
 
-Για να εκτελέσουμε από τη γραμμή εντολών εργασίες οικοδόμησης του λογισμικού χρησιμοποιούμε το Maven μέσω της εντολής <code>mvn</code>,
-αφού μετακινηθούμε στον κατάλογο όπου βρίσκεται το αρχείο pom.xml. Η τυπική εκτέλεση του Maven είναι:
+Automated tests are written using JUnit and RestAssured.  
+Code coverage analysis (statement and branch coverage) is performed using JaCoCo.
 
-<code>mvn [options] [target [target2 [target3] … ]]</code>
+> **Note:** The system currently does not provide a graphical or user-facing interface.  
+Functionality is demonstrated through REST scenarios executed via automated tests or tools like Postman.
 
-Τα παραγόμενα αρχεία δημιουργούνται από το Maven στο κατάλογο <code>/target</code>.
+### Build Requirements
 
-Τυπικές εργασίες με το Maven είναι:
-* <code>mvn clean</code> καθαρισμός του project. Διαγράφονται όλα τα αρχεία του καταλόγου <code>/target</code>.
-* <code>mvn compile</code> μεταγλώττιση του πηγαίου κώδικα. Τα αρχεία <code>.class</code> παράγονται στον κατάλογο <code>/target/classes</code>.
-* <code>mvn test-compile</code> μεταγλώττιση του κώδικα ελέγχου. Τα αρχεία .class παράγονται στον κατάλογο <code>/target/test-classes</code>.
-* <code>mvn test</code> εκτέλεση των ελέγχων με το JUnit framework.
-* <code>mvn site</code> παραγωγή στο site του έργου το οποίο περιλαμβάνει την τεκμηρίωση του έργου.
-* <code>mvn umlet:convert -Dumlet.targetDir=src/site/markdown/uml</code> παράγει αρχεία εικόνας png για όλα τα διαγράμματα που βρίσκονται στην τοποθεσία `src/site/markdown/uml`. Συστήνεται η κλήση της εντολής πριν την υποβολή μιας νέας έκδοσης διαγραμμάτων στο git repository (`git commit`). Ως αποτέλεσμα τα παραγόμενα αρχεία εικόνας των διαγραμμάτων συνοδεύουν τα πηγαία αρχεία έτσι ώστε να είναι εύκολη η πλοήγηση στην τεκμηρίωση του project  μέσω του github.
+- **Java 21**
+- **Maven 3.9.9** (or newer)
 
-Τεκμηρίωση
-----------
+#### Environment Setup
 
-Για την τεκμηρίωση του λογισμικού χρησιμοποιήθηκε το Markdown markup για τη συγγραφή των κειμένων και το εργαλείο UMLet για την κατασκευή των διαγραμμάτων UML.
+1. Set the `JAVA_HOME` environment variable to your JDK installation directory.
+2. Add `apache-maven-3.9.9/bin` to your system `PATH`.
+3. Set `MAVEN_HOME` to your Maven installation directory.
 
-Εντός του φακέλου docs βρίσκονται φάκελοι με τα κατάλληλα αρχεία διαγραμμάτων, φωτογραφιών, markdown αρχείων.
+#### Common Maven Commands
 
-Περισσότερες πληροφορίες για το διάγραμμα μοντέλου πεδίου μπορείτε να βρείτε στην παρακάτω εικόνα.
+```bash
+mvn clean               # Clean the target directory
+mvn compile             # Compile the source code
+mvn test-compile        # Compile the test code
+mvn test                # Run JUnit tests
+mvn site                # Generate the project site with documentation
+mvn umlet:convert -Dumlet.targetDir=src/site/markdown/uml  # Generate PNG diagrams from UML sources
+```
 
-[Διάγραμμα Μοντέλου Πεδίου](docs/MD_Files/Domain_Model.md)
+> It's recommended to run the `umlet:convert` command before committing new diagrams to the repository, so that generated images are versioned together with their sources.
+
+---
+
+## Documentation
+
+Documentation is written in **Markdown**. UML diagrams are created using **UMLet**.
+
+Under the `/docs` folder, you will find subfolders containing UML sources, images, and markdown files.
+
+More information about the domain model can be found here:  
+[Domain Model Diagram](docs/MD_Files/Domain_Model.md)
+
+---
+
+## Author
+
+**Christos Bampoulis**  
+GitHub: [@ChristosBaboulis](https://github.com/ChristosBaboulis)
+
+---
+
+## Acknowledgments
+
+This project was developed as part of an academic assignment during my MSc studies, in the context of the course "Advanced Methods for Software Development".  
+It demonstrates the design and implementation of a structured helpdesk ticketing workflow with automated assignment and analytics features.
