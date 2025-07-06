@@ -27,5 +27,5 @@ jobs:
       - name: Build with Maven
         run: ./mvnw clean install
 
-      - name: Run Tests
-        run: ./mvnw test
+      - name: Run Tests with Quarkus Test Profile
+        run: ./mvnw test -Dquarkus.profile=test -Dquarkus.hibernate-orm.database.generation=drop-and-create
