@@ -1,3 +1,5 @@
+![CI](https://github.com/ChristosBaboulis/Helpdesk-System/actions/workflows/ci.yml/badge.svg)
+
 # Helpdesk System
 
 ## Description
@@ -106,7 +108,7 @@ You can test the REST endpoints using Postman by importing the following collect
 3. Select the file: `postman/Helpdesk-System.postman_collection.json`.
 4. Use the predefined requests to test the Helpdesk System API.
 
-> 💡 Tip: Make sure the application is running locally (default port: `http://localhost:8080`) before executing requests.
+>  Tip: Make sure the application is running locally (default port: `http://localhost:8080`) before executing requests.
 
 
 ### Project Structure
