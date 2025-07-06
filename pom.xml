@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Project coordinates and packaging type for the Helpdesk backend application -->
     <modelVersion>4.0.0</modelVersion>
-    <groupId>gr.example</groupId>
+    <groupId>com.example</groupId>
     <artifactId>helpdesk</artifactId>
     <version>2.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Helpdesk</name>
 
+    <!-- === Centralized project properties: versions, encoding, Quarkus BOM metadata, and plugin settings === -->
     <properties>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <maven.compiler.release>21</maven.compiler.release>
@@ -15,7 +18,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.17.8</quarkus.platform.version>
+        <quarkus.platform.version>3.19.1</quarkus.platform.version>
         <mapstruct.version>1.6.2</mapstruct.version>
         <jacoco.version>0.8.11</jacoco.version>
         <skipITs>true</skipITs>
@@ -24,6 +27,7 @@
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
     </properties>
 
+    <!-- === Quarkus BOM: centralizes versions for all Quarkus extensions to ensure compatibility === -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -36,52 +40,58 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- === Dependencies === -->
     <dependencies>
-        <!--Quarkus Dependencies -->
+        <!-- H2 Database -->
         <dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-jdbc-h2</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-resteasy-jsonb</artifactId>
-		</dependency>
-		<dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-h2</artifactId>
+        </dependency>
+        <!-- Resteasy (JAX-RS implementation used by Quarkus) -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jackson</artifactId>
+        </dependency>
+        <!-- Hibernate ORM + Panache -->
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm-panache</artifactId>
         </dependency>
+        <!-- RESTEasy Links: Automatically generates HATEOAS-style links (e.g., "self", "update") in JSON responses for JAX-RS resources -->
         <dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-resteasy-links</artifactId>
-		</dependency>
-		<dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-links</artifactId>
+        </dependency>
+        <!-- Quarkus ARC: CDI-based dependency injection engine (provides @Inject, @ApplicationScoped, etc.) -->
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
         </dependency>
+        <!-- JUnit 5 integration with Quarkus: enables @QuarkusTest, dependency injection, and test lifecycle management -->
         <dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-resteasy</artifactId>
-		</dependency>
-		<dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- JaCoCo extension for Quarkus: enables code coverage tracking for @QuarkusTest and other tests using a custom Quarkus-compatible agent -->
         <dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-jacoco</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jacoco</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- REST Assured: fluent API for testing REST endpoints with HTTP requests and JSON assertions -->
+        <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- MapStruct: annotation-based Java bean mapper for fast and type-safe DTO-to-entity conversion -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
+        <!-- MapStruct Processor: generates mapper implementations during compilation -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
@@ -90,8 +100,10 @@
         </dependency>
     </dependencies>
 
+    <!-- === Build Plugins === -->
     <build>
         <plugins>
+            <!-- Quarkus Maven Plugin: handles build, code generation, and native image support for Quarkus applications -->
             <plugin>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
@@ -108,10 +120,10 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Maven Compiler Plugin: compiles source code and configures MapStruct annotation processing for CDI-based mappers -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
-
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
@@ -129,6 +141,7 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+            <!-- Surefire Plugin: runs unit tests with support for Quarkus logging and environment setup -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire-plugin.version}</version>
@@ -139,7 +152,7 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-            <!-- Jacoco plugin -->
+            <!-- JaCoCo Plugin: collects code coverage from unit and integration tests and generates HTML reports -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -179,6 +192,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Log4j 1.2.17 required by UMLet plugin; known vulnerable version, use only in isolated/test tools -->
             <plugin>
                 <groupId>com.kryshchuk.maven.plugins</groupId>
                 <artifactId>umlet-maven-plugin</artifactId>
@@ -199,11 +213,13 @@
                     </dependency>
                 </dependencies>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-site-plugin</artifactId>-->
-<!--                <version>3.9.0</version>-->
-<!--            </plugin>-->
+            <!-- Maven Site Plugin: generates static HTML documentation and reports for the project -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.0</version>
+            </plugin>
+            <!-- Failsafe Plugin: executes integration tests (e.g. *IT.java) after the application is built -->
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${surefire-plugin.version}</version>
@@ -223,10 +239,13 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
+    <!-- === Native Profile === -->
     <profiles>
+        <!-- Εnables GraalVM native image generation with integration tests  - For native executable only -->
         <profile>
             <id>native</id>
             <activation>
@@ -242,75 +261,4 @@
         </profile>
     </profiles>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.4.1</version>
-                <configuration>
-                    <doclint>none</doclint>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
-                <reportSets>
-                    <reportSet>
-                        <reports><!-- select reports -->
-                            <report>index</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-
-            <plugin>
-                <groupId>com.kryshchuk.maven.plugins</groupId>
-                <artifactId>umlet-maven-plugin</artifactId>
-                <version>1.2</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <configuration>
-                    <dataFile>${project.build.directory}/jacoco-quarkus.exec</dataFile>
-                </configuration>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.5.0</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>checkstyle</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.8.6.3</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.25.0</version>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>
