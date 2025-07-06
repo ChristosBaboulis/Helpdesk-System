@@ -1,0 +1,561 @@
+{
+	"info": {
+		"_postman_id": "ef47357d-dc3c-4c69-9452-fa4507faf020",
+		"name": "Quarkus Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43203133"
+	},
+	"item": [
+		{
+			"name": "REQUEST",
+			"item": [
+				{
+					"name": "GET Request by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requests/6000",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"requests",
+								"6000"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Request by Phone Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requests/phone/9876543210",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"requests",
+								"phone",
+								"9876543210"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Request by status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requests/status/ACTIVE",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"requests",
+								"status",
+								"ACTIVE"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Request Status Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requests/6000/updateStatus/REJECTED",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"requests",
+								"6000",
+								"updateStatus",
+								"REJECTED"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Request Assign Technician",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requests/assignTechnician/6000",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"requests",
+								"assignTechnician",
+								"6000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Request Add Action",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requests/6000/addAction/7001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"requests",
+								"6000",
+								"addAction",
+								"7001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Request Creation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"telephoneNumber\": \"1234567890\",\r\n    \"problemDescription\": \"Internet not working\",\r\n    \"requestCategory\": {\r\n        \"id\": 2001\r\n    },\r\n    \"customer\": {\r\n        \"id\": 5001\r\n    },\r\n    \"customerSupport\": {\r\n        \"id\": 3001\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/requests",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"requests"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ACTION",
+			"item": [
+				{
+					"name": "GET Comm Action",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actions/communication/7001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actions",
+								"communication",
+								"7001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Technical Action",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actions/technical/7002",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actions",
+								"technical",
+								"7002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Comm Action  by date",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actions/communication/by-date/2025-03-16",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actions",
+								"communication",
+								"by-date",
+								"2025-03-16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Technical Action by date",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actions/technical/by-date/2025-03-16",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actions",
+								"technical",
+								"by-date",
+								"2025-03-16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Comm Action Creation",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Call Support\",\r\n    \"description\": \"Customer called for help\",\r\n    \"callDuration\": 15.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/actions/communication",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actions",
+								"communication"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Technical Action Creation",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Fix Network Issue\",\r\n    \"description\": \"Resolved network outage\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/actions/technical",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"actions",
+								"technical"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TECHNICIAN",
+			"item": [
+				{
+					"name": "GET Technician by Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/technicians/4001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"technicians",
+								"4001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Technician by Technician Code",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/technicians/TECH002",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"technicians",
+								"TECH002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Technician Add Specialty",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/technicians/4002/addSpecialty/1001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"technicians",
+								"4002",
+								"addSpecialty",
+								"1001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Technician Remove Specialty",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/technicians/4002/removeSpecialty/1000",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"technicians",
+								"4002",
+								"removeSpecialty",
+								"1000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CUSTOMER",
+			"item": [
+				{
+					"name": "GET Customer by Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/customers/5001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers",
+								"5001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Customer by CustomerCode",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/customers/code/CUST005",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers",
+								"code",
+								"CUST005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Customer by Email",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/customers/email/liam.miller@example.com",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers",
+								"email",
+								"liam.miller@example.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Customer by Phone",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/customers/phone/7123456789",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers",
+								"phone",
+								"7123456789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Customer Creation",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerCode\": \"CUST123\",\r\n  \"firstName\": \"John\",\r\n  \"lastName\": \"Doe\",\r\n  \"telephoneNumber\": \"1234567890\",\r\n  \"emailAddress\": \"johndoe@example.com\",\r\n  \"birthdate\": \"1990-05-15\",\r\n  \"address\": {\r\n    \"street\": \"Main Street\",\r\n    \"number\": \"12A\",\r\n    \"city\": \"New York\",\r\n    \"zipCode\": \"10001\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

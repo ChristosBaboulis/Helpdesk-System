@@ -48,11 +48,78 @@ Functionality is demonstrated through REST scenarios executed via automated test
 - **Java 21**
 - **Maven 3.9.9** (or newer)
 
+### Technologies Used
+
+- **[Quarkus](https://quarkus.io/)** — Java framework tailored for Kubernetes and GraalVM
+- **[MapStruct](https://mapstruct.org/)** — Java bean mapping framework for DTOs and entities
+- **[Hibernate ORM](https://hibernate.org/orm/)** — JPA implementation for persistence
+- **[H2 Database](https://www.h2database.com/)** — Lightweight in-memory database for development/testing
+- **[JUnit 5](https://junit.org/junit5/)** — Modern Java testing framework
+- **[RestAssured](https://rest-assured.io/)** — Java DSL for testing RESTful services
+- **Maven Wrapper (`mvnw`)** — For consistent project builds across environments
+
 #### Environment Setup
 
 1. Set the `JAVA_HOME` environment variable to your JDK installation directory.
 2. Add `apache-maven-3.9.9/bin` to your system `PATH`.
 3. Set `MAVEN_HOME` to your Maven installation directory.
+
+### Running the Application
+
+1. **Clean and Build the Project**
+
+   ```bash
+   ./mvnw clean install
+   ```
+
+2. **Start the Quarkus Dev Mode**
+
+   ```bash
+   ./mvnw quarkus:dev
+   ```
+
+   > Quarkus will hot-reload your changes instantly.
+
+3. **Access the Application**
+
+   By default, the app runs on: [http://localhost:8080](http://localhost:8080)
+
+### Running Tests
+
+```bash
+./mvnw test
+```
+
+Unit and repository tests are executed using JUnit 5 and RestAssured for testing the REST endpoints. Coverage is enabled via **JaCoCo**.
+
+### API Testing with Postman
+
+You can test the REST endpoints using Postman by importing the following collection:
+
+**Directory**: `postman/`  
+**File**: `Helpdesk-System.postman_collection.json`
+
+#### How to Use:
+
+1. Open [Postman](https://www.postman.com/downloads/).
+2. Go to `File` > `Import` or use the `Import` button.
+3. Select the file: `postman/Helpdesk-System.postman_collection.json`.
+4. Use the predefined requests to test the Helpdesk System API.
+
+> 💡 Tip: Make sure the application is running locally (default port: `http://localhost:8080`) before executing requests.
+
+
+### Project Structure
+
+```bash
+src/
+ ├── main/
+ │   ├── java/com/example/helpdesk/         # Core source code
+ │   └── resources/                          # Configuration files (application.properties)
+ └── test/                                   # Unit & integration tests
+```
+
+
 
 #### Common Maven Commands
 
@@ -62,10 +129,7 @@ mvn compile             # Compile the source code
 mvn test-compile        # Compile the test code
 mvn test                # Run JUnit tests
 mvn site                # Generate the project site with documentation
-mvn umlet:convert -Dumlet.targetDir=src/site/markdown/uml  # Generate PNG diagrams from UML sources
 ```
-
-> It's recommended to run the `umlet:convert` command before committing new diagrams to the repository, so that generated images are versioned together with their sources.
 
 ---
 
