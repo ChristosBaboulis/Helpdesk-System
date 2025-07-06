@@ -1,5 +1,3 @@
-![CI](https://github.com/ChristosBaboulis/Helpdesk-System/actions/workflows/ci.yml/badge.svg)
-
 # Helpdesk System
 
 ## Description
