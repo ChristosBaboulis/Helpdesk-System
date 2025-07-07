@@ -47,6 +47,7 @@ Functionality is demonstrated through REST scenarios executed via automated test
 
 - **Java 21**
 - **Maven 3.9.9** (or newer)
+- **Docker** (for containerized deployments)
 
 ### Technologies Used
 
@@ -56,6 +57,7 @@ Functionality is demonstrated through REST scenarios executed via automated test
 - **[H2 Database](https://www.h2database.com/)** — Lightweight in-memory database for development/testing
 - **[JUnit 5](https://junit.org/junit5/)** — Modern Java testing framework
 - **[RestAssured](https://rest-assured.io/)** — Java DSL for testing RESTful services
+- **[Docker](https://www.docker.com/)** — Containerization of the application for portable environments
 - **Maven Wrapper (`mvnw`)** — For consistent project builds across environments
 
 #### Environment Setup
@@ -65,6 +67,9 @@ Functionality is demonstrated through REST scenarios executed via automated test
 3. Set `MAVEN_HOME` to your Maven installation directory.
 
 ### Running the Application
+You can run the application either locally or using Docker:
+
+#### Option 1: Local Run
 
 1. **Clean and Build the Project**
 
@@ -82,8 +87,31 @@ Functionality is demonstrated through REST scenarios executed via automated test
 
 3. **Access the Application**
 
-   By default, the app runs on: [http://localhost:8080](http://localhost:8080)
+   [http://localhost:8080](http://localhost:8080)
 
+---
+
+#### Option 2: Dockerized Run
+
+1. **Build the Docker Image**
+
+   ```bash
+   docker build -t helpdesk-system .
+   ```
+
+2. **Run the Container**
+
+   ```bash
+   docker run -p 8080:8080 helpdesk-system
+   ```
+
+3. **Access the Application**
+
+   [http://localhost:8080](http://localhost:8080)
+
+> The database is automatically initialized at startup using the `import.sql` file.
+
+---
 ### Running Tests
 
 ```bash
@@ -117,6 +145,8 @@ src/
  │   ├── java/com/example/helpdesk/         # Core source code
  │   └── resources/                          # Configuration files (application.properties)
  └── test/                                   # Unit & integration tests
+postman/                                    # Postman collections
+Dockerfile                                  # Docker build definition
 ```
 
 
