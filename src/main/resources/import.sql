@@ -30,6 +30,20 @@ INSERT INTO request_categories (id, category_type, specialty_id) VALUES (2007, '
 INSERT INTO request_categories (id, category_type) VALUES (2008, 'Other');
 
 -- ===========================
+-- Insert Admin Users
+-- ===========================
+INSERT INTO Users (
+    id, user_type, user_name, password,
+    first_name, last_name, telephone_number,
+    email_address, birth_date, street, street_number, city, zip_code
+)
+VALUES (
+           9001, 'ADMIN', 'admin1', 'adminPass',
+           'Super', 'Admin', '1234567890',
+           'admin@example.com', '1980-01-01', 'AdminStreet', '1A', 'Athens', '10000'
+       );
+
+-- ===========================
 -- Insert Customer Support Users
 -- ===========================
 INSERT INTO Users (id, user_type, user_name, password, employee_code,
@@ -54,7 +68,7 @@ VALUES (3003, 'CUSTOMERSUPPORT', 'csupport3', 'safePass789', 'EMP003',
         '1992-03-10', '5th Avenue', '78C', 'Chicago', '60601');
 
 -- ====================
--- Insert Technicians
+-- Insert Technician Users
 -- ====================
 INSERT INTO Users (id, user_type, user_name, password, technician_code,
                    first_name, last_name, telephone_number, email_address,

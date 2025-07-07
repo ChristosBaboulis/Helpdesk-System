@@ -50,4 +50,10 @@ public class TechnicianRepositoryTest extends IntegrationBase {
         Technician technician = technicianRepository.findBySpecialtyType(specialtyRepository.findById(1002).getSpecialtyType()).getFirst();
         Assertions.assertEquals(4004, technician.getId());
     }
+
+    @Test
+    public void testGetRole() {
+        Technician technician = technicianRepository.findById(4004);
+        Assertions.assertEquals("TECHNICIAN", technician.getRole());
+    }
 }

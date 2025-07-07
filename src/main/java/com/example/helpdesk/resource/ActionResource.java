@@ -5,6 +5,7 @@ import com.example.helpdesk.domain.CommunicationAction;
 import com.example.helpdesk.domain.TechnicalAction;
 import com.example.helpdesk.persistence.ActionRepository;
 import com.example.helpdesk.representation.*;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -81,6 +82,7 @@ public class ActionResource {
     @POST
     @Path("/communication")
     @Transactional
+    @RolesAllowed({"ADMIN", "CUSTOMERSUPPORT"})
     public Response createCommunicationAction(CommunicationActionRepresentation representation) {
         CommunicationAction action = communicationActionMapper.toModel(representation);
         actionRepository.persist(action);
@@ -93,6 +95,7 @@ public class ActionResource {
     @POST
     @Path("/technical")
     @Transactional
+    @RolesAllowed({"ADMIN", "TECHNICIAN"})
     public Response createTechnicalAction(TechnicalActionRepresentation representation) {
         TechnicalAction action = technicalActionMapper.toModel(representation);
         actionRepository.persist(action);

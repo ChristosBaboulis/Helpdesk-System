@@ -98,6 +98,25 @@
             <version>${mapstruct.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- JWT Authentication -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-jwt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-jwt-build</artifactId>
+        </dependency>
+        <!-- JDBC-based identity provider -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-elytron-security-jdbc</artifactId>
+        </dependency>
+        <!-- Core security features -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-security</artifactId>
+        </dependency>
     </dependencies>
 
     <!-- === Build Plugins === -->

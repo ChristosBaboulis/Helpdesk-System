@@ -4,7 +4,8 @@
 
 The Helpdesk System is designed to optimize the management of technical support requests in telecommunications companies.
 
-Customer service agents can register support tickets based on phone calls received from clients. Clients can then track the status of their requests and receive updates through REST APIs. The system stores all data in a relational database and provides reporting on average resolution times and technician workload.
+Customer service agents can register support tickets based on phone calls received from clients. Clients can then track the status of their requests and receive updates through REST APIs. The system stores all data in a relational database and provides reporting on average resolution times and technician workload.  
+The system also features full **JWT authentication** and **role-based authorization**. It supports Customer Support and Technician user flows.
 
 ---
 
@@ -54,6 +55,7 @@ Functionality is demonstrated through REST scenarios executed via automated test
 - **[Quarkus](https://quarkus.io/)** — Java framework tailored for Kubernetes and GraalVM
 - **[MapStruct](https://mapstruct.org/)** — Java bean mapping framework for DTOs and entities
 - **[Hibernate ORM](https://hibernate.org/orm/)** — JPA implementation for persistence
+- **JWT** (via `quarkus-smallrye-jwt`) (Role-based access control** (`@RolesAllowed`), **RSA key pair for token signing**)
 - **[H2 Database](https://www.h2database.com/)** — Lightweight in-memory database for development/testing
 - **[JUnit 5](https://junit.org/junit5/)** — Modern Java testing framework
 - **[RestAssured](https://rest-assured.io/)** — Java DSL for testing RESTful services
@@ -160,6 +162,13 @@ mvn test-compile        # Compile the test code
 mvn test                # Run JUnit tests
 mvn site                # Generate the project site with documentation
 ```
+
+---
+
+## Authentication & Authorization
+
+The system uses **JWT tokens** for secure login. Tokens are signed using **asymmetric RSA keys** and validated by the application.  
+More on this: [Authentication - Authorization](docs/MD_Files/Authentication_Authorization.md)
 
 ---
 

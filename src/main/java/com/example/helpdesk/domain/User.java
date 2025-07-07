@@ -2,6 +2,7 @@ package com.example.helpdesk.domain;
 
 import com.example.helpdesk.contacts.Address;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -24,6 +25,9 @@ public class User {
 
     @Column(name = "password", length = 50, nullable = false)
     protected String password;
+
+    @Formula("user_type")
+    private String role;
 
     public User() {}
 
@@ -52,6 +56,8 @@ public class User {
     public Integer getId() {
         return id;
     }
+
+    public String getRole() {return role;}
 
     public PersonalInfo getPersonalInfo() {
         return personalInfo;

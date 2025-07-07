@@ -38,4 +38,10 @@ public class CustomerSupportRepositoryTest extends IntegrationBase {
         CustomerSupport customerSupport = customerSupportRepository.findByEmailAddress("alice.smith@example.com").getFirst();
         Assertions.assertEquals("alice.smith@example.com", customerSupport.getPersonalInfo().getEmailAddress());
     }
+
+    @Test
+    public void testGetRole() {
+        CustomerSupport customerSupport = customerSupportRepository.findById(3001);
+        Assertions.assertEquals("CUSTOMERSUPPORT", customerSupport.getRole());
+    }
 }
