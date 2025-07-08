@@ -26,4 +26,5 @@ public class LoginResource {
                 .map(token -> Response.ok(new AuthResponse(token)).build())
                 .orElse(Response.status(Response.Status.UNAUTHORIZED).build());
     }
+
 }

@@ -29,7 +29,7 @@ public class CustomerResource {
     @Inject
     CustomerMapper customerMapper;
 
-    // GET CUSTOMER BY ID
+    //GET /customers/{id} - RETRIEVE CUSTOMER BY ID
     @GET
     @Path("/{id}")
     public Response getCustomerById(@PathParam("id") Integer id) {
@@ -40,7 +40,7 @@ public class CustomerResource {
         return Response.ok(customerMapper.toRepresentation(customer)).build();
     }
 
-    // GET CUSTOMER BY CUSTOMER CODE
+    //GET /customers/code/{customerCode} - RETRIEVE CUSTOMER BY customerCode
     @GET
     @Path("/code/{customerCode}")
     public Response getCustomerByCode(@PathParam("customerCode") String customerCode) {
@@ -51,7 +51,7 @@ public class CustomerResource {
         return Response.ok(customerMapper.toRepresentation(customer)).build();
     }
 
-    // GET CUSTOMER BY EMAIL
+    //GET /customers/email/{email} - RETRIEVE CUSTOMER BY email
     @GET
     @Path("/email/{email}")
     public Response getCustomerByEmail(@PathParam("email") String email) {
@@ -61,9 +61,10 @@ public class CustomerResource {
             return Response.status(Response.Status.NOT_FOUND).entity("Customer not found.").build();
         }
 
-        return Response.ok(customerMapper.toRepresentation(customers.get(0))).build();
+        return Response.ok(customerMapper.toRepresentation(customers.getFirst())).build();
     }
 
+    //GET /customers/phone/{telephoneNumber} - RETRIEVE CUSTOMER BY telephoneNumber
     @GET
     @Path("/phone/{telephoneNumber}")
     public Response getCustomerByPhone(@PathParam("telephoneNumber") String telephoneNumber) {
@@ -73,35 +74,34 @@ public class CustomerResource {
             return Response.status(Response.Status.NOT_FOUND).entity("Customer not found.").build();
         }
 
-        return Response.ok(customerMapper.toRepresentation(customers.get(0))).build();
+        return Response.ok(customerMapper.toRepresentation(customers.getFirst())).build();
     }
 
-
-    // CREATE A NEW CUSTOMER
+    //POST /customers - CREATE A NEW Customer
     @POST
     @Transactional
     public Response createCustomer(CustomerRepresentation customerRepresentation) {
-        // Validate input
+        //VALIDATE INPUT
         if (customerRepresentation.customerCode == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Missing customer code.").build();
         }
 
-        // Ensure required fields in personal info are present
+        //ENSURE REQUIRED FIELDS IN PersonalInfo ARE PRESENT
         if (customerRepresentation.firstName == null || customerRepresentation.lastName == null ||
                 customerRepresentation.telephoneNumber == null ||
                 customerRepresentation.birthdate == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Personal info is incomplete.").build();
         }
 
-        // Check if phone number is valid (10 digits)
+        //CHECK IF telephoneNumber IS VALID (10 DIGITS)
         if (!customerRepresentation.telephoneNumber.matches("\\d{10}")) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid phone number format.").build();
         }
 
-        // Convert representation to entity
+        //CONVERT REPRESENTATION TO ENTITY
         Customer newCustomer = customerMapper.toModel(customerRepresentation);
 
-        // Persist the new customer
+        //PERSIST THE NEW Customer
         customerRepository.persist(newCustomer);
         URI location = UriBuilder.fromResource(CustomerResource.class).path("/{id}").build(newCustomer.getId());
 

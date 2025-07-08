@@ -1,6 +1,5 @@
 package com.example.helpdesk.resource;
 
-import com.example.helpdesk.domain.Request;
 import com.example.helpdesk.domain.Specialty;
 import com.example.helpdesk.domain.Technician;
 import com.example.helpdesk.persistence.RequestRepository;
@@ -14,10 +13,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.example.helpdesk.resource.HelpdeskUri.TECHNICIANS;
 
 @Path(TECHNICIANS)
@@ -25,6 +20,7 @@ import static com.example.helpdesk.resource.HelpdeskUri.TECHNICIANS;
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class TechnicianResource {
+
     @Inject
     TechnicianRepository technicianRepository;
     @Inject
@@ -34,7 +30,7 @@ public class TechnicianResource {
     @Inject
     RequestRepository requestRepository;
 
-    //Επιστρέφει ένα id τεχνικού
+    //GET /technicians/{technicianId} - RETRIEVE A Technician BY ID
     @GET
     @Path("{technicianId:[0-9]*}")
     public Response find(@PathParam("technicianId") Integer technicianId) {
@@ -47,12 +43,12 @@ public class TechnicianResource {
         return Response.ok().entity(technicianMapper.toRepresentation(technician)).build();
     }
 
-    //Επιστρέφει έναν τεχνικό βάσει του κωδικού που έχει
+    //GET /technicians/{technicianCode} - RETRIEVE A Technician BY technicianCode
     @GET
     @Path("{technicianCode}")
     public Response findByCode(@PathParam("technicianCode") String technicianCode) {
 
-        // Validate that the technicianCode contains only alphanumeric characters
+        //VALIDATE THAT THE technicianCode CONTAINS ONLY ALPHANUMERIC CHARACTERS
         if (!technicianCode.matches("^[a-zA-Z0-9]+$")) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Invalid technician code format. Only alphanumeric characters are allowed.")
@@ -67,53 +63,54 @@ public class TechnicianResource {
 
     }
 
-    // Αφαιρεί Ειδικότητα
+    //PUT /technicians/{technicianId}/removeSpecialty/{specialtyId} - REMOVE Specialty FROM A Technician
     @PUT
     @Path("{technicianId:[0-9]*}/removeSpecialty/{specialtyId:[0-9]*}")
     @Transactional
     public Response removeSpecialty(@PathParam("technicianId") Integer technicianId, @PathParam("specialtyId") Integer specialtyId) {
 
-        //Check if technician exists in db
+        //CHECK IF Technician EXISTS IN DB
         Technician technician = technicianRepository.findById(technicianId);
         if (technician == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        //Check if specialty exists in db
+        //CHECK IF Specialty EXISTS IN DB
         Specialty specialty = specialtyRepository.findById(specialtyId);
         if (specialty == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        //Remove specialty from technician both in domain and DB Levels
+        //REMOVE SPECIALTY FROM Technician BOTH IN DOMAIN AND DB LEVELS
         technician.removeSpecialty(specialty);
         technicianRepository.getEntityManager().merge(technician);
 
         return Response.ok().entity(technicianMapper.toRepresentation(technician)).build();
     }
 
-    // Προσθέτει Ειδικότητα
+    //PUT /technicians/{technicianId}/addSpecialty/{specialtyId} - ADD Specialty TO A Technician
     @PUT
     @Path("{technicianId:[0-9]*}/addSpecialty/{specialtyId:[0-9]*}")
     @Transactional
     public Response addSpecialty(@PathParam("technicianId") Integer technicianId, @PathParam("specialtyId") Integer specialtyId) {
 
-        //Check if technician exists in db
+        //CHECK IF Technician EXISTS IN DB
         Technician technician = technicianRepository.findById(technicianId);
         if (technician == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        //Check if specialty exists in db
+        //CHECK IF Specialty EXISTS IN DB
         Specialty specialty = specialtyRepository.findById(specialtyId);
         if (specialty == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        //Add specialty to technician both in domain and DB Levels
+        //ADD Specialty TO Technician BOTH IN DOMAIN AND DB LEVELS
         technician.setSpecialty(specialty);
         technicianRepository.getEntityManager().merge(technician);
 
         return Response.ok().entity(technicianMapper.toRepresentation(technician)).build();
     }
+
 }

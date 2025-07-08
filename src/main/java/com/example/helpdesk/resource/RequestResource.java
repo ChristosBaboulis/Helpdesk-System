@@ -44,12 +44,12 @@ public class RequestResource {
     @Inject
     ActionRepository actionRepository;
 
-    //GET BY ID
+    //GET /requests/{requestId} - RETRIEVE Request BY ID
     @GET
     @Path("{requestId:[0-9]*}")
     public Response find(@PathParam("requestId") Integer requestId) {
 
-        //SEARCH REQUEST BY ID GIVEN
+        //SEARCH Request BY ID GIVEN
         Request request = requestRepository.findById(requestId);
 
         //IF NONE FOUND, RETURN 404
@@ -57,24 +57,24 @@ public class RequestResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        //IF FOUND RETURN REPRESENTATION IN JSON AND 200 CODE
+        //IF FOUND, RETURN REPRESENTATION IN JSON AND 200 CODE
         return Response.ok().entity(requestMapper.toRepresentation(request)).build();
 
     }
 
-    //GET BY TELEPHONE NUMBER
+    //GET /requests/phone/{telephoneNumber} - RETRIEVE Request BY telephoneNumber
     @GET
     @Path("/phone/{telephoneNumber}")
     public Response findByPhoneNumber(@PathParam("telephoneNumber") String telephoneNumber) {
 
-        //TELEPHONE NUMBER FORMAT CHECK - IF BAD RETURN 400
+        //telephoneNumber FORMAT CHECK - IF BAD RETURN 400
         if (!telephoneNumber.matches("\\d{10}")) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Invalid phone number format. It must be exactly 10 digits.")
                     .build();
         }
 
-        //SEARCH REQUEST BY TELEPHONE NUMBER GIVEN
+        //SEARCH Request BY telephoneNumber GIVEN
         Request request = requestRepository.findByTelephoneNumber(telephoneNumber).getFirst();
 
         //IF NONE FOUND, RETURN 404
@@ -82,16 +82,16 @@ public class RequestResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        //IF FOUND RETURN REPRESENTATION IN JSON AND 200 CODE
+        //IF FOUND, RETURN REPRESENTATION IN JSON AND 200 CODE
         return Response.ok().entity(requestMapper.toRepresentation(request)).build();
     }
 
-    //GET BY STATUS
+    //GET /requests/status/{status} - RETRIEVE Request BY status
     @GET
     @Path("/status/{status}")
     public Response findByStatus(@PathParam("status") String status) {
 
-        //STATUS FORMAT CHECK - IF BAD RETURN 400
+        //status FORMAT CHECK - IF BAD RETURN 400
         if (!status.matches("^[a-zA-Z]+$")) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Invalid status format. Must contain only letters (A-Z or a-z).")
@@ -99,10 +99,10 @@ public class RequestResource {
         }
 
         try {
-            // Convert String to Enum
+            //CONVERT STRING TO ENUM
             Status statusEnum = Status.valueOf(status.toUpperCase());
 
-            //SEARCH REQUEST BY STATUS NAME
+            //SEARCH Request BY status NAME
             Request request = requestRepository.findByStatus(statusEnum).getFirst();
 
             //IF NONE FOUND, RETURN 404
@@ -110,19 +110,19 @@ public class RequestResource {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
 
-            //IF FOUND RETURN REPRESENTATION IN JSON AND 200 CODE
+            //IF FOUND, RETURN REPRESENTATION IN JSON AND 200 CODE
             return Response.ok().entity(requestMapper.toRepresentation(request)).build();
 
         } catch (IllegalArgumentException e) {
 
-            //IF STATUS NAME IS NOT IN ENUMERATED VALUES, RETURN 400 AND ARRAY WITH AVAILABLE VALUES
+            //IF status NAME IS NOT IN ENUMERATED VALUES, RETURN 400 AND ARRAY WITH AVAILABLE VALUES
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Invalid status value. Allowed values: " + Arrays.toString(Status.values()))
                     .build();
         }
     }
 
-    //UPDATE REQUEST STATUS
+    //PUT /requests/{requestId}/updateStatus/{status} - UPDATE Request status
     @PUT
     @Transactional
     @Path("/{requestId}/updateStatus/{status}")
@@ -149,7 +149,7 @@ public class RequestResource {
         return Response.noContent().build();
     }
 
-    //ASSIGN THE BEST AVAILABLE TECHNICIAN TO REQUEST AND UPDATE STATUS ACCORDINGLY
+    //PUT /requests/assignTechnician/{requestId} - ASSIGN THE BEST AVAILABLE Technician TO Request AND UPDATE status ACCORDINGLY
     @PUT
     @Path("/assignTechnician/{requestId}")
     @Transactional
@@ -191,51 +191,51 @@ public class RequestResource {
         return Response.ok().build();
     }
 
-    //ADD ACTION TO RESOURCE
+    //PUT /requests/{requestId}/addAction/{actionId} - ADD Action TO Request
     @PUT
     @Path("{requestId}/addAction/{actionId}")
     @Transactional
     public Response addAction(@PathParam("requestId") Integer requestId, @PathParam("actionId") Integer actionId) {
-        //FIND REQUEST TO BE ASSIGNED AN ACTION
+        //FIND Request TO BE ASSIGNED AN Action
         Request request = requestRepository.findById(requestId);
         if(request == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        //FIND ACTION
+        //FIND Action
         Action action = actionRepository.findById(actionId);
         if(action == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        // PREVENT DUPLICATE ASSIGNMENT (ENSURE ACTION IS NOT ALREADY LINKED TO ANOTHER REQUEST)
+        //PREVENT DUPLICATE ASSIGNMENT (ENSURE Action IS NOT ALREADY LINKED TO ANOTHER Request)
         if (request.getActions().contains(action)) {
             return Response.status(Response.Status.CONFLICT).entity("Action already assigned to this request.").build();
         }
 
         request.addAction(action);
-        requestRepository.persist(request); // Ensure it's persisted
-        requestRepository.getEntityManager().flush(); // Force commit
-        requestRepository.getEntityManager().clear(); // Clear session cache
+        requestRepository.persist(request); //ENSURE IT'S PERSISTED
+        requestRepository.getEntityManager().flush(); //FORCE COMMIT
+        requestRepository.getEntityManager().clear(); //CLEAR SESSION CACHE
 
         return Response.ok().build();
     }
 
-    // CREATE A NEW REQUEST RESOURCE
+    //POST /requests - CREATE A NEW Request
     @POST
     @Transactional
     public Response createRequest(RequestRepresentation requestRepresentation) {
-        // Validate input
+        //VALIDATE INPUT
         if (requestRepresentation.telephoneNumber == null || requestRepresentation.problemDescription == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Missing required fields.").build();
         }
 
-        // Validate phone number format (must be exactly 10 digits)
+        //VALIDATE telephoneNumber FORMAT (MUST BE EXACTLY 10 DIGITS)
         if (!requestRepresentation.telephoneNumber.matches("\\d{10}")) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid phone number format. It must be exactly 10 digits.").build();
         }
 
-        // Fetch related entities
+        //FETCH RELATED ENTITIES
         RequestCategory category = requestCategoryRepository.findById(requestRepresentation.requestCategory.id);
         Customer customer = customerRepository.findById(requestRepresentation.customer.id);
         CustomerSupport support = customerSupportRepository.findById(requestRepresentation.customerSupport.id);
@@ -244,10 +244,10 @@ public class RequestResource {
             return Response.status(Response.Status.NOT_FOUND).entity("Category, Customer, or Support not found.").build();
         }
 
-        // Convert representation to entity
+        //CONVERT REPRESENTATION TO ENTITY
         Request newRequest = requestMapper.toModel(requestRepresentation);
 
-        // Set fetched relationships
+        //SET FETCHED RELATIONSHIPS
         newRequest.setRequestCategory(category);
         newRequest.setCustomer(customer);
         newRequest.setCustomerSupport(support);
