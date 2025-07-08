@@ -1,38 +1,19 @@
 package com.example.helpdesk.contacts;
 import java.io.Serializable;
 
-/**
- * Η διεύθυνση ηλεκτρονικού ταχυδρομείου.
- * Υλοποιείται ως αντικείμενο τιμή (value object).
- * @author  Νίκος Διαμαντίδης
- *
- */
 public class EmailAddress implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String value;
 
-    /**
-     * Δημιουργία βάσει της συμβολοσειράς της διεύθυνσης.
-     * @param email Το e-mail.
-     */
     public EmailAddress(String email) {
         this.value = email;
     }
 
-    /**
-     * Επιστρέφει τη διεύθυνση ως συμβολοσειρά.
-     * @return Η διεύθυνση ηλεκτρονικού ταχυδρομείου.
-     */
     public String getAddress() {
         return value;
     }
 
-    /**
-     * Επαληθεύει την ορθότητα της διεύθυνσης ηλεκτρονικού ταχυδρομείου.
-     * @return {@code true} εάν είναι ορθή η διεύθυνση
-     * του ηλεκτρονικού ταχυδρομείου
-     */
     public boolean isValid() {
         return true;
     }
@@ -47,11 +28,10 @@ public class EmailAddress implements Serializable {
             return true;
         }
 
-        if (!(other instanceof EmailAddress)) {
+        if (!(other instanceof EmailAddress theEmail)) {
             return false;
         }
 
-        EmailAddress theEmail = (EmailAddress) other;
         return value == null ? theEmail.getAddress() == null
                 : value.equals(theEmail.getAddress());
     }
