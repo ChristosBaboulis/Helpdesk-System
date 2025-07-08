@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @RegisterForReflection
 public class CustomerRepresentation {
+
     public Integer id;
     public String customerCode;
     public String firstName;
@@ -18,4 +19,5 @@ public class CustomerRepresentation {
 
     // No-args constructor for JSON deserialization
     public CustomerRepresentation() {}
+
 }

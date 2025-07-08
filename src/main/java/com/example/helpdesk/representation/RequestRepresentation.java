@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @RegisterForReflection
 public class RequestRepresentation {
+
     public Integer id;
     public String telephoneNumber;
     public String problemDescription = "";
@@ -17,4 +18,5 @@ public class RequestRepresentation {
     public CustomerRepresentation customer;
     public CustomerSupportRepresentation customerSupport;
     public TechnicianRepresentation technician;
+
 }

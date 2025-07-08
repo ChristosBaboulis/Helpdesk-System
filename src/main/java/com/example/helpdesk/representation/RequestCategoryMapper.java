@@ -15,6 +15,7 @@ import java.util.List;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         uses = {SpecialtyMapper.class})
 public abstract class RequestCategoryMapper {
+
     @Inject
     SpecialtyRepository specialtyRepository;
 
@@ -32,4 +33,5 @@ public abstract class RequestCategoryMapper {
             requestCategory.setSpecialty(specialty);
         }
     }
+
 }

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @RegisterForReflection
 public class CustomerSupportRepresentation {
+
     public String emplCode;
     public Integer id;
     public String firstName;
@@ -17,4 +18,5 @@ public class CustomerSupportRepresentation {
     public String emailAddress;
     public LocalDate birthdate;
     public Address address;
+
 }

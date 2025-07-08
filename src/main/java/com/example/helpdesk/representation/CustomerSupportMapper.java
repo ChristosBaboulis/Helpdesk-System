@@ -1,6 +1,5 @@
 package com.example.helpdesk.representation;
 
-import com.example.helpdesk.domain.Customer;
 import com.example.helpdesk.domain.CustomerSupport;
 import com.example.helpdesk.domain.PersonalInfo;
 import org.mapstruct.AfterMapping;
@@ -13,6 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "jakarta",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public abstract class CustomerSupportMapper {
+
     public abstract CustomerSupportRepresentation toRepresentation(CustomerSupport customerSupport);
 
     public abstract CustomerSupport toModel(CustomerSupportRepresentation representation);
@@ -45,4 +45,5 @@ public abstract class CustomerSupportMapper {
             System.out.println("personalInfo is NULL when mapping CustomerSupport → CustomerSupportRepresentation!");
         }
     }
+
 }

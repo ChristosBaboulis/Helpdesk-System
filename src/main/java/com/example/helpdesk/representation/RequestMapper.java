@@ -14,6 +14,7 @@ import org.mapstruct.*;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         uses = {CustomerMapper.class, RequestCategoryMapper.class, CustomerSupportMapper.class, TechnicianMapper.class})
 public abstract class RequestMapper {
+
     @Inject
     RequestCategoryRepository requestCategoryRepository;
     @Inject
@@ -80,4 +81,5 @@ public abstract class RequestMapper {
             request.setStatus(Status.ACTIVE);
         }
     }
+
 }

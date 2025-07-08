@@ -11,6 +11,7 @@ import java.util.List;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         uses = {SpecialtyMapper.class})
 public abstract class TechnicianMapper {
+
     @Inject
     SpecialtyRepository specialtyRepository;
 
@@ -60,4 +61,5 @@ public abstract class TechnicianMapper {
             System.out.println("personalInfo is NULL when mapping CustomerSupport → CustomerSupportRepresentation!");
         }
     }
+
 }

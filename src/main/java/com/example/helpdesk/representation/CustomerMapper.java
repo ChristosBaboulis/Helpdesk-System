@@ -12,6 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "jakarta",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public abstract class CustomerMapper {
+
     public abstract CustomerRepresentation toRepresentation(Customer customer);
 
     public abstract Customer toModel(CustomerRepresentation representation);
@@ -46,4 +47,5 @@ public abstract class CustomerMapper {
             throw new IllegalStateException("PersonalInfo is missing in Customer entity!");
         }
     }
+
 }
