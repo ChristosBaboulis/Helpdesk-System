@@ -1,6 +1,7 @@
 package com.example.helpdesk.auth;
 
 public class AuthResponse {
+
     public String token;
 
     public AuthResponse() {}
@@ -16,4 +17,5 @@ public class AuthResponse {
     public void setToken(String token) {
         this.token = token;
     }
+
 }

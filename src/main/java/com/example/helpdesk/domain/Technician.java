@@ -69,4 +69,5 @@ public class Technician extends User {
     public void removeSpecialty(Specialty specialty) {
         specialties.remove(specialty);
     }
+
 }

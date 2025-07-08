@@ -10,6 +10,7 @@ import java.util.Objects;
 
 @Embeddable
 public class PersonalInfo {
+
     public PersonalInfo() { }
 
     //Constructor with address as argument
@@ -112,4 +113,5 @@ public class PersonalInfo {
     public int hashCode() {
         return Objects.hash(firstName, lastName, birthdate);
     }
+
 }

@@ -7,11 +7,10 @@ import com.example.helpdesk.domain.Specialty;
 import jakarta.enterprise.context.RequestScoped;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
-import io.quarkus.panache.common.Parameters;
 
 @RequestScoped
 public class RequestCategoryRepository implements PanacheRepositoryBase<RequestCategory, Integer>{
-    //---------------------------------------- BY ATTRIBUTES ----------------------------------------
+
     public RequestCategory findById(Integer id) {
         return find("id", id).firstResult();
     }
@@ -19,11 +18,9 @@ public class RequestCategoryRepository implements PanacheRepositoryBase<RequestC
     public List<RequestCategory> findByCategoryType(String categoryType) {
         return find("customerCode", categoryType).list();
     }
-    //-----------------------------------------------------------------------------------------------
 
-    //---------------------------------------- BY DEPENDENCIES ----------------------------------------
     public List<RequestCategory> findBySpecialty(Specialty specialty) {
         return find("specialty", specialty).list();
     }
-    //-----------------------------------------------------------------------------------------------
+
 }

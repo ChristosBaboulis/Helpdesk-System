@@ -6,11 +6,10 @@ import com.example.helpdesk.domain.CustomerSupport;
 import jakarta.enterprise.context.RequestScoped;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
-import io.quarkus.panache.common.Parameters;
 
 @RequestScoped
 public class CustomerSupportRepository implements PanacheRepositoryBase<CustomerSupport, Integer>{
-    //---------------------------------------- BY ATTRIBUTES ----------------------------------------
+
     public CustomerSupport findById(Integer id) {
         return find("id", id).firstResult();
     }
@@ -26,5 +25,5 @@ public class CustomerSupportRepository implements PanacheRepositoryBase<Customer
     public List<CustomerSupport> findByEmailAddress(String emailAddress) {
         return find("personalInfo.emailAddress", emailAddress).list();
     }
-    //-----------------------------------------------------------------------------------------------
+
 }

@@ -43,4 +43,5 @@ public class CustomerSupport extends User{
     public void setEmplCode(String emplCode) {
         this.emplCode = emplCode;
     }
+
 }

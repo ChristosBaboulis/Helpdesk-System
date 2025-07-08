@@ -22,4 +22,5 @@ public class TechnicalAction extends Action {
     }
 
     public TechnicalAction(String title) {super(title);}
+
 }

@@ -10,6 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Requests")
 public class Request {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -234,4 +235,5 @@ public class Request {
     public boolean notifyCustomer(){
         return status == Status.CLOSED;
     }
+
 }

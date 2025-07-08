@@ -39,4 +39,5 @@ public class CommunicationAction extends Action{
     public void setCallDuration(double callDuration) {
         this.callDuration = callDuration;
     }
+
 }

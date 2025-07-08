@@ -1,6 +1,7 @@
 package com.example.helpdesk.contacts;
 
 public class EmailMessage {
+
     private EmailAddress from;
     private EmailAddress to;
     private String subject;
@@ -41,4 +42,5 @@ public class EmailMessage {
     public void appendToBody(String text) {
         subject += text;
     }
+
 }

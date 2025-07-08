@@ -1,6 +1,7 @@
 package com.example.helpdesk.auth;
 
 public class AuthRequest {
+
     public String username;
     public String password;
 
@@ -26,4 +27,5 @@ public class AuthRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

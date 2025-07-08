@@ -7,6 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Request_Categories")
 public class RequestCategory {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,4 +62,5 @@ public class RequestCategory {
     public int hashCode() {
         return Objects.hashCode(categoryType);
     }
+
 }

@@ -9,6 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Customers")
 public class Customer {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,4 +72,5 @@ public class Customer {
     public int getId() {
         return id;
     }
+
 }

@@ -6,7 +6,6 @@ import com.example.helpdesk.domain.Specialty;
 import jakarta.enterprise.context.RequestScoped;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
-import io.quarkus.panache.common.Parameters;
 
 @RequestScoped
 public class SpecialtyRepository implements PanacheRepositoryBase<Specialty, Integer>{

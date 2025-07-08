@@ -45,4 +45,5 @@ public class EmailAddress implements Serializable {
     public String toString() {
         return value;
     }
+
 }

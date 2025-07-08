@@ -7,11 +7,10 @@ import jakarta.enterprise.context.RequestScoped;
 import com.example.helpdesk.domain.Technician;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
-import io.quarkus.panache.common.Parameters;
 
 @RequestScoped
 public class TechnicianRepository implements PanacheRepositoryBase<Technician, Integer>{
-    //---------------------------------------- BY ATTRIBUTES ----------------------------------------
+
     public Technician findById(Integer id) {
         return find("id", id).firstResult();
     }
@@ -35,11 +34,9 @@ public class TechnicianRepository implements PanacheRepositoryBase<Technician, I
     public List<Technician> findBySpecialty(Integer specialtyId) {
         return find("SELECT t FROM Technician t JOIN t.specialties s WHERE s.id = ?1", specialtyId).list();
     }
-    //-----------------------------------------------------------------------------------------------
 
-    //---------------------------------------- BY DEPENDENCIES ----------------------------------------
     public List<Technician> findBySpecialtyType(String specialtyType) {
         return find("SELECT t FROM Technician t JOIN t.specialties s WHERE s.specialtyType = ?1", specialtyType).list();
     }
-    //-----------------------------------------------------------------------------------------------
+
 }

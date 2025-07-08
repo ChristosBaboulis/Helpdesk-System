@@ -80,4 +80,5 @@ public class Address {
     public int hashCode() {
         return Objects.hash(street, number, city, zipCode);
     }
+
 }

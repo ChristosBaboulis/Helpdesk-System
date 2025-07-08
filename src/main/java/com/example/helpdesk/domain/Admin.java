@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Entity
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
+
     public Admin() {
         super();
     }
@@ -19,4 +20,5 @@ public class Admin extends User {
                  LocalDate birthdate, Address address) {
         super(username, password, firstName, lastName, telephoneNumber, emailAddress, birthdate, address);
     }
+
 }

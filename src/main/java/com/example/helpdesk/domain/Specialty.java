@@ -7,6 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Specialties")
 public class Specialty {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,4 +45,5 @@ public class Specialty {
     public int hashCode() {
         return Objects.hashCode(specialtyType);
     }
+
 }
