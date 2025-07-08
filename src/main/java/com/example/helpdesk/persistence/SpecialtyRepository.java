@@ -9,7 +9,7 @@ import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 @RequestScoped
 public class SpecialtyRepository implements PanacheRepositoryBase<Specialty, Integer>{
-    //---------------------------------------- BY ATTRIBUTES ----------------------------------------
+
     public Specialty findById(Integer id) {
         return find("id", id).firstResult();
     }
@@ -17,5 +17,5 @@ public class SpecialtyRepository implements PanacheRepositoryBase<Specialty, Int
     public List<Specialty> findBySpecialtyType(String specialtyType) {
         return find("specialtyType", specialtyType).list();
     }
-    //-----------------------------------------------------------------------------------------------
+
 }
