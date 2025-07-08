@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -190,8 +189,7 @@ public class Request {
         status = Status.REJECTED;
     }
 
-    //Method used to assign request to a technician and change the status accordingly,
-    // if it is not closed
+    //Method used to assign request to a technician and change the status accordingly, if it is not closed
     public void assign(Technician technician){
         //Restriction of closed Request
         if(status == Status.CLOSED){
@@ -232,8 +230,7 @@ public class Request {
         }
     }
 
-    //Method that returns true or false in case we need to notify customer
-    //about closure of the request
+    //Method that returns true or false in case we need to notify customer about closure of the request
     public boolean notifyCustomer(){
         return status == Status.CLOSED;
     }

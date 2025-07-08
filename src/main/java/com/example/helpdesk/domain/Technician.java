@@ -57,8 +57,7 @@ public class Technician extends User {
         return specialties;
     }
 
-    //Method used to assign a specialty to a technician. Needs to check first if specialty is
-    //already assigned
+    //Method used to assign a specialty to a technician. Needs to check first if specialty is already assigned
     public void setSpecialty(Specialty specialty) {
         if (specialty == null) return;
         if(specialties.contains(specialty)){
