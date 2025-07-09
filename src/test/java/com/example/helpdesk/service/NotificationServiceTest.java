@@ -7,7 +7,6 @@ import com.example.helpdesk.persistence.CustomerRepository;
 import com.example.helpdesk.util.SystemDateStub;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.vertx.http.runtime.devmode.ResourceNotFoundData;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -45,4 +44,5 @@ public class NotificationServiceTest extends IntegrationBase {
         EmailMessage message = provider.getAllEmails().getFirst();
         Assertions.assertEquals(customer.getPersonalInfo().getEmailAddress(), message.getTo().toString());
     }
+
 }

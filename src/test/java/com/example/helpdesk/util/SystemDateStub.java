@@ -1,6 +1,5 @@
 package com.example.helpdesk.util;
 
-
 import java.time.LocalDate;
 
 public class SystemDateStub {
