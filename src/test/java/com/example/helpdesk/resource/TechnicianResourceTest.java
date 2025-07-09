@@ -1,43 +1,22 @@
 package com.example.helpdesk.resource;
 
 import com.example.helpdesk.Fixture;
-import com.example.helpdesk.domain.Request;
-import com.example.helpdesk.domain.Technician;
-import com.example.helpdesk.persistence.RequestRepository;
-import com.example.helpdesk.persistence.SpecialtyRepository;
+import com.example.helpdesk.IntegrationBase;
 import com.example.helpdesk.persistence.TechnicianRepository;
-import com.example.helpdesk.representation.TechnicianMapper;
 import com.example.helpdesk.representation.TechnicianRepresentation;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
 @QuarkusTest
-public class TechnicianResourceTest {
+public class TechnicianResourceTest extends IntegrationBase {
 
-    @Inject
-    RequestResource requestResource;
-    @Inject
-    RequestRepository requestRepository;
-
-    @BeforeEach
-    @Transactional
-    public void resetDatabase() {
-        technicianRepository.getEntityManager().createNativeQuery("DELETE FROM technician_specialties").executeUpdate();
-        technicianRepository.getEntityManager().flush();
-        technicianRepository.getEntityManager().clear(); // Ensure cache is cleared
-    }
-
-    @Inject
-    TechnicianMapper technicianMapper;
     @Inject
     TechnicianRepository technicianRepository;
 
@@ -82,19 +61,19 @@ public class TechnicianResourceTest {
     public void removeSpecialty_Failure(){
         String uri = Fixture.API_ROOT + HelpdeskUri.TECHNICIANS +"/";
 
-        //PASS WRONG SPECIALTY ID
+        //PASS WRONG Specialty ID
         given()
                 .contentType(ContentType.JSON)
                 .when().put(uri+"Fixture.Technicians.TECHNICIAN_ID/removeSpecialty/9999")
                 .then().statusCode(404);
 
-        //PASS WRONG TECHNICIAN ID
+        //PASS WRONG Technician ID
         given()
                 .contentType(ContentType.JSON)
                 .when().put(uri+"9999/removeSpecialty/1000")
                 .then().statusCode(404);
 
-        //REMOVE SPECIALTY THAT IS NOT ASSIGNED TO TECHNICIAN
+        //REMOVE Specialty THAT IS NOT ASSIGNED TO Technician
         given()
                 .contentType(ContentType.JSON)
                 .when().put(uri+"Fixture.Technicians.TECHNICIAN_ID/removeSpecialty/1003")
@@ -104,9 +83,8 @@ public class TechnicianResourceTest {
     @Test
     @TestTransaction
     public void testAddSpecialty(){
-        technicianRepository.getEntityManager().clear();
         Integer size = technicianRepository.findById(Fixture.Technicians.TECHNICIAN_ID).getSpecialties().size();
-        Assertions.assertEquals(0, size);
+        Assertions.assertEquals(1, size);
         String uri = Fixture.API_ROOT + HelpdeskUri.TECHNICIANS +"/" +Fixture.Technicians.TECHNICIAN_ID;
 
         given()
@@ -118,7 +96,7 @@ public class TechnicianResourceTest {
                 .then()
                 .statusCode(200)
                 .extract().as(TechnicianRepresentation.class);
-        Assertions.assertEquals(1, tr.specialties.size());
+        Assertions.assertEquals(2, tr.specialties.size());
     }
 
     @Test
@@ -127,16 +105,17 @@ public class TechnicianResourceTest {
         technicianRepository.getEntityManager().clear();
         String uri = Fixture.API_ROOT + HelpdeskUri.TECHNICIANS +"/";
 
-        //ADD NON EXISTING SPECIALTY
+        //ADD NON-EXISTING Specialty
         given()
                 .contentType(ContentType.JSON)
                 .when().put(uri+"Fixture.Technicians.TECHNICIAN_ID/addSpecialty/9999")
                 .then().statusCode(404);
 
-        //ADD NON TO NON EXISTING TECHNICIAN
+        //ADD Specialty TO NON-EXISTING Technician
         given()
                 .contentType(ContentType.JSON)
                 .when().put(uri+"9999/addSpecialty/1001")
                 .then().statusCode(404);
     }
+
 }

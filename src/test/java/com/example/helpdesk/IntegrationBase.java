@@ -29,7 +29,6 @@ public class IntegrationBase {
         em.createNativeQuery(sql).executeUpdate();
     }
 
-
     private String convertStreamToString(InputStream in) {
         @SuppressWarnings("resource")
         Scanner s = new Scanner(in,"UTF-8").useDelimiter("\\A");

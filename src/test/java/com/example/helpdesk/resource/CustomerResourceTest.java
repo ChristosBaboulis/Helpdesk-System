@@ -1,13 +1,9 @@
 package com.example.helpdesk.resource;
 
-import com.example.helpdesk.contacts.Address;
-import com.example.helpdesk.representation.*;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
@@ -16,12 +12,12 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTest
 public class CustomerResourceTest {
 
-    // 1. Test retrieving a customer by ID
+    //1. TEST RETRIEVING A Customer BY ID
     @Test
     public void testGetCustomerById_Success() {
         given()
                 .when()
-                .get("/customers/5001")  // Assume this customer exists
+                .get("/customers/5001")  //ASSUME THIS Customer EXISTS
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
@@ -29,12 +25,12 @@ public class CustomerResourceTest {
                 .body("customerCode", equalTo("CUST005"));
     }
 
-    // 2. Test retrieving a customer by customerCode
+    //2. TEST RETRIEVING A Customer BY customerCode
     @Test
     public void testGetCustomerByCode_Success() {
         given()
                 .when()
-                .get("/customers/code/CUST005")  // Assume this customer exists
+                .get("/customers/code/CUST005")  //ASSUME THIS Customer EXISTS
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
@@ -43,12 +39,12 @@ public class CustomerResourceTest {
                 .body("lastName", equalTo("Miller"));
     }
 
-    // 3. Test retrieving a customer by email
+    //3. TEST RETRIEVING A Customer BY email
     @Test
     public void testGetCustomerByEmail_Success() {
         given()
                 .when()
-                .get("/customers/email/liam.miller@example.com")  // Assume this email exists
+                .get("/customers/email/liam.miller@example.com")  //ASSUME THIS Customer EXISTS
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
@@ -57,12 +53,12 @@ public class CustomerResourceTest {
                 .body("lastName", equalTo("Miller"));
     }
 
-    // 4. Test retrieving a customer by phone
+    //4. TEST RETRIEVING A Customer BY phone
     @Test
     public void testGetCustomerByPhone_Success() {
         given()
                 .when()
-                .get("/customers/phone/7123456789")  // Assume this phone number exists in the test DB
+                .get("/customers/phone/7123456789")  //ASSUME THIS telephoneNumber EXISTS IN THE TEST DB
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
@@ -71,10 +67,9 @@ public class CustomerResourceTest {
                 .body("lastName", equalTo("Miller"));
     }
 
-
     @Test
     public void testCreateCustomer_Success() {
-        // Prepare valid customer data
+        //PREPARE VALID Customer DATA
         String jsonBody = "{"
                 + "\"customerCode\": \"CUST123\","
                 + "\"firstName\": \"John\","
@@ -90,14 +85,14 @@ public class CustomerResourceTest {
                 + "  }"
                 + "}";
 
-        // Send POST request and validate response
+        //SEND POST Request AND VALIDATE RESPONSE
         ValidatableResponse response = given()
                 .contentType(ContentType.JSON)
                 .body(jsonBody)
                 .when()
                 .post("/customers")
                 .then()
-                .statusCode(201) // Expecting Created
+                .statusCode(201) //EXPECTING CREATED
                 .contentType(ContentType.JSON)
                 .body("customerCode", equalTo("CUST123"))
                 .body("firstName", equalTo("John"))

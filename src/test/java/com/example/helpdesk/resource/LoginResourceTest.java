@@ -57,4 +57,5 @@ public class LoginResourceTest extends IntegrationBase {
                 .then()
                 .statusCode(401);
     }
+
 }

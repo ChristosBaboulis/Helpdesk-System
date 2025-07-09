@@ -4,9 +4,6 @@ import com.example.helpdesk.Fixture;
 import com.example.helpdesk.IntegrationBase;
 import com.example.helpdesk.domain.Request;
 import com.example.helpdesk.domain.Status;
-import com.example.helpdesk.persistence.CustomerRepository;
-import com.example.helpdesk.persistence.CustomerSupportRepository;
-import com.example.helpdesk.persistence.RequestCategoryRepository;
 import com.example.helpdesk.persistence.RequestRepository;
 import com.example.helpdesk.representation.*;
 import io.quarkus.test.TestTransaction;
@@ -22,24 +19,9 @@ import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
 public class RequestResourceTest extends IntegrationBase {
-    @Inject
-    RequestCategoryRepository requestCategoryRepository;
-    @Inject
-    RequestCategoryMapper requestCategoryMapper;
-    @Inject
-    CustomerRepository customerRepository;
-    @Inject
-    CustomerMapper customerMapper;
-    @Inject
-    CustomerSupportRepository customerSupportRepository;
-    @Inject
-    CustomerSupportMapper customerSupportMapper;
+
     @Inject
     RequestRepository requestRepository;
-    @Inject
-    RequestMapper requestMapper;
-    @Inject
-    RequestResource requestResource;
 
     @Test
     public void find() {
@@ -53,7 +35,7 @@ public class RequestResourceTest extends IntegrationBase {
     //----------------------------------- PHONE NUMBER TESTS -----------------------------------
     @Test
     public void findByValidPhoneNumber() {
-        // Valid phone number (should return 200 OK)
+        //VALID telephoneNumber (SHOULD RETURN 200 OK)
         RequestRepresentation r = when().get(Fixture.API_ROOT + HelpdeskUri.REQUESTS +"/phone/" + Fixture.Requests.PHONE_NUMBER)
                 .then()
                 .statusCode(200)
@@ -63,7 +45,7 @@ public class RequestResourceTest extends IntegrationBase {
 
     @Test
     public void findByInvalidPhoneNumber_Length() {
-        // Invalid phone number: Too short (should return 404 or 400)
+        //INVALID telephoneNumber: TOO SHORT (SHOULD RETURN 404 OR 400)
         when()
                 .get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/phone/12345")
                 .then()
@@ -72,7 +54,7 @@ public class RequestResourceTest extends IntegrationBase {
 
     @Test
     public void findByInvalidPhoneNumber_Letters() {
-        // Invalid phone number: Contains letters (should return 400)
+        //INVALID telephoneNumber: CONTAINS LETTERS (SHOULD RETURN 400)
         when()
                 .get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/phone/12345ABC90")
                 .then()
@@ -81,7 +63,7 @@ public class RequestResourceTest extends IntegrationBase {
 
     @Test
     public void findByInvalidPhoneNumber_Symbols() {
-        // Invalid phone number: Contains symbols (should return 400)
+        //INVALID telephoneNumber: CONTAINS SYMBOLS (SHOULD RETURN 400)
         when()
                 .get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/phone/12345-789@")
                 .then()
@@ -92,7 +74,7 @@ public class RequestResourceTest extends IntegrationBase {
     //----------------------------------- STATUS TESTS -----------------------------------------
     @Test
     public void findByValidStatus() {
-        // Valid status (should return 200 OK)
+        //VALID status (SHOULD RETURN 200 OK)
         RequestRepresentation r = when()
                 .get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/status/"+Fixture.Requests.STATUS)
                 .then()
@@ -104,7 +86,7 @@ public class RequestResourceTest extends IntegrationBase {
 
     @Test
     public void findByInvalidStatus_NonAlphabetic() {
-        // Invalid status containing numbers (should return 400 Bad Request)
+        //INVALID status CONTAINING NUMBERS (SHOULD RETURN 400 BAD REQUEST)
         when()
                 .get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/status/ACTIVE123")
                 .then()
@@ -113,7 +95,7 @@ public class RequestResourceTest extends IntegrationBase {
 
     @Test
     public void findByInvalidStatus_SpecialCharacters() {
-        // Invalid status containing special characters (should return 400 Bad Request)
+        //INVALID status CONTAINING SPECIAL CHARACTERS (SHOULD RETURN 400 BAD REQUEST)
         when()
                 .get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/status/ACTIVE!")
                 .then()
@@ -122,7 +104,7 @@ public class RequestResourceTest extends IntegrationBase {
 
     @Test
     public void findByNonExistentStatus() {
-        // Non-existent status (should return 404 Not Found)
+        //NON-EXISTENT status (SHOULD RETURN 404 NOT FOUND)
         when()
                 .get(Fixture.API_ROOT + HelpdeskUri.REQUESTS + "/status/UNKNOWN")
                 .then()
@@ -182,14 +164,14 @@ public class RequestResourceTest extends IntegrationBase {
         Request request = requestRepository.search(6000);
         Assertions.assertEquals(0, request.getActions().size());
 
-        // 1. Successfully add an action to a request
-        //Assign a technician first
+        //1. SUCCESSFULLY ADD AN Action TO A Request
+        //ASSIGN A Technician FIRST
         given()
                 .contentType(ContentType.JSON)
                 .when().put(uri+"assignTechnician/6000")
                 .then().statusCode(200);
 
-        //Assign Action
+        //ASSIGN Action
         given()
                 .contentType(ContentType.JSON)
                 .when()
@@ -197,13 +179,13 @@ public class RequestResourceTest extends IntegrationBase {
                 .then()
                 .statusCode(200);
 
-        //Test closing of case
+        //TEST CLOSING OF CASE
         given()
                 .contentType(ContentType.JSON)
                 .when().put("http://localhost:8081/requests/6000/updateStatus/CLOSED")
                 .then().statusCode(204);
 
-        // 2. Try adding the same action again → should return 409 Conflict
+        //2. TRY ADDING THE SAME Action AGAIN → SHOULD RETURN 409 CONFLICT
         given()
                 .contentType(ContentType.JSON)
                 .when()
@@ -211,7 +193,7 @@ public class RequestResourceTest extends IntegrationBase {
                 .then()
                 .statusCode(409);
 
-        // 3. Non-existent request ID → should return 404
+        //3. NON-EXISTENT Request ID → SHOULD RETURN 404
         int invalidRequestId = 9999;
         given()
                 .contentType(ContentType.JSON)
@@ -220,7 +202,7 @@ public class RequestResourceTest extends IntegrationBase {
                 .then()
                 .statusCode(404);
 
-        // 4. Non-existent action ID → should return 404
+        //4. NON-EXISTENT Action ID → SHOULD RETURN 404
         int invalidActionId = 8888;
         given()
                 .contentType(ContentType.JSON)
@@ -232,22 +214,22 @@ public class RequestResourceTest extends IntegrationBase {
 
     @Test
     public void testCreateRequest() {
-        // Create Request Representation Object
+        //CREATE Request REPRESENTATION OBJECT
         RequestRepresentation requestRepresentation = new RequestRepresentation();
         requestRepresentation.telephoneNumber = "1234567890";
         requestRepresentation.problemDescription = "Internet not working";
 
-        // Related Entities
+        //RELATED ENTITIES
         requestRepresentation.requestCategory = new RequestCategoryRepresentation();
-        requestRepresentation.requestCategory.id = 2001; // Must exist in DB
+        requestRepresentation.requestCategory.id = 2001;    //MUST EXIST IN DB
 
         requestRepresentation.customer = new CustomerRepresentation();
-        requestRepresentation.customer.id = 5001; // Must exist in DB
+        requestRepresentation.customer.id = 5001;           //MUST EXIST IN DB
 
         requestRepresentation.customerSupport = new CustomerSupportRepresentation();
-        requestRepresentation.customerSupport.id = 3001; // Must exist in DB
+        requestRepresentation.customerSupport.id = 3001;    //MUST EXIST IN DB
 
-        // Perform the request and validate response
+        //PERFORM THE Request AND VALIDATE RESPONSE
         Integer requestId = given()
                 .contentType(ContentType.JSON)
                 .body(requestRepresentation)
@@ -258,7 +240,7 @@ public class RequestResourceTest extends IntegrationBase {
                 .contentType(ContentType.JSON)
                 .extract().path("id");
 
-        // Verify the request is persisted correctly
+        //VERIFY THE Request IS PERSISTED CORRECTLY
         Request createdRequest = requestRepository.findById(requestId);
         Assertions.assertNotNull(createdRequest);
         Assertions.assertEquals("1234567890", createdRequest.getTelephoneNumber());
@@ -267,9 +249,9 @@ public class RequestResourceTest extends IntegrationBase {
         Assertions.assertEquals(5001, createdRequest.getCustomer().getId());
         Assertions.assertEquals(3001, createdRequest.getCustomerSupport().getId());
 
-        // FAILED CASES
+        //FAILED CASES
 
-        // 1. Attempt to create a request with a missing required field (e.g., no telephone number)
+        //1. ATTEMPT TO CREATE A Request WITH A MISSING REQUIRED FIELD (E.G., NO telephoneNumber)
                 RequestRepresentation invalidRequest1 = new RequestRepresentation();
                 invalidRequest1.problemDescription = "Missing phone number";
 
@@ -279,19 +261,19 @@ public class RequestResourceTest extends IntegrationBase {
                         .when()
                         .post("/requests")
                         .then()
-                        .statusCode(400) // Expecting BAD REQUEST
+                        .statusCode(400)        //EXPECTING BAD REQUEST
                         .body(containsString("Missing required fields."));
 
-        // 2. Attempt to create a request with a non-existent category/customer/support
+        //2. ATTEMPT TO CREATE A Request WITH A NON-EXISTENT Category/CustomerSupport
                 RequestRepresentation invalidRequest2 = new RequestRepresentation();
                 invalidRequest2.telephoneNumber = "1234567890";
                 invalidRequest2.problemDescription = "Valid description";
                 invalidRequest2.requestCategory = new RequestCategoryRepresentation();
-                invalidRequest2.requestCategory.id = 9999; // Non-existent ID
+                invalidRequest2.requestCategory.id = 9999;      //NON-EXISTENT ID
                 invalidRequest2.customer = new CustomerRepresentation();
-                invalidRequest2.customer.id = 9999; // Non-existent ID
+                invalidRequest2.customer.id = 9999;             //NON-EXISTENT ID
                 invalidRequest2.customerSupport = new CustomerSupportRepresentation();
-                invalidRequest2.customerSupport.id = 9999; // Non-existent ID
+                invalidRequest2.customerSupport.id = 9999;      //NON-EXISTENT ID
 
                 given()
                         .contentType(ContentType.JSON)
@@ -299,10 +281,10 @@ public class RequestResourceTest extends IntegrationBase {
                         .when()
                         .post("/requests")
                         .then()
-                        .statusCode(404) // Expecting NOT FOUND
+                        .statusCode(404)    //EXPECTING NOT FOUND
                         .body(containsString("Category, Customer, or Support not found."));
 
-        // 3. Attempt to create a request with an invalid phone number format
+        //3. ATTEMPT TO CREATE A Request WITH AN INVALID telephoneNumber FORMAT
                 RequestCategoryRepresentation validCategory = new RequestCategoryRepresentation();
                 validCategory.id = 2001;
 
@@ -313,7 +295,7 @@ public class RequestResourceTest extends IntegrationBase {
                 validSupport.id = 3001;
 
                 RequestRepresentation invalidRequest3 = new RequestRepresentation();
-                invalidRequest3.telephoneNumber = "123"; // Too short
+                invalidRequest3.telephoneNumber = "123";    //TOO SHORT
                 invalidRequest3.problemDescription = "Valid description";
                 invalidRequest3.requestCategory = validCategory;
                 invalidRequest3.customer = validCustomer;
@@ -325,7 +307,7 @@ public class RequestResourceTest extends IntegrationBase {
                         .when()
                         .post("/requests")
                         .then()
-                        .statusCode(400) // Expecting BAD REQUEST
+                        .statusCode(400)    //EXPECTING BAD REQUEST
                         .body(containsString("Invalid phone number format"));
             }
 
