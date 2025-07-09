@@ -3,9 +3,10 @@ package com.example.helpdesk.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestCategoryTest {
+
     RequestCategory requestCategory;
 
     @BeforeEach
@@ -18,11 +19,11 @@ public class RequestCategoryTest {
         //GETTER OF ID
         requestCategory.getId();
 
-        //GETTER, SETTER OF CATEGORY TYPE
+        //GETTER - SETTER OF categoryType
         assertEquals("Connectivity", requestCategory.getCategoryType());
         requestCategory.setCategoryType("Power Problems");
 
-        //GETTER, SETTER OF ASSOCIATED SPECIALTY
+        //GETTER - SETTER OF ASSOCIATED specialty
         assertEquals(null ,requestCategory.getSpecialty());
         requestCategory.setSpecialty(new Specialty("Power Problems"));
     }
@@ -30,10 +31,11 @@ public class RequestCategoryTest {
     //TEST EQUALS OVERRIDE
     @Test
     public void checkEquality() {
-        assertEquals(true, requestCategory.equals(requestCategory));
-        assertEquals(false, requestCategory.equals(new Specialty()));
-        assertEquals(false, requestCategory.equals(new RequestCategory()));
-        assertEquals(false, requestCategory.equals(null));
-        requestCategory.hashCode();
+        assertTrue(requestCategory.equals(requestCategory));
+        assertFalse(requestCategory.equals(new Specialty()));
+        assertFalse(requestCategory.equals(new RequestCategory()));
+        assertFalse(requestCategory.equals(null));
+        assertDoesNotThrow(() -> requestCategory.hashCode());
     }
+
 }

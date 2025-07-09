@@ -16,7 +16,8 @@ import java.util.List;
 * INITIALIZE THE DATA THAT EXISTS TO THE AGENCY
 * */
 
-public class CaseFlow {
+public class CaseFlowTest {
+
     Specialty connections;
     Specialty logistics;
     Specialty equipmentSetup;
@@ -41,7 +42,7 @@ public class CaseFlow {
     Technician t4;
     List<Technician> technicians = new ArrayList<>();
 
-    //MOCK ADDRESS AND DATE TO BE USED
+    //MOCK Address AND DATE TO BE USED
     Address mockAddress = new Address();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate mockDate = LocalDate.parse("03/01/2025", formatter);
@@ -49,13 +50,13 @@ public class CaseFlow {
     //INITIALIZATION OF DATA THAT EXIST TO THE COMPANY ALWAYS (EMPLOYEES, CATEGORIES, SPECIALTIES)
     @BeforeEach
     public void setup(){
-        //SPECIALTIES
+        //Specialties
         connections = new Specialty("Connectivity");
         logistics = new Specialty("Pricing");
         equipmentSetup = new Specialty("Equipment");
         offers = new Specialty("Offers");
 
-        //REQUEST CATEGORIES
+        //RequestCategories
         internetConnection = new RequestCategory("Internet Connection Problem");
         internetConnection.setSpecialty(connections);
         telephoneConnection = new RequestCategory("Telephone Connection Problem");
@@ -72,7 +73,7 @@ public class CaseFlow {
         routerChange.setSpecialty(equipmentSetup);
         other = new RequestCategory("Other");
 
-        //CUSTOMER SUPPORT
+        //CustomerSupport
         c1 = new CustomerSupport("John-User", "Doe-Password", "John",
                 "Doe", "1234567890",
                 "jd@gmail.com", mockDate, mockAddress, "empl001");
@@ -83,7 +84,7 @@ public class CaseFlow {
                 "Doe3", "1234567898",
                 "jd3@gmail.com", mockDate, mockAddress, "empl003");
 
-        //TECHNICIANS
+        //Technicians
         t1 = new Technician("Michael-User", "Smith-Password", "Michael",
                 "Smith", "1234567800",
                 "ms@gmail.com", mockDate, mockAddress, "tec001");
@@ -135,27 +136,8 @@ public class CaseFlow {
         //---------------------- THIRD STEP ----------------------
         //NOW THE REQUEST NEEDS TO BE ASSIGNED TO A TECHNICIAN
         //BASED ON HIS SPECIALTY AND ACTIVE REQUESTS VOLUME
-        int min = 50;
-        boolean assigned = false;
-        Technician r1_tec = new Technician();
-
         r1.setTechnician(t1);
-//        for(Technician technician : technicians){
-//            for(Specialty specialty : technician.getSpecialties()){
-//                if(Objects.equals(specialty.getSpecialtyType(), "Connectivity")){
-//                    if(technician.getActiveRequests() < min){
-//                        r1.assign(technician);
-//                        min = technician.getActiveRequests();
-//                        r1_tec = technician;
-//                        assigned = true;
-//                        break;
-//                    }
-//                }
-//            }
-//            if(assigned){break;}
-//        }
-
-        //---------------------- THIRD STEP ----------------------
+        //---------------------- THIRD STEP - PART 2 ----------------------
         //TECHNICIAN STARTS WORKING ON THE REQUEST
         //ADDS ACTIONS TO THE REQUEST DEPENDING ON HIS RESOLUTION STEPS
         Action changeChannel = new TechnicalAction("Change Channel",
@@ -169,15 +151,11 @@ public class CaseFlow {
         //---------------------- FOURTH STEP ----------------------
         //CLIENT INFORMED THAT THE PROBLEM IS SOLVED SO REQUEST CAN NOW BE CLOSED
         r1.close();
-//        for(Technician technician : technicians){
-//            if(technician == r1_tec){
-//                assertEquals(0, technician.getRequests().size());
-//            }
-//        }
 
         //EXTRA BUSINESS LOGIC
         //ACTIONS AFTER REQUEST CLOSURE LIKE NOTIFYING CUSTOMER,
         //KEEPING STATISTICAL DATA
         //r1.notifyCustomer();
     }
+
 }

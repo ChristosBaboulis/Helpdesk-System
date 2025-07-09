@@ -7,9 +7,10 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomerTest {
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate birthdate = LocalDate.parse("03/01/1990", formatter);
     Customer customer;
@@ -19,7 +20,6 @@ public class CustomerTest {
 
     @BeforeEach
     public void setup(){
-
         customer = new Customer("123 customer code",
                 "Christos3", "Bampoulis3",
                 "69999991", "cb3@gg3.gr",
@@ -39,11 +39,11 @@ public class CustomerTest {
 
     @Test
     public void checkGettersAndSetters(){
-        //GETTER, SETTER IF CUSTOMER CODE
+        //GETTER - SETTER OF customerCode
         assertEquals("123 customer code", customer.getCustomerCode());
         customer.setCustomerCode("new code");
 
-        //GETTER, SETTER OF ASSOCIATED PERSONAL INFO
+        //GETTER - SETTER OF ASSOCIATED personalInfo
         assertEquals("Christos3", customer.getPersonalInfo().getFirstName());
         customer.getPersonalInfo().setFirstName("new name");
 
@@ -68,11 +68,11 @@ public class CustomerTest {
     //TEST IF EQUALS OVERRIDE
     @Test
     public void checkEquality(){
-        assertEquals(true, customer.equals(customer));
-        assertEquals(false, customer.equals(customer2));
-        assertEquals(false, customer.equals(null));
-        assertEquals(false, customer.equals(address));
-        customer.hashCode();
+        assertTrue(customer.equals(customer));
+        assertFalse(customer.equals(customer2));
+        assertFalse(customer.equals(null));
+        assertFalse(customer.equals(address));
+        assertDoesNotThrow(() -> customer.hashCode());
 
         PersonalInfo personalInfo = new PersonalInfo();
         PersonalInfo personalInfo2 = new PersonalInfo("Christos", "Bampoulis", "1233211231",
@@ -81,18 +81,19 @@ public class CustomerTest {
                 "cb123@g.gr", birthdate, address);
         PersonalInfo personalInfo4 = new PersonalInfo("Christos1", "Bampoulis", "3213211232",
                 "cb123@g.gr", birthdate, address);
-        assertEquals(false, personalInfo.equals(personalInfo2));
-        assertEquals(true, personalInfo2.equals(personalInfo3));
-        assertEquals(false, personalInfo3.equals(personalInfo4));
+        assertFalse(personalInfo.equals(personalInfo2));
+        assertTrue(personalInfo2.equals(personalInfo3));
+        assertFalse(personalInfo3.equals(personalInfo4));
         personalInfo4.setFirstName("Christos");
         personalInfo4.setLastName("Bampoulis2");
-        assertEquals(false, personalInfo3.equals(personalInfo4));
+        assertFalse(personalInfo3.equals(personalInfo4));
         personalInfo4.setLastName("Bampoulis");
         LocalDate birthdate2 = LocalDate.parse("03/01/1991", formatter);
         personalInfo3.setBirthdate(birthdate2);
-        assertEquals(false, personalInfo3.equals(personalInfo4));
-        assertEquals(false, personalInfo.equals(null));
-        assertEquals(false, personalInfo.equals(address));
-        personalInfo.hashCode();
+        assertFalse(personalInfo3.equals(personalInfo4));
+        assertFalse(personalInfo.equals(null));
+        assertFalse(personalInfo.equals(address));
+        assertDoesNotThrow(personalInfo::hashCode);
     }
+
 }

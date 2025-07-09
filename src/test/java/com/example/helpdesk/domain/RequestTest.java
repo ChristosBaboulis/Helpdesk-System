@@ -9,10 +9,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestTest {
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate birthdate = LocalDate.parse("03/01/1990", formatter);
     LocalDate submissionDate = LocalDate.parse("03/01/2025", formatter);
@@ -79,58 +79,58 @@ public class RequestTest {
 
     @Test
     public void checkGettersAndSetters() {
-        //GETTER, SETTER OF ID
+        //GETTER - SETTER OF ID
         request.getId();
 
-        //GETTER, SETTER OF REQUEST'S TELEPHONE NUMBER
+        //GETTER - SETTER OF Request's telephoneNumber
         assertEquals("1234567890", request.getTelephoneNumber());
         request.setTelephoneNumber("1234567899");
 
-        //GETTER, SETTER OF REQUEST'S PROBLEM DESCRIPTION
+        //GETTER - SETTER OF Request's problemDescription
         assertEquals("Test problem description", request.getProblemDescription());
         request.setProblemDescription("Test description 2");
 
-        //GETTER, SETTER OF REQUEST'S SUBMISSION DATE
+        //GETTER - SETTER OF Request's submissionDate
         assertEquals(SystemDate.now(), request.getSubmissionDate());
         request.setSubmissionDate(LocalDate.now());
 
-        //GETTER, SETTER OF REQUEST'S CLOSE DATE
+        //GETTER - SETTER OF Request's closeDate
         assertEquals(null, request.getCloseDate());
         request.setCloseDate(LocalDate.now());
 
-        //GETTER, SETTER OF REQUEST'S STATUS
+        //GETTER - SETTER OF Request's status
         assertEquals(Status.ACTIVE, request.getStatus());
         request.setStatus(Status.ACTIVE);
 
-        //GETTER, SETTER OF REQUEST'S ASSOCIATED CATEGORY
+        //GETTER - SETTER OF Request's ASSOCIATED category
         assertEquals("Connectivity Issues", request.getRequestCategory().getCategoryType());
         request.setRequestCategory(requestCategory);
 
-        //GETTER OF REQUEST'S ASSOCIATED CATEGORY'S SPECIALTY
+        //GETTER OF Request's ASSOCIATED category's specialty
         assertEquals("Connectivity Issues Specialization", request.getRequestCategory().getSpecialty().getSpecialtyType());
 
-        //GETTER, SETTER OF REQUEST'S ASSOCIATED CUSTOMER
+        //GETTER - SETTER OF Request's ASSOCIATED Customer
         assertEquals("123 customer code", request.getCustomer().getCustomerCode());
         request.setCustomer(customer);
 
-        //GETTER, SETTER OF REQUEST'S ASSOCIATED CUSTOMER SUPPORT EMPLOYEE
+        //GETTER - SETTER OF Request's ASSOCIATED CustomerSupport employee
         assertEquals("123 employee Code", request.getCustomerSupport().getEmplCode());
         request.setCustomerSupport(customerSupport);
 
-        //GETTER, SETTER OF REQUEST'S ASSOCIATED TECHNICIAN
+        //GETTER - SETTER OF Request's ASSOCIATED Technician
         assertEquals("123 technician Code", request.getTechnician().getTechnicianCode());
         request.setTechnician(technician);
 
         //COVERAGE OF DOMAIN EXCEPTION CLASS
         DomainException dm = new DomainException();
 
-        //TEST ADDITION OF AN ACTION TO REQUEST
+        //TEST ADDITION OF AN Action TO Request
         assertThrows(DomainException.class, () -> request.addAction(comAction));
         request.addAction(null);
         request.addAction(new TechnicalAction("Test action", "this is a new description", submissionDate));
     }
 
-    //TEST CLOSE OF REQUEST
+    //TEST CLOSE OF Request
     @Test
     public void checkClose() {
         request.close();
@@ -147,7 +147,7 @@ public class RequestTest {
         assertThrows(DomainException.class, () -> request.close());
     }
 
-    //TEST REJECTION OF REQUEST
+    //TEST REJECTION OF Request
     @Test
     public void checkRejection() {
         request.reject();
@@ -156,15 +156,15 @@ public class RequestTest {
         assertThrows(DomainException.class, () -> request.reject());
     }
 
-    //TEST ASSOCIATION OF TECHNICIAN TO REQUEST
+    //TEST ASSOCIATION OF Technician TO Request
     @Test
     public void checkTechnicianAssignment() {
-        //Correct technician with more than 1 specialty
+        //CORRECT Technician WITH MORE THAN 1 Specialty
         technician.setSpecialty(new Specialty("Extra useless specialty"));
         request2.assign(technician);
         assertEquals(Status.RESOLVING, request2.getStatus());
 
-        //Wrong Technician according to specialty
+        //wrong Technician ACCORDING TO Specialty
         Technician wrongTechnician = new Technician("username1234", "123asd!!",
                 "Christos2", "Bampoulis2",
                 "69999990", "cb2@gg2.gr",
@@ -176,7 +176,7 @@ public class RequestTest {
         wrongTechnician.setSpecialty(new Specialty("Extra useless specialty"));
         assertThrows(DomainException.class, () -> request2.assign(wrongTechnician));
 
-        //Problems with requst category, specialty
+        //PROBLEMS WITH RequestCategory, Specialty
         request2.getRequestCategory().setSpecialty(null);
         assertThrows(DomainException.class, () -> request2.assign(technician));
 
@@ -189,7 +189,7 @@ public class RequestTest {
         assertThrows(DomainException.class, () -> request2.assign(technician));
     }
 
-    //TEST ACCEPTANCE OF REQUEST
+    //TEST ACCEPTANCE OF Request
     @Test
     public void checkAccept() {
         request.accept();
@@ -198,7 +198,7 @@ public class RequestTest {
         assertThrows(DomainException.class, () -> request.accept());
     }
 
-    //TEST OF BAD REQUEST CREATION
+    //TEST OF BAD Request CREATION
     @Test
     public void checkRestrictions() {
         assertThrows(DomainException.class, () -> new Request(null, "problemDescription", requestCategory,
@@ -220,22 +220,18 @@ public class RequestTest {
 
     }
 
-
-
-
-    //TEST NOTIFICATION OF CUSTOMER WHEN REQUEST IS SOLVED
+    //TEST NOTIFICATION OF Customer WHEN Request IS SOLVED
     @Test
     public void checkNotifyCustomer() {
-        assertEquals(false, request.notifyCustomer());
+        assertFalse(request.notifyCustomer());
         request.close();
-        assertEquals(true, request.notifyCustomer());
+        assertTrue(request.notifyCustomer());
     }
 
-    //TEST EQUALS OVVERIDE
+    //TEST EQUALS OVERRIDE
     @Test
     public void checkEquals() {
-        assertEquals(true, request.equals(request));
+        assertTrue(request.equals(request));
     }
 
 }
-

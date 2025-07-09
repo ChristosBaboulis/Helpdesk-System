@@ -3,9 +3,10 @@ package com.example.helpdesk.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SpecialtyTest {
+
     Specialty specialty;
 
     @BeforeEach
@@ -18,7 +19,7 @@ public class SpecialtyTest {
         //GETTER OF ID
         specialty.getId();
 
-        //GETTER, SETTER OF SPECIALTY'S TYPE
+        //GETTER - SETTER OF Specialty's type
         assertEquals("Connectivity", specialty.getSpecialtyType());
         specialty.setSpecialtyType("Power Problems");
     }
@@ -26,10 +27,11 @@ public class SpecialtyTest {
     //TEST EQUALS OVERRIDE
     @Test
     public void checkEquality() {
-        assertEquals(true, specialty.equals(specialty));
-        assertEquals(false, specialty.equals(new RequestCategory()));
-        assertEquals(false, specialty.equals(new Specialty()));
-        assertEquals(false, specialty.equals(null));
-        specialty.hashCode();
+        assertTrue(specialty.equals(specialty));
+        assertFalse(specialty.equals(new RequestCategory()));
+        assertFalse(specialty.equals(new Specialty()));
+        assertFalse(specialty.equals(null));
+        assertDoesNotThrow(() -> specialty.hashCode());
     }
+
 }

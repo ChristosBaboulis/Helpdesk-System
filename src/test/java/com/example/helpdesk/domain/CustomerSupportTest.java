@@ -24,23 +24,23 @@ public class CustomerSupportTest {
 
     @Test
     public void checkGettersAndSetters() {
-        //GETTER, SETTER OF EMPLOYEE'S CODE
+        //GETTER - SETTER OF emplCode
         customerSupport.setEmplCode("2223 empl code");
         assertEquals("2223 empl code", customerSupport.getEmplCode());
 
         //GETTER OF EMPLOYEE'S ID
         customerSupport.getId();
 
-        //TEST OF ASSOCIATED PERSONAL INFO GETTER, SETTER
+        //TEST OF ASSOCIATED PersonalInfo - GETTER - SETTER
         assertEquals("Christos", customerSupport.getPersonalInfo().getFirstName());
         customerSupport.setPersonalInfo(new PersonalInfo("Christos", "Bampoulis", "1233211231", "cb@g.gr",
                 birthdate, address));
 
-        //GETTER, SETTER OF USERNAME
+        //GETTER - SETTER OF username
         assertEquals("ChristosBampoulis", customerSupport.getUsername());
         customerSupport.setUsername("ChristosBampoulis2");
 
-        //GETTER, SETTER OF PASSWORD
+        //GETTER - SETTER OF password
         assertEquals("123pass", customerSupport.getPassword());
         customerSupport.setPassword("1234pass");
     }
@@ -53,4 +53,5 @@ public class CustomerSupportTest {
         assertEquals(false, customerSupport.equals(new Customer()));
         customerSupport.hashCode();
     }
+
 }
