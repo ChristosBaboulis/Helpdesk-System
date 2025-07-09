@@ -3,7 +3,7 @@ package com.example.helpdesk.service;
 import java.util.List;
 import java.util.Objects;
 
-import com.example.helpdesk.HelpdeskException;
+import com.example.helpdesk.util.HelpdeskException;
 import com.example.helpdesk.contacts.EmailAddress;
 import com.example.helpdesk.contacts.EmailMessage;
 import com.example.helpdesk.domain.Customer;

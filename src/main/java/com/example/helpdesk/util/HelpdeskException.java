@@ -1,4 +1,4 @@
-package com.example.helpdesk;
+package com.example.helpdesk.util;
 
 @SuppressWarnings("serial")
 public class HelpdeskException extends RuntimeException {

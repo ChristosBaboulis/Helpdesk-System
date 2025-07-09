@@ -1,5 +1,5 @@
 -- ====================================
--- Clean Slate (Delete existing records)
+-- CLEAN SLATE (DELETE EXISTING RECORDS)
 -- ====================================
 DELETE FROM technician_specialties;
 DELETE FROM actions;
@@ -10,7 +10,7 @@ DELETE FROM specialties;
 DELETE FROM customers;
 
 -- ================================
--- Insert Specialties
+-- INSERT SPECIALTIES
 -- ================================
 INSERT INTO specialties (id, specialty_type) VALUES (1000, 'Connectivity');
 INSERT INTO specialties (id, specialty_type) VALUES (1001, 'Pricing');
@@ -18,7 +18,7 @@ INSERT INTO specialties (id, specialty_type) VALUES (1002, 'Equipment');
 INSERT INTO specialties (id, specialty_type) VALUES (1003, 'Offers');
 
 -- =======================================================
--- Insert Request Categories
+-- INSERT REQUEST CATEGORIES
 -- =======================================================
 INSERT INTO request_categories (id, category_type, specialty_id) VALUES (2001, 'Internet Connection Problem', 1000);
 INSERT INTO request_categories (id, category_type, specialty_id) VALUES (2002, 'Telephone Connection Problem', 1000);
@@ -30,7 +30,7 @@ INSERT INTO request_categories (id, category_type, specialty_id) VALUES (2007, '
 INSERT INTO request_categories (id, category_type) VALUES (2008, 'Other');
 
 -- ===========================
--- Insert Admin Users
+-- INSERT ADMIN USERS
 -- ===========================
 INSERT INTO Users (
     id, user_type, user_name, password,
@@ -44,7 +44,7 @@ VALUES (
        );
 
 -- ===========================
--- Insert Customer Support Users
+-- INSERT CUSTOMER SUPPORT USERS
 -- ===========================
 INSERT INTO Users (id, user_type, user_name, password, employee_code,
                    first_name, last_name, telephone_number, email_address,
@@ -68,7 +68,7 @@ VALUES (3003, 'CUSTOMERSUPPORT', 'csupport3', 'safePass789', 'EMP003',
         '1992-03-10', '5th Avenue', '78C', 'Chicago', '60601');
 
 -- ====================
--- Insert Technician Users
+-- INSERT TECHNICIAN USERS
 -- ====================
 INSERT INTO Users (id, user_type, user_name, password, technician_code,
                    first_name, last_name, telephone_number, email_address,
@@ -100,7 +100,7 @@ VALUES (4004, 'TECHNICIAN', 'tech4', 'passTech012', 'TECH004',
 
 
 -- ====================================
--- Assign Specialties to Technicians
+-- ASSIGN SPECIALTIES TO TECHNICIANS
 -- ====================================
 -- tech1: Connectivity (1000)
 INSERT INTO technician_specialties (technician_id, specialty_id) VALUES (4001, 1000);
@@ -116,7 +116,7 @@ INSERT INTO technician_specialties (technician_id, specialty_id) VALUES (4003, 1
 INSERT INTO technician_specialties (technician_id, specialty_id) VALUES (4004, 1002);
 
 -- ==================
--- Insert Customer
+-- INSERT CUSTOMER
 -- ==================
 INSERT INTO Customers (id, customer_code, first_name, last_name, telephone_number,
                        email_address, birth_date, street, street_number, city, zip_code)
@@ -124,7 +124,7 @@ VALUES (5001, 'CUST005', 'Liam', 'Miller', '7123456789', 'liam.miller@example.co
         '1995-08-12', 'Ocean Drive', '33B', 'Miami', '33139');
 
 -- ===================
--- Insert Requests
+-- INSERT REQUESTS
 -- ===================
 -- Active request (no technician yet)
 INSERT INTO requests (id, status, telephone_number, category_id, customer_id, customer_support_id, submission_date)
@@ -140,7 +140,7 @@ VALUES (6002, 'ACTIVE', '9876543210', 2001, 5001, 3001, '2025-03-18');
 
 
 -- ==================
--- Insert Actions
+-- INSERT ACTIONS
 -- ==================
 -- Communication Action: Call with customer
 INSERT INTO actions (id, action_type, title, description, submission_date, call_duration)
