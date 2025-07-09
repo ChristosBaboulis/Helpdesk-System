@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class RequestCategoryRepositoryTest extends IntegrationBase {
+
     @Inject
     RequestCategoryRepository requestCategoryRepository;
     @Inject
@@ -29,4 +30,5 @@ public class RequestCategoryRepositoryTest extends IntegrationBase {
         Assertions.assertEquals(2005, requestCategory.getId());
         Assertions.assertEquals(3, requestCategoryRepository.findBySpecialty(specialty).size());
     }
+
 }

@@ -27,4 +27,5 @@ public class UserRepositoryTest extends IntegrationBase {
         Optional<User> result = userRepository.findByUsername("nonexistent");
         Assertions.assertTrue(result.isEmpty());
     }
+
 }

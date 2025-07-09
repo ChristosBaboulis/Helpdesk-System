@@ -7,8 +7,6 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
-
 @QuarkusTest
 public class CustomerRepositoryTest extends IntegrationBase {
 

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class TechnicianRepositoryTest extends IntegrationBase {
+
     @Inject
     TechnicianRepository technicianRepository;
     @Inject
@@ -56,4 +57,5 @@ public class TechnicianRepositoryTest extends IntegrationBase {
         Technician technician = technicianRepository.findById(4004);
         Assertions.assertEquals("TECHNICIAN", technician.getRole());
     }
+
 }

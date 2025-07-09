@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class SpecialtyRepositoryTest extends IntegrationBase {
+
     @Inject
     SpecialtyRepository specialtyRepository;
 
@@ -23,4 +24,5 @@ public class SpecialtyRepositoryTest extends IntegrationBase {
         Specialty specialty = specialtyRepository.findBySpecialtyType("Offers").getFirst();
         Assertions.assertEquals(1003, specialty.getId());
     }
+
 }

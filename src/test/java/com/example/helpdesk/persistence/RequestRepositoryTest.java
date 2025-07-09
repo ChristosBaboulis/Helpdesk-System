@@ -14,6 +14,7 @@ import java.util.List;
 
 @QuarkusTest
 public class RequestRepositoryTest extends IntegrationBase {
+
     @Inject
     RequestRepository requestRepository;
     @Inject
@@ -28,7 +29,7 @@ public class RequestRepositoryTest extends IntegrationBase {
     @Test
     public void testFindByTelephoneNumber(){
         List<Request> requests = requestRepository.findByTelephoneNumber("1234567890");
-        Assertions.assertEquals(Fixture.Requests.PHONE_NUMBER, requests.get(0).getTelephoneNumber());
+        Assertions.assertEquals(Fixture.Requests.PHONE_NUMBER, requests.getFirst().getTelephoneNumber());
 
         Request r2 = requestRepository.findByTelephoneNumber("1234567890").getFirst();
         Assertions.assertEquals(Fixture.Requests.PHONE_NUMBER, r2.getTelephoneNumber());
@@ -106,4 +107,5 @@ public class RequestRepositoryTest extends IntegrationBase {
         Request request = requestRepository.closedRequests().getFirst();
         Assertions.assertEquals(6001, request.getId());
     }
+
 }
