@@ -1,24 +1,24 @@
-# Stage 1: Build the app
+#STAGE 1: BUILD THE APP
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copy project files
+#COPY PROJECT FILES
 COPY pom.xml .
 COPY .mvn .mvn
 COPY src src
 
-# Build the app
+#BUILD THE APP
 RUN mvn clean package -DskipTests=false -Dquarkus.package.type=fast-jar
 
-# Stage 2: Run the app with a lightweight JRE image
+#STAGE 2: RUN THE APP WITH A LIGHTWEIGHT JRE IMAGE
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy built app from build stage
+#COPY BUILT APP FROM BUILD STAGE
 COPY --from=build /app/target/quarkus-app /app/
 
-# Expose Quarkus default port
+#EXPOSE QUARKUS DEFAULT PORT
 EXPOSE 8080
 
-# Run the app
+#RUN THE APP
 ENTRYPOINT ["java", "-jar", "/app/quarkus-run.jar"]
