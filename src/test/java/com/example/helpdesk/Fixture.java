@@ -1,6 +1,7 @@
 package com.example.helpdesk;
 
 public class Fixture {
+
     public static class Technicians {
 
         public static int TECHNICIAN_ID = 4001;
@@ -14,4 +15,5 @@ public class Fixture {
     }
 
     public static String API_ROOT  = "http://localhost:8081";
+
 }

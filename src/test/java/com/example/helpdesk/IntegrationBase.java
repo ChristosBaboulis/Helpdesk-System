@@ -10,11 +10,8 @@ import jakarta.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeEach;
 
-/**
- * Βασική κλάση για integration test
- * Αρχικοποιεί τη βάση δεδομένων πριν από κάθε έλεγχο
- */
 public class IntegrationBase {
+
     @Inject
     EntityManager em;
 
@@ -38,4 +35,5 @@ public class IntegrationBase {
         Scanner s = new Scanner(in,"UTF-8").useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
     }
+
 }
