@@ -22,4 +22,5 @@ public class AuthResponseTest {
 
         assertEquals(token, response.getToken(), "Token should be updated correctly via setter");
     }
+
 }

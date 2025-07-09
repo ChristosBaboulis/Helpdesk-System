@@ -36,4 +36,5 @@ public class AuthServiceTest extends IntegrationBase {
 
         assertTrue(token.isEmpty(), "Should return empty for unknown username");
     }
+
 }

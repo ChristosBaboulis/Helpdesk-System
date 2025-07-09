@@ -29,4 +29,5 @@ public class AuthRequestTest {
         assertEquals("testUser", authRequest.getUsername());
         assertEquals("testPass", authRequest.getPassword());
     }
+
 }
