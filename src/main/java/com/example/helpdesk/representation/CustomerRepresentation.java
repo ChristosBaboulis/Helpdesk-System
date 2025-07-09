@@ -17,7 +17,7 @@ public class CustomerRepresentation {
     public LocalDate birthdate;
     public Address address;
 
-    // No-args constructor for JSON deserialization
+    //NO-ARGS CONSTRUCTOR FOR JSON DESERIALIZATION
     public CustomerRepresentation() {}
 
 }

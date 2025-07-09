@@ -17,14 +17,14 @@ public class StatisticService {
 
     public Integer requestsPerMonth(Integer monthNumber){
 
-        // Έλεγχος αν ο μήνας είναι έγκυρος
+        //CHECK IF MONTH IS VALID
         if (monthNumber == null || monthNumber < 1 || monthNumber > 12) {
             throw new IllegalArgumentException("Invalid Month: " + monthNumber);
         }
 
         return Optional.ofNullable(requestRepository.findBySubmissionMonth(monthNumber))
                 .map(List::size)
-                .orElse(0); // Αν δεν υπάρχουν requests, επιστρέφουμε 0
+                .orElse(0); //IF THERE ARE NO Requests, RETURN 0
     }
 
     public Double averageCommunicationActionsPerCategory(Integer categoryId) {
@@ -32,30 +32,30 @@ public class StatisticService {
             throw new IllegalArgumentException("categoryId cannot be null");
         }
 
-        // Find all requests for this category
+        //FIND ALL REQUESTS FOR THIS CATEGORY
         List<Request> requests = requestRepository.findByRequestCategoryId(categoryId);
 
         if (requests.isEmpty()) {
-            return 0.0; // If there are no requests average is 0
+            return 0.0; //IF THERE ARE NO Requests AVERAGE IS 0
         }
 
-        // Calculate communication Actions of requests
+        //CALCULATE COMMUNICATION ACTIONS OF Requests
         int totalCommunicationActions = requests.stream()
                 .mapToInt(req -> (int) req.getActions().stream()
                         .filter(action -> action instanceof CommunicationAction)
                         .count()
                 ).sum();
 
-        // Find requests with at least 1 CommunicationAction
+        //FIND Requests WITH AT LEAST 1 CommunicationAction
         long validRequests = requests.stream()
                 .filter(req -> req.getActions().stream().anyMatch(action -> action instanceof CommunicationAction))
                 .count();
 
         if (validRequests == 0) {
-            return 0.0; // Avoid division by 0
+            return 0.0; //AVOID DIVISION BY 0
         }
 
-        // Calculate average for requests with CommunicationActions
+        //CALCULATE AVERAGE FOR Requests WITH CommunicationActions
         return (double) totalCommunicationActions / validRequests;
     }
 

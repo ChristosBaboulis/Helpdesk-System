@@ -13,7 +13,7 @@ public abstract class CommunicationActionMapper {
 
     public abstract CommunicationActionRepresentation toRepresentation(CommunicationAction action);
 
-    @Mapping(target = "submissionDate", ignore = true) // Submission date is auto-generated
+    @Mapping(target = "submissionDate", ignore = true) //submissionDate IS AUTO-GENERATED
     public abstract CommunicationAction toModel(CommunicationActionRepresentation representation);
 
     public abstract List<CommunicationActionRepresentation> toRepresentationList(List<CommunicationAction> action);

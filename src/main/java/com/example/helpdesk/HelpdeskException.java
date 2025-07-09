@@ -2,6 +2,7 @@ package com.example.helpdesk;
 
 @SuppressWarnings("serial")
 public class HelpdeskException extends RuntimeException {
+
     public HelpdeskException() { }
 
     public HelpdeskException(String message) {
@@ -15,4 +16,5 @@ public class HelpdeskException extends RuntimeException {
     public HelpdeskException(Throwable cause) {
         super(cause);
     }
+
 }

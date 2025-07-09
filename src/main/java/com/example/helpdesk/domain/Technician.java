@@ -25,7 +25,7 @@ public class Technician extends User {
         super();
     }
 
-    //Constructor with address as argument
+    //CONSTRUCTOR WITH Address AS ARGUMENT
     public Technician(String username, String password,
                       String firstName, String lastName,
                       String telephoneNumber, String emailAddress,
@@ -34,7 +34,7 @@ public class Technician extends User {
         this.technicianCode = technicianCode;
     }
 
-    //Constructor with addresses fields as parameters
+    //CONSTRUCTOR WITH Address' FIELDS AS PARAMETERS
     public Technician(String username, String password,
                       String firstName, String lastName,
                       String telephoneNumber, String emailAddress,
@@ -57,7 +57,7 @@ public class Technician extends User {
         return specialties;
     }
 
-    //Method used to assign a specialty to a technician. Needs to check first if specialty is already assigned
+    //METHOD USED TO ASSIGN A Specialty TO A Technician - NEEDS TO CHECK FIRST IF Specialty IS ALREADY ASSIGNED
     public void setSpecialty(Specialty specialty) {
         if (specialty == null) return;
         if(specialties.contains(specialty)){

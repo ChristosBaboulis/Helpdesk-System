@@ -54,7 +54,7 @@ public class ActionResource {
         return Response.ok(technicalActionMapper.toRepresentation((TechnicalAction) action)).build();
     }
 
-    //GET /actions/communication/by-date/{date} - RETRIEVE CommunicationActions BY SUBMISSION DATE
+    //GET /actions/communication/by-date/{date} - RETRIEVE CommunicationActions BY submissionDate
     @GET
     @Path("/communication/by-date/{date}")
     public Response getCommunicationActionsByDate(@PathParam("date") String date) {
@@ -65,7 +65,7 @@ public class ActionResource {
         return Response.ok(communicationActionMapper.toRepresentationList(actions)).build();
     }
 
-    //GET /actions/technical/by-date/{date} - RETRIEVE TechnicalActions BY SUBMISSION DATE
+    //GET /actions/technical/by-date/{date} - RETRIEVE TechnicalActions BY submissionDate
     @GET
     @Path("/technical/by-date/{date}")
     public Response getTechnicalActionsByDate(@PathParam("date") String date) {

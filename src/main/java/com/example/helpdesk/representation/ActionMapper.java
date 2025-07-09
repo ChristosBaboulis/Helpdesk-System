@@ -13,7 +13,7 @@ public abstract class ActionMapper {
 
     public abstract ActionRepresentation toRepresentation(Action action);
 
-    //These fields are handled by class and are not populated by a given value of the creator
+    //THESE FIELDS ARE HANDLED BY CLASS AND ARE NOT POPULATED BY A GIVEN VALUE OF THE CREATOR
     @Mapping(target = "submissionDate", ignore = true)
     public abstract Action toModel(ActionRepresentation representation);
 

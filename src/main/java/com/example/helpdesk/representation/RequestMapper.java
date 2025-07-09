@@ -26,7 +26,7 @@ public abstract class RequestMapper {
 
     public abstract RequestRepresentation toRepresentation(Request request);
 
-    //These fields are handled by class and are not populated by a given value of the creator
+    //THESE FIELDS ARE HANDLED BY CLASS AND ARE NOT POPULATED BY A GIVEN VALUE OF THE CREATOR
     @Mapping(target = "actions", ignore = true)
     @Mapping(target = "submissionDate", ignore = true)
     @Mapping(target = "closeDate", ignore = true)
@@ -72,12 +72,12 @@ public abstract class RequestMapper {
                 System.out.println("Technician not found for ID: " + requestRepresentation.technician.id);
             }
         } else {
-            request.setTechnician(null); // Remove technician if not provided
+            request.setTechnician(null); //REMOVE Technician IF NOT PROVIDED
         }
 
         if (requestRepresentation.status != null) {
             request.setStatus(requestRepresentation.status);
-        } else if (request.getId() == null) { // Only set ACTIVE for new requests
+        } else if (request.getId() == null) { //ONLY SET ACTIVE FOR NEW Requests
             request.setStatus(Status.ACTIVE);
         }
     }

@@ -122,7 +122,7 @@ public class RequestResource {
         }
     }
 
-    //PUT /requests/{requestId}/updateStatus/{status} - UPDATE Request status
+    //PUT /requests/{requestId}/updateStatus/{status} - UPDATE Request's status
     @PUT
     @Transactional
     @Path("/{requestId}/updateStatus/{status}")

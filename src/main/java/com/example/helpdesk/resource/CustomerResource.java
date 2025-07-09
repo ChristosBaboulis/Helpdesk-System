@@ -29,7 +29,7 @@ public class CustomerResource {
     @Inject
     CustomerMapper customerMapper;
 
-    //GET /customers/{id} - RETRIEVE CUSTOMER BY ID
+    //GET /customers/{id} - RETRIEVE Customer BY ID
     @GET
     @Path("/{id}")
     public Response getCustomerById(@PathParam("id") Integer id) {
@@ -40,7 +40,7 @@ public class CustomerResource {
         return Response.ok(customerMapper.toRepresentation(customer)).build();
     }
 
-    //GET /customers/code/{customerCode} - RETRIEVE CUSTOMER BY customerCode
+    //GET /customers/code/{customerCode} - RETRIEVE Customer BY customerCode
     @GET
     @Path("/code/{customerCode}")
     public Response getCustomerByCode(@PathParam("customerCode") String customerCode) {
@@ -51,7 +51,7 @@ public class CustomerResource {
         return Response.ok(customerMapper.toRepresentation(customer)).build();
     }
 
-    //GET /customers/email/{email} - RETRIEVE CUSTOMER BY email
+    //GET /customers/email/{email} - RETRIEVE Customer BY email
     @GET
     @Path("/email/{email}")
     public Response getCustomerByEmail(@PathParam("email") String email) {
@@ -64,7 +64,7 @@ public class CustomerResource {
         return Response.ok(customerMapper.toRepresentation(customers.getFirst())).build();
     }
 
-    //GET /customers/phone/{telephoneNumber} - RETRIEVE CUSTOMER BY telephoneNumber
+    //GET /customers/phone/{telephoneNumber} - RETRIEVE Customer BY telephoneNumber
     @GET
     @Path("/phone/{telephoneNumber}")
     public Response getCustomerByPhone(@PathParam("telephoneNumber") String telephoneNumber) {

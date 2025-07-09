@@ -32,7 +32,7 @@ public class User {
 
     public User() {}
 
-    //Constructor with address as argument
+    //CONSTRUCTOR WITH Address AS ARGUMENT
     public User(String username, String password,
                 String firstName, String lastName,
                 String telephoneNumber, String emailAddress,
@@ -42,7 +42,7 @@ public class User {
         this.password = password;
     }
 
-    //Constructor with addresses fields as parameters
+    //CONSTRUCTOR WITH Address' FIELDS AS PARAMETERS
     public User(String username, String password,
                 String firstName, String lastName,
                 String telephoneNumber, String emailAddress,

@@ -21,10 +21,6 @@ public class NotificationService {
 
     private EmailProvider provider;
 
-    /**
-     * Θέτει τον πάροχο του ηλεκτρονικού ταχυδρομείου.
-     * @param provider Ο πάροχος ηλεκτρονικού ταχυδρομείου.
-     */
     public void setProvider(EmailProvider provider) {
         this.provider = provider;
     }
@@ -40,22 +36,23 @@ public class NotificationService {
         for (Request request : allRequests) {
             if (Objects.equals(request.getId(), requestId)) {
                 sendEmail(request.getCustomer(),
-                        "Request Status Update", "Request no: "+request.getId()+" is closed!");
+                        "Request no: "+request.getId()+" is closed!");
             }
         }
     }
 
     private void sendEmail(Customer customer,
-                           String subject, String message) {
+                           String message) {
         EmailAddress eMail  = new EmailAddress(customer.getPersonalInfo().getEmailAddress());
-        if (eMail == null || !eMail.isValid()) {
+        if (!eMail.isValid()) {
             return;
         }
 
         EmailMessage emailMessage = new EmailMessage();
         emailMessage.setTo(eMail);
-        emailMessage.setSubject(subject);
+        emailMessage.setSubject("Request Status Update");
         emailMessage.setBody(message);
         provider.sendEmail(emailMessage);
     }
+
 }

@@ -23,7 +23,7 @@ public class Customer {
 
     public Customer() {}
 
-    //Constructor with address as argument
+    //CONSTRUCTOR WITH ADDRESS AS ARGUMENT
     public Customer(String customerCode, String firstName, String lastName,
                     String telephoneNumber, String emailAddress,
                     LocalDate birthdate, Address address) {
@@ -31,7 +31,7 @@ public class Customer {
         this.personalInfo = new PersonalInfo(firstName, lastName, telephoneNumber, emailAddress, birthdate, address);
     }
 
-    //Constructor with addresses fields as parameters
+    //CONSTRUCTOR WITH ADDRESSES FIELDS AS PARAMETERS
     public Customer(String customerCode, String firstName, String lastName,
                     String telephoneNumber, String emailAddress,
                     LocalDate birthdate, String street,

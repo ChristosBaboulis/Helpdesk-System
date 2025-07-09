@@ -56,26 +56,26 @@ public class Request {
 
     public Request() { }
 
-    //Constructor to be used
+    //CONSTRUCTOR TO BE USED
     public Request(String telephoneNumber, String problemDescription,
                    RequestCategory requestCategory,
                    Customer customer, CustomerSupport customerSupport){
-        //Appropriate fields to be populated during initialization of a request
+        //APPROPRIATE FIELDS TO BE POPULATED DURING INITIALIZATION OF A Request
         if( telephoneNumber == null || telephoneNumber.isEmpty() || problemDescription == null || problemDescription.isEmpty()
                 || requestCategory == null || customer == null || customerSupport == null){
             throw new DomainException("Insufficient parameters for request creation.");
         }
-        //Check of telephone number size
+        //CHECK OF telephoneNumber SIZE
         if(telephoneNumber.length() != 10){
             throw new DomainException("Telephone number must be 10 digits.");
         }
-        //Population of fields
+        //POPULATION OF FIELDS
         this.telephoneNumber = telephoneNumber;
         this.problemDescription = problemDescription;
         this.requestCategory = requestCategory;
         this.customer = customer;
         this.customerSupport = customerSupport;
-        //Change status of created request to active
+        //change Status OF CREATED Request TO ACTIVE
         accept();
     }
 
@@ -159,7 +159,7 @@ public class Request {
         return actions;
     }
 
-    //Method used to assign an action to the request, if it is not already assigned
+    //METHOD USED TO ASSIGN AN Action TO THE Request, IF IT IS NOT ALREADY ASSIGNED
     public void addAction(Action action) {
         if (action == null) return;
         if(actions.contains(action)){
@@ -172,27 +172,27 @@ public class Request {
         actions.remove(action);
     }
 
-    //Method used to change request's status to ACTIVE, after checking it is not closed
+    //METHOD USED TO CHANGE Request's Status TO ACTIVE, AFTER CHECKING IT IS NOT CLOSED
     public void accept(){
-        //Restriction of closed Request
+        //RESTRICTION OF CLOSED Request
         if(status == Status.CLOSED){
             throw new DomainException("Request's status cannot be changed, it is already closed.");
         }
         status = Status.ACTIVE;
     }
 
-    //Method used to change request's status to REJECTED, after checking it is not closed
+    //METHOD USED TO CHANGE Request's Status TO REJECTED, AFTER CHECKING IT IS NOT CLOSED
     public void reject(){
-        //Restriction of closed Request
+        //RESTRICTION OF CLOSED Request
         if(status == Status.CLOSED){
             throw new DomainException("Request's status cannot be changed, it is already closed.");
         }
         status = Status.REJECTED;
     }
 
-    //Method used to assign request to a technician and change the status accordingly, if it is not closed
+    //METHOD USED TO ASSIGN Request TO A Technician AND CHANGE THE Status ACCORDINGLY, IF IT IS NOT CLOSED
     public void assign(Technician technician){
-        //Restriction of closed Request
+        //RESTRICTION OF CLOSED Request
         if(status == Status.CLOSED){
             throw new DomainException("Request cannot be assigned, it is already closed.");
         }
@@ -220,9 +220,9 @@ public class Request {
         }
     }
 
-    //Method used to change request's status to closed
+    //METHOD USED TO CHANGE Request's Status TO CLOSED
     public void close(){
-        //Restriction of a request cannot be closed without any energies or assignment of a technician
+        //RESTRICTION OF A Request CANNOT BE CLOSED WITHOUT ANY Actions OR ASSIGNMENT OF A Technician
         if(!getActions().isEmpty() && getTechnician() != null){
             status = Status.CLOSED;
             closeDate = SystemDate.now();
@@ -231,7 +231,7 @@ public class Request {
         }
     }
 
-    //Method that returns true or false in case we need to notify customer about closure of the request
+    //METHOD THAT RETURNS TRUE OR FALSE IN CASE WE NEED TO NOTIFY Customer ABOUT CLOSURE OF THE Request
     public boolean notifyCustomer(){
         return status == Status.CLOSED;
     }

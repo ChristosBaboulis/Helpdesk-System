@@ -23,7 +23,7 @@ public class AuthService {
 
             String token = Jwt.issuer("helpdesk-system")
                     .upn(user.getUsername())
-                    .groups(user.getRole()) // role claim from @Formula
+                    .groups(user.getRole()) //ROLE CLAIM FROM @Formula
                     .expiresIn(Duration.ofHours(1))
                     .sign();
 

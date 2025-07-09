@@ -27,20 +27,20 @@ public class Action {
 
     public Action() {}
 
-    //Full Args constructor - for testing purposes
+    //FULL ARGS CONSTRUCTOR - FOR TESTING PURPOSES
     public Action(String title, String description, LocalDate submissionDate) {
         this.title = title;
         this.description = description;
         this.submissionDate = submissionDate;
     }
 
-    //Constructor to be used
+    //CONSTRUCTOR TO BE USED
     public Action(String title, String description) {
         this.title = title;
         this.description = description;
     }
 
-    //Constructor to be used
+    //CONSTRUCTOR TO BE USED
     public Action(String title) {
         this.title = title;
     }
