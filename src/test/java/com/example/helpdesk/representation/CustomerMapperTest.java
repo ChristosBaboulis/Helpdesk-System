@@ -13,6 +13,7 @@ import java.time.LocalDate;
 
 @QuarkusTest
 public class CustomerMapperTest {
+
     @Inject
     CustomerRepository customerRepository;
     @Inject
@@ -53,4 +54,5 @@ public class CustomerMapperTest {
         Assertions.assertEquals(new Address(), representation2.address);
         Assertions.assertNotNull(representation2.id);
     }
+
 }

@@ -1,8 +1,6 @@
 package com.example.helpdesk.representation;
 
-import com.example.helpdesk.contacts.Address;
 import com.example.helpdesk.domain.RequestCategory;
-import com.example.helpdesk.domain.Specialty;
 import com.example.helpdesk.persistence.RequestCategoryRepository;
 import com.example.helpdesk.persistence.SpecialtyRepository;
 import io.quarkus.test.junit.QuarkusTest;
@@ -11,10 +9,9 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
 @QuarkusTest
 public class RequestCategoryMapperTest {
+
     @Inject
     RequestCategoryMapper requestCategoryMapper;
     @Inject
@@ -47,4 +44,5 @@ public class RequestCategoryMapperTest {
         Assertions.assertNotNull(representation2.specialty);
         Assertions.assertNotNull(representation2.id);
     }
+
 }

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 
 @QuarkusTest
 public class ActionMapperTest {
+
     @Inject
     ActionMapper actionMapper;
     @Inject
@@ -43,4 +44,5 @@ public class ActionMapperTest {
         Assertions.assertNotNull(representation2.id);
         Assertions.assertEquals(LocalDate.now() ,representation2.submissionDate);
     }
+
 }

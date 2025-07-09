@@ -1,6 +1,5 @@
 package com.example.helpdesk.representation;
 
-import com.example.helpdesk.contacts.Address;
 import com.example.helpdesk.domain.*;
 import com.example.helpdesk.persistence.*;
 import io.quarkus.test.junit.QuarkusTest;
@@ -9,10 +8,9 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
 @QuarkusTest
 public class RequestMapperTest {
+
     @Inject
     RequestMapper requestMapper;
     @Inject
@@ -74,4 +72,5 @@ public class RequestMapperTest {
         Assertions.assertEquals(Status.ACTIVE, requestRepresentation2.status);
         Assertions.assertNotNull(request.getSubmissionDate());
     }
+
 }

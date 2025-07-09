@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class SpecialtyMapperTest {
+
     @Inject
     SpecialtyMapper specialtyMapper;
     @Inject
@@ -32,4 +33,5 @@ public class SpecialtyMapperTest {
         Assertions.assertEquals("Test Type", representation2.specialtyType);
         Assertions.assertNotNull(representation2.id);
     }
+
 }
