@@ -10,6 +10,32 @@
 
     <name>Helpdesk</name>
 
+    <!-- === License metadata (MIT) for public distribution === -->
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- === Developer information for project attribution === -->
+    <developers>
+        <developer>
+            <id>ChristosBaboulis</id>
+            <name>Christos Bampoulis</name>
+            <email>chrisb260@gmail.com</email>
+        </developer>
+    </developers>
+
+    <!-- === Source Control Management (SCM) metadata === -->
+    <scm>
+        <url>https://github.com/ChristosBaboulis/Helpdesk-System</url>
+        <connection>scm:git:https://github.com/ChristosBaboulis/Helpdesk-System.git</connection>
+        <developerConnection>scm:git:git@github.com:ChristosBaboulis/Helpdesk-System.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <!-- === Centralized project properties: versions, encoding, Quarkus BOM metadata, and plugin settings === -->
     <properties>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
