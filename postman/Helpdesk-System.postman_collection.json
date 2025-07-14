@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ef47357d-dc3c-4c69-9452-fa4507faf020",
+		"_postman_id": "3318de7d-457c-45ca-b7eb-815798798bdf",
 		"name": "Quarkus Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "43203133"
@@ -256,7 +256,14 @@
 					"name": "POST Comm Action Creation",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -530,6 +537,19 @@
 		},
 		{
 			"name": "POST LOGIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"jwt_token\", jsonData.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -591,6 +611,10 @@
 			"key": "base_url",
 			"value": "http://localhost:8080",
 			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": ""
 		}
 	]
 }
